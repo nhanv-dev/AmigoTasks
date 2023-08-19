@@ -24,15 +24,19 @@ const config: Config = {
 
         // ─── PRIMARY COLOR ────────────────────────────────────
 
-        'primary': '#2E4057',
-        'primary-hover': ' ',
-        'primary-bg': ' ',
-        'primary-bg-hover': ' ',
+        'primary': '#0083ff',
+        'primary-hover': '#346BA0',
+        'primary-bg': '#dfe7f6',
+        'primary-bg-hover': '#CDD8EC',
 
         'dark-primary': ' ',
         'dark-primary-hover': ' ',
         'dark-primary-bg': ' ',
         'dark-primary-bg-hover': ' ',
+
+        'green': '#00D68F',
+        'organe': '#FFA500',
+        'red': '#FF3D71',
 
         // ─── THEME BACKGROUND COLOR ────────────────────────────────────
 

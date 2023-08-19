@@ -1,36 +1,50 @@
 "use client"
 
-import React, { useState } from 'react'
-import Header from './Header';
-import Footer from './Footer';
-import Sidebar from './Sidebar';
+import LayoutContextProvider, { LayoutContext, useLayoutContext } from '@/provider/LayoutProvider';
+import React, { useContext } from 'react';
 import ExpandedSidebar from './ExpandedSidebar';
+import Header from './Header';
+import Sidebar from './Sidebar';
+import Footer from './Footer';
+
 
 interface Props {
     children: React.ReactNode;
 }
 
 const Layout: React.FC<Props> = ({ children }) => {
-    const [showExpanded, setShowExpanded] = useState(false);
 
     return (
-        <div className='flex bg-background-50 dark:bg-dark-background-50 transition-all'>
-            <Sidebar />
-            <Header />
-            <div className='h-[100vh] w-full'>
-                <div className='pt-[74px] px-3 h-full overflow-y-auto'>
-                    <div className='h-full flex flex-col flex-1 ml-sidebar '>
-                        <div className='flex-1 mt-5'>
-                            {children}
-                        </div>
-                        <div className='pb-4'>
-                            <Footer />
-                        </div>
+        <LayoutContextProvider>
+            <div className='flex bg-background-50 dark:bg-dark-background-50 transition-all'>
+                <Sidebar />
+                <Header />
+                <ExpandedSidebar />
+                <Main >
+                    {children}
+                </Main>
+            </div>
+        </LayoutContextProvider>
+    )
+}
+
+export default Layout;
+
+const Main: React.FC<Props> = ({ children }) => {
+    const { layout, setLayout } = useLayoutContext();
+
+    return (
+        <div className='h-[100vh] w-full'>
+            <div className='pt-[74px] px-4 h-full overflow-y-auto'>
+                <div className={`${layout.openSidebar ? 'ml-[460px]' : ' ml-[80px]'} h-full flex flex-col flex-1 transition-all`}>
+                    <div className='flex-1 mt-4'>
+                        {children}
+                    </div>
+                    <div className='pb-4'>
+                        <Footer />
                     </div>
                 </div>
             </div>
         </div>
     )
 }
-
-export default Layout

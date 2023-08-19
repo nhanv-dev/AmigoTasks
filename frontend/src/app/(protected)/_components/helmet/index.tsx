@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react'
 
 interface Props {
@@ -9,7 +11,7 @@ const Helmet = ({ title, children }: Props) => {
 
     React.useEffect(() => {
         document.title = title;
-        
+
         return () => {
             document.title = 'DM - Design Me';
         }
