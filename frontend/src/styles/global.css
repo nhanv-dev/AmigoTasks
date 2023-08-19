@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    overflow: hidden;
+    height: '100vh';
+    max-height: '100vh';
+    /* font-family: 'Roboto', sans-serif; */
+}
+
+
+
+/* ─── SCROLLBAR ──────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* ─── TREE VIEW ───────────────────────────────────────────────────────────────── */
+
+.basic.tree {
+    list-style: none;
+    margin: 0;
+    padding: 20px;
+}
+
+.basic .tree-node,
+.basic .tree-node-group {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.basic .tree-branch-wrapper,
+.basic .tree-node__leaf {
+    outline: none;
+}
+
+.basic .tree-node--focused {
+    outline-color: rgb(77, 144, 254);
+    outline-style: auto;
+    outline-width: 2px;
+    display: block;
+}
+
+.basic .tree-node__branch {
+    display: block;
+}
+
+.basic .tree-node {
+    cursor: pointer;
+}
