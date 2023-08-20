@@ -8,7 +8,7 @@ const Tasks = () => {
     return (
         <Helmet title='DM - Tasks'>
             <main>
-                <div className='flex items-start gap-4'>
+                <div className='flex items-start gap-4 mb-12'>
                     <TasksContainer title={'Pending'} type='Pending' tasks={data} />
                     <TasksContainer title={'In Progress'} type='In Progress' tasks={data} />
                     <TasksContainer title={'Completed'} type='Completed' tasks={data} />

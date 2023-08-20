@@ -2,8 +2,8 @@
 
 import { useLayoutContext } from '@/provider/LayoutProvider';
 import { AiOutlineSearch } from 'react-icons/ai';
-import { SiOpenai } from 'react-icons/si';
 import DarkMode from '../dark-mode';
+import UserAvatar from '../user/UserAvatar';
 
 
 const Header = () => {
@@ -27,22 +27,10 @@ const Header = () => {
           </div>
           <div className='flex items-center justify-end gap-5'>
             <div className='flex items-center justify-end gap-6'>
-              <button
-                onClick={() => {
-                  setLayout((prev: any) => ({
-                    ...prev,
-                    openSidebar: true,
-                    contentSidebar: 'chatgpt'
-                  }))
-                }}
-                className='flex items-center gap-1 py-1.5 px-3 rounded-md bg-primary-bg text-primary font-bold text-sm'>
-                <p className='text-lg'>
-                  <SiOpenai />
-                </p>
-                Chat GPT
-              </button>
+              
             </div>
             <DarkMode />
+            <UserAvatar/>
           </div>
         </div>
       </div>

@@ -10,7 +10,7 @@ class ChatGptService {
     constructor() {
         this.config = new Configuration({
             organization: "org-ePREdSDMlGnwz7p0CHBhN77k",
-            apiKey: "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",
+            apiKey: process.env.OPENAI_API_KEY,
         })
         this.openAi = new OpenAIApi(this.config)
         delete this.config.baseOptions.headers['User-Agent'];

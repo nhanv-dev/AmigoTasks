@@ -9,7 +9,9 @@ body {
     /* font-family: 'Roboto', sans-serif; */
 }
 
-
+.transition-theme {
+    transition: color .15s ease, background .15s ease, background-color .15s ease !important;
+}
 
 /* ─── SCROLLBAR ──────────────────────────────────────────────────────────────── */
 ::-webkit-scrollbar {

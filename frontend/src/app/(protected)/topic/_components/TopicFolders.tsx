@@ -52,7 +52,7 @@ const TopicFolders = () => {
     const [items,setItems]=React.useState([]);
 
     return (
-        <div className='bg-background dark:bg-dark-background transition-all p-4 rounded-md w-full'>
+        <div className='bg-background dark:bg-dark-background transition-theme transition-all p-4 rounded-md w-full'>
             <ControlledTreeEnvironment
                 // items={new StaticTreeDataProvider(items, (item, data) => ({ ...item, data }))}
                 items={Items}
