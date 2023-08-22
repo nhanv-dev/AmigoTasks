@@ -16,6 +16,8 @@ body {
 /* ─── SCROLLBAR ──────────────────────────────────────────────────────────────── */
 ::-webkit-scrollbar {
     width: 4px;
+    height: 4px;
+    border-radius: 50px;
 }
 
 ::-webkit-scrollbar-track {
@@ -23,6 +25,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
+    border-radius: 50px;
     background: #888;
 }
 

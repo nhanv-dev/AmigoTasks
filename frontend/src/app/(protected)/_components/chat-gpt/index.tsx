@@ -53,7 +53,7 @@ const ChatApp = () => {
     }, [messages])
 
     return (
-        <div className="py-4 pr-2 w-full h-full flex flex-col gap-3">
+        <div className="py-4 pr-2 w-full h-full flex flex-col gap-3 overflow-hidden">
             <h5 className='ml-4 mr-2 font-bold text-md bg-primary-bg text-primary px-3 py-2 rounded-md'>
                 Chat GPT
             </h5>

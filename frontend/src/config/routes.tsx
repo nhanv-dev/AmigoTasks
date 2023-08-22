@@ -9,7 +9,7 @@ import { SiBlueprint } from "react-icons/si";
 
 export const dashboardRoutes = [
     { title: 'Home', icon: <BiHomeAlt />, href: '/home' },
-    { title: 'Tasks', icon: <FaTasks />, href: '/tasks' },
+    { title: 'Tasks', icon: <FaTasks />, href: '/workspace' },
     { title: 'Topic', icon: <MdOutlineTopic />, href: '/topic' },
     { title: 'Project', icon: <BsStack />, href: '/project' },
     { title: 'Roadmap', icon: <SiBlueprint />, href: '/roadmaps' },

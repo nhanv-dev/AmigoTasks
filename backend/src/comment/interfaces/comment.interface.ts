@@ -1,4 +1,5 @@
-import { BaseRepositoryInterface } from "src/common/interfaces/base.interface.repository";
-import { Comment } from "../entities/comment.entity";
+import { BaseRepositoryInterface } from 'src/common/interfaces/base.interface.repository';
+import { Comment } from '../entities/comment.entity';
 
-export interface CommentRepositoryInterface extends BaseRepositoryInterface<Comment> { }
+export interface CommentRepositoryInterface
+  extends BaseRepositoryInterface<Comment> {}

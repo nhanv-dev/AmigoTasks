@@ -1,10 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
-import { createEditor } from 'slate';
-import { Editable, Slate, withReact } from 'slate-react';
 
 
 const SlateEditor = () => {
-    const editor = useMemo(() => withReact(createEditor()), []);
     const [value, setValue] = useState([{ type: 'paragraph', children: [{ text: '' }] }]);
     const onChange = useCallback((newValue: any) => {
         setValue(newValue);
@@ -13,13 +10,7 @@ const SlateEditor = () => {
 
 
     return (
-        <Slate editor={editor} initialValue={value} onChange={onChange}>
-            <Editable
-                 onKeyDown={(event) => {
-                    // Handle any custom key down events if needed
-                }}
-            />
-        </Slate>
+        <div></div>
     );
 };
 

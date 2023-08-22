@@ -1,4 +1,4 @@
-import { Base } from "../common/type";
+import { Base } from "../_common/type";
 
 export type Topic = Base & {
     title: string;
