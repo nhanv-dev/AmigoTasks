@@ -1,15 +1,22 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { MongooseModule } from '@nestjs/mongoose';
-import { databaseConfig } from './config/database';
+import { DatabaseModule } from './database/database.module';
+import { TopicModule } from './topic/controllers/topic.module';
+import { WorkspaceModule } from './workspace/workspace.module';
+import { TaskModule } from './task/task.module';
+import { CommentModule } from './comment/comment.module';
+ 
 
 @Module({
   imports: [
-    MongooseModule.forRootAsync({
-      useFactory: () => databaseConfig,
-    }),
+    DatabaseModule,
+    TopicModule,
+    WorkspaceModule,
+    TaskModule,
+    CommentModule, 
   ],
+
   controllers: [AppController],
   providers: [AppService],
 })

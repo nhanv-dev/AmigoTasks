@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { SiOpenai } from 'react-icons/si';
 import { GiTwirlyFlower } from 'react-icons/gi';
 import tw from "tailwind-styled-components";
+import { MdGTranslate } from 'react-icons/md';
 
 const handleActive = (pathname: string | null) => {
   if (!pathname) return -1;
@@ -16,7 +17,7 @@ const handleActive = (pathname: string | null) => {
 
 const Sidebar = () => {
   const { layout, setLayout } = useLayoutContext();
- 
+
   const pathname = usePathname();
   const [active, setActive] = useState(() => handleActive(pathname))
 
@@ -36,7 +37,7 @@ const Sidebar = () => {
               <Link
                 href={route.href}
                 tabIndex={-1}
-                className={`text-text-50 hover:text-text dark:text-dark-text-50 dark:hover:text-dark-text flex items-center justify-center gap-1 flex-col`}
+                className={`${active === index ? 'text-primary hover:text-primary-hover' : 'text-text-50 hover:text-text dark:text-dark-text-50 dark:hover:text-dark-text'}    flex items-center justify-center gap-1 flex-col`}
               >
                 <p className='text-[1.25rem]'>
                   {route.icon}
@@ -48,9 +49,10 @@ const Sidebar = () => {
             </LinkWrapper>
           ))}
         </div>
-        <div className='flex flex-col items-center gap-6'>
+        <div className='flex flex-col items-center gap-2'>
           <LinkWrapper $active={false}>
             <button
+              tabIndex={-1}
               onClick={() => {
                 setLayout((prev: any) => ({
                   ...prev,
@@ -60,8 +62,27 @@ const Sidebar = () => {
               }}
               className={`text-text-50 hover:text-text dark:text-dark-text-50 dark:hover:text-dark-text flex items-center justify-center gap-1 flex-col`}
             >
-              <p className='text-[1.25rem]'>
-                {/* {route.icon} */}
+              <p className={`text-[1.25rem]`}>
+                <MdGTranslate />
+              </p>
+              <p className='text-xs font-semibold'>
+                Translate
+              </p>
+            </button>
+          </LinkWrapper>
+          <LinkWrapper $active={false}>
+            <button
+              tabIndex={-1}
+              onClick={() => {
+                setLayout((prev: any) => ({
+                  ...prev,
+                  openSidebar: prev.contentSidebar === 'chatgpt' ? !prev.openSidebar : true,
+                  contentSidebar: 'chatgpt'
+                }))
+              }}
+              className={`text-text-50 hover:text-text dark:text-dark-text-50 dark:hover:text-dark-text flex items-center justify-center gap-1 flex-col`}
+            >
+              <p className={`text-[1.25rem]`}>
                 <SiOpenai />
               </p>
               <p className='text-xs font-semibold'>
@@ -107,7 +128,7 @@ const LinkWrapper = tw.div<LinkWrapperProps>`
   dark:hover:bg-dark-background
 
  ${(p) => (p.$active ?
-    "shadow-sm text- bg-background dark:bg-dark-background before:bg-primary before:opacity-100" :
+    "shadow-sm bg-background dark:bg-dark-background before:bg-primary before:opacity-100" :
     ""
   )}
 `

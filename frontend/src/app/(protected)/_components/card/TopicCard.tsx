@@ -1,19 +1,26 @@
 "use client";
 
 import { Topic } from '@/services/topic/types';
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react'
 
 interface Props {
     topic: Topic;
 }
+{/* <img className="w-full h-auto rounded-t-md" src="https://th.bing.com/th/id/OIP.9utSsdFThDFb9yjvgt2NsQHaEK?pid=ImgDet&rs=1" alt="Image Description" /> */}
 
 const TopicCard = ({ topic }: Props) => {
 
     return (
         <div className="flex flex-col bg-white border shadow-sm rounded-md dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7] transition-all">
             <Link href={`${topic.slug}`}>
-                <img className="w-full h-auto rounded-t-md" src="https://th.bing.com/th/id/OIP.9utSsdFThDFb9yjvgt2NsQHaEK?pid=ImgDet&rs=1" alt="Image Description" />
+                <Image
+                    src={"/images/topic-card.jpg"}
+                    alt='Image Description'
+                    width="300"
+                    height="300"
+                    className='w-full h-auto rounded-t-md' />
             </Link>
             <div className="p-3 pb-5">
                 <Link href={`${topic.slug}`}

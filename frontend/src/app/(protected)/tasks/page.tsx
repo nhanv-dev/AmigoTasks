@@ -1,17 +1,70 @@
 "use client";
 
-import React from 'react'
-import TasksContainer from './_components/TasksContainer'
+import { useLayoutContext } from '@provider/LayoutProvider';
+import { BsFillClipboardCheckFill, BsImageFill, BsTable } from 'react-icons/bs';
+import { FaClipboardList } from 'react-icons/fa';
 import Helmet from '../_components/helmet';
+import CustomTabs from '../_components/tabs';
+import WorkSpaceList from './_components/WorkSpaceList';
+import BoardView from './_components/board-view';
+import GalleryView from './_components/gallery-view';
+import ListView from './_components/list-view';
+import TableView from './_components/table-view';
+import { RiGalleryFill } from 'react-icons/ri';
+import { Task } from '@services/task/types';
 
 const Tasks = () => {
+    const { layout } = useLayoutContext();
+
     return (
         <Helmet title='DM - Tasks'>
             <main>
-                <div className='flex items-start gap-4 mb-12'>
-                    <TasksContainer title={'Pending'} type='Pending' tasks={data} />
-                    <TasksContainer title={'In Progress'} type='In Progress' tasks={data} />
-                    <TasksContainer title={'Completed'} type='Completed' tasks={data} />
+                <div className={`${layout.openSidebar ? 'w-[350px] opacity-0' : 'w-[350px] opacity-100'} z-10 fixed left-[80px] top-[74px] bg-background-50 dark:bg-dark-background-50 transition-all overflow-hidden bottom-0`}>
+                    <div className="min-w-[350px] overflow-hidden h-full p-4 pr-0">
+                        <WorkSpaceList />
+                    </div>
+                </div>
+                <div className={`${layout.openSidebar ? 'ml-0' : 'ml-[350px]'} transition-all`}>
+                    <div className='flex flex-wrap items-start gap-4 justify-start'>
+                        <div className='flex-1'>
+                            <CustomTabs
+                                tabs={[
+                                    {
+                                        label: 'Board view', panel: <BoardView tasks={data} />,
+                                        icon: (
+                                            <p className='relative top-[-1px]'>
+                                                <BsFillClipboardCheckFill />
+                                            </p>
+                                        )
+                                    },
+                                    {
+                                        label: 'List view', panel: <ListView tasks={data} />,
+                                        icon: (
+                                            <p className='relative top-[-1px]'>
+                                                <FaClipboardList />
+                                            </p>
+                                        )
+                                    },
+                                    {
+                                        label: 'Table view', panel: <TableView tasks={data} />,
+                                        icon: (
+                                            <p className='relative top-[-1px]'>
+                                                <BsTable />
+                                            </p>
+                                        )
+                                    },
+                                    {
+                                        label: 'Gallery view', panel: <GalleryView tasks={data} />,
+                                        icon: (
+                                            <p className='relative top-[-0.5px]'>
+                                                <BsImageFill />
+                                            </p>
+                                        )
+                                    },
+                                ]}
+                            />
+                        </div>
+                    </div>
                 </div>
             </main>
         </Helmet>
@@ -21,7 +74,7 @@ const Tasks = () => {
 export default Tasks;
 
 
-const data = [
+const data: Task[] = [
     {
         "title": "Task A",
         "description": "This is task A",
@@ -32,6 +85,39 @@ const data = [
                 "updatedAt": "2023-08-01T12:30:00Z",
                 "deletedAt": ""
             },
+
+            {
+                "content": "Comment 1",
+                "createdAt": "2023-08-01T12:00:00Z",
+                "updatedAt": "2023-08-01T12:30:00Z",
+                "deletedAt": ""
+            }, {
+                "content": "Comment 1",
+                "createdAt": "2023-08-01T12:00:00Z",
+                "updatedAt": "2023-08-01T12:30:00Z",
+                "deletedAt": ""
+            }, {
+                "content": "Comment 1",
+                "createdAt": "2023-08-01T12:00:00Z",
+                "updatedAt": "2023-08-01T12:30:00Z",
+                "deletedAt": ""
+            }, {
+                "content": "Comment 1",
+                "createdAt": "2023-08-01T12:00:00Z",
+                "updatedAt": "2023-08-01T12:30:00Z",
+                "deletedAt": ""
+            }, {
+                "content": "Comment 1",
+                "createdAt": "2023-08-01T12:00:00Z",
+                "updatedAt": "2023-08-01T12:30:00Z",
+                "deletedAt": ""
+            }, {
+                "content": "Comment 1",
+                "createdAt": "2023-08-01T12:00:00Z",
+                "updatedAt": "2023-08-01T12:30:00Z",
+                "deletedAt": ""
+            },
+
             {
                 "content": "Comment 2",
                 "createdAt": "2023-08-02T09:15:00Z",
@@ -42,6 +128,7 @@ const data = [
         "status": "Pending",
         "tags": ["Tag 1", "Tag 2"],
         "createdAt": "2023-08-01T10:00:00Z",
+        "id": "1",
         "updatedAt": "2023-08-02T15:30:00Z"
     },
     {
@@ -58,6 +145,7 @@ const data = [
         "status": "In Progress",
         "tags": ["Tag 2", "Tag 3"],
         "createdAt": "2023-08-03T08:45:00Z",
+        "id": "1",
         "updatedAt": "2023-08-04T12:20:00Z"
     },
     {
@@ -86,6 +174,7 @@ const data = [
         "status": "Completed",
         "tags": ["Tag 1", "Tag 3"],
         "createdAt": "2023-07-28T14:15:00Z",
+        "id": "1",
         "updatedAt": "2023-08-05T09:10:00Z"
     },
     {
@@ -102,6 +191,7 @@ const data = [
         "status": "In Progress",
         "tags": ["Tag 2", "Tag 4"],
         "createdAt": "2023-08-06T11:30:00Z",
+        "id": "1",
         "updatedAt": "2023-08-10T16:45:00Z"
     },
     {
@@ -111,6 +201,7 @@ const data = [
         "status": "Pending",
         "tags": ["Tag 5"],
         "createdAt": "2023-08-11T09:00:00Z",
+        "id": "1",
         "updatedAt": "2023-08-11T09:00:00Z"
     },
     {
@@ -133,6 +224,7 @@ const data = [
         "status": "In Progress",
         "tags": ["Tag 3", "Tag 4"],
         "createdAt": "2023-08-12T14:00:00Z",
+        "id": "1",
         "updatedAt": "2023-08-14T10:45:00Z"
     },
     {
@@ -155,6 +247,7 @@ const data = [
         "status": "Completed",
         "tags": ["Tag 1", "Tag 5"],
         "createdAt": "2023-08-15T10:30:00Z",
+        "id": "1",
         "updatedAt": "2023-08-17T14:20:00Z"
     },
     {
@@ -171,6 +264,7 @@ const data = [
         "status": "In Progress",
         "tags": ["Tag 1", "Tag 4"],
         "createdAt": "2023-08-18T09:30:00Z",
+        "id": "1",
         "updatedAt": "2023-08-20T16:10:00Z"
     },
     {
@@ -187,6 +281,7 @@ const data = [
         "status": "Pending",
         "tags": ["Tag 2", "Tag 3"],
         "createdAt": "2023-08-21T09:00:00Z",
+        "id": "1",
         "updatedAt": "2023-08-22T14:00:00Z"
     },
     {
@@ -209,6 +304,7 @@ const data = [
         "status": "In Progress",
         "tags": ["Tag 4", "Tag 5"],
         "createdAt": "2023-08-23T09:00:00Z",
+        "id": "1",
         "updatedAt": "2023-08-25T12:30:00Z"
     },
     {
@@ -218,6 +314,7 @@ const data = [
         "status": "Completed",
         "tags": ["Tag 1", "Tag 3"],
         "createdAt": "2023-08-26T10:15:00Z",
+        "id": "1",
         "updatedAt": "2023-08-27T15:20:00Z"
     },
     {
@@ -234,6 +331,7 @@ const data = [
         "status": "Pending",
         "tags": ["Tag 2", "Tag 4"],
         "createdAt": "2023-08-28T08:00:00Z",
+        "id": "1",
         "updatedAt": "2023-08-29T11:15:00Z"
     },
     {
@@ -250,6 +348,7 @@ const data = [
         "status": "In Progress",
         "tags": ["Tag 1", "Tag 5"],
         "createdAt": "2023-08-30T09:45:00Z",
+        "id": "1",
         "updatedAt": "2023-08-31T14:20:00Z"
     },
     {
@@ -259,6 +358,7 @@ const data = [
         "status": "In Progress",
         "tags": ["Tag 3", "Tag 4"],
         "createdAt": "2023-09-01T11:30:00Z",
+        "id": "1",
         "updatedAt": "2023-09-02T16:45:00Z"
     },
     {
@@ -268,6 +368,7 @@ const data = [
         "status": "Completed",
         "tags": ["Tag 2", "Tag 5"],
         "createdAt": "2023-09-03T08:15:00Z",
+        "id": "1",
         "updatedAt": "2023-09-04T12:10:00Z"
     },
     {
@@ -284,6 +385,7 @@ const data = [
         "status": "Pending",
         "tags": ["Tag 1", "Tag 4"],
         "createdAt": "2023-09-05T11:30:00Z",
+        "id": "1",
         "updatedAt": "2023-09-06T15:00:00Z"
     },
     {
@@ -306,6 +408,7 @@ const data = [
         "status": "In Progress",
         "tags": ["Tag 3", "Tag 5"],
         "createdAt": "2023-09-07T08:30:00Z",
+        "id": "1",
         "updatedAt": "2023-09-09T14:20:00Z"
     },
     {
@@ -315,6 +418,7 @@ const data = [
         "status": "Completed",
         "tags": ["Tag 2", "Tag 4"],
         "createdAt": "2023-09-10T09:15:00Z",
+        "id": "1",
         "updatedAt": "2023-09-11T12:40:00Z"
     }
 ]

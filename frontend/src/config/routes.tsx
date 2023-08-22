@@ -4,13 +4,16 @@ import { LiaNetworkWiredSolid } from "react-icons/lia";
 import { MdOutlineTopic } from "react-icons/md";
 import { RxGithubLogo } from "react-icons/rx";
 import { FaTasks } from "react-icons/fa";
+import { LuHistory } from "react-icons/lu";
+import { SiBlueprint } from "react-icons/si";
 
 export const dashboardRoutes = [
     { title: 'Home', icon: <BiHomeAlt />, href: '/home' },
     { title: 'Tasks', icon: <FaTasks />, href: '/tasks' },
     { title: 'Topic', icon: <MdOutlineTopic />, href: '/topic' },
     { title: 'Project', icon: <BsStack />, href: '/project' },
-    { title: 'Recent', icon: <BiHistory />, href: '/recent' },
+    { title: 'Roadmap', icon: <SiBlueprint />, href: '/roadmaps' },
+    { title: 'Recent', icon: <LuHistory />, href: '/recent' },
 ]
 
 

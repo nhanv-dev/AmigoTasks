@@ -8,8 +8,8 @@ const Breadcrumb = ({ paths }: Props) => {
     return (
         <div>
             <ol className="flex gap-4 items-center whitespace-nowrap min-w-0" aria-label="Breadcrumb">
-                {paths.map(path => (
-                    <li className="text-sm">
+                {paths.map((path, index) => (
+                    <li className="text-sm" key={index}>
                         <a className="flex items-center text-gray-500 hover:text-blue-600" href={path.href || ''}>
                             {path.name}
                         </a>

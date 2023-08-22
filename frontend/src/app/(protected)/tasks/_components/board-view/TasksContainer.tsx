@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { BiChevronDown, BiAddToQueue } from "react-icons/bi";
 import { IoIosAdd } from 'react-icons/io';
 import { GrAdd } from 'react-icons/gr';
-import TaskCard from './TaskCard';
+import TaskCard from '../TaskCard';
 
 interface Props {
     title: string;
@@ -15,7 +15,7 @@ const TasksContainer = ({ title, type, tasks }: Props) => {
     const [data, setData] = useState(tasks.filter(task => task.status === type));
 
     return (
-        <div className='flex-1 max-w-[320px] transition-theme rounded-md'>
+        <div className='flex-1 max-w-[380px] transition-theme rounded-md'>
             <div className='mb-3 flex items-center justify-between gap-4'>
 
                 <h5 className='text-text dark:text-dark-text transition-theme font-bold text-lg'>

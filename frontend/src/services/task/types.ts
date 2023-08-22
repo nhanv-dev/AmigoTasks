@@ -1,21 +1,27 @@
+import { Base } from "@services/common/type";
 
 
-export type Task = {
+export type WorkSpace = Base & {
+    name: string;
+    description: string;
+    tasks: Task[];
+    tags: string[];
+    pendingTask: number;
+    inProgressTask: number;
+    completedTask: number;
+    isPriority: boolean;
+}
+
+export type Task = Base & {
     title: string;
     description: string;
     comments: TaskComment[];
     status: string;
     tags: string[];
-    createdAt: string;
-    updatedAt: string;
-    deletedAt?: string | undefined | null;
 }
 
-export type TaskComment = {
+export type TaskComment = Base & {
     content: string;
-    createdAt: string;
-    updatedAt: string;
-    deletedAt: string;
 }
 
 

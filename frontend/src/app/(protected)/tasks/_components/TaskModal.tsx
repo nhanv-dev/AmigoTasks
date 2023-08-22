@@ -1,10 +1,13 @@
+"use client";
+
 import { Task } from '@/services/task/types';
 import DataFormatter from '@/util/DataFormatter';
-import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from '@nextui-org/react';
+import { Button, Divider, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Textarea } from '@nextui-org/react';
 import Link from 'next/link';
-import { useState } from 'react';
-import { BsThreeDots } from 'react-icons/bs';
 import { MdOutlineModeComment } from 'react-icons/md';
+import TaskCommentContainer from './TaskCommentContainer';
+import { useState } from 'react';
+import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 
 interface Props {
     task: Task;
@@ -13,29 +16,50 @@ interface Props {
 }
 
 const TaskModal = ({ task, open, setOpen }: Props) => {
+    const [isEditComment, setIsEditComment] = useState<number | null>(null);
 
-
+    const handleAddTag = (e: any) => {
+        e.preventDefault();
+    }
 
     return (
         <Modal
             size={"3xl"}
             isOpen={open}
+            // backdrop={'blur'}
             onClose={() => setOpen(false)}
         >
             <ModalContent>
                 {(onClose) => (
-                    <>
-                        <ModalHeader className="flex flex-col gap-1">Modal Title</ModalHeader>
-                        <ModalBody>
-                            <div className="cursor-pointer bg-background  dark:bg-dark-background shadow-sm p-4 rounded-md transition-theme">
-                                <div className='flex items-center justify-between gap-4 mb-2'>
-                                    <h3 className="text-[0.875rem] font-semibold text-text dark:text-dark-text transition-theme">
-                                        {task.title}
-                                    </h3>
-                                    <button>
-                                        <BsThreeDots />
-                                    </button>
-                                </div>
+                    <div className='bg-background dark:bg-dark-background'>
+                        <ModalHeader className="flex flex-col gap-1">
+                            <div className='flex-1 flex items-center gap-3'>
+                                <button className='btn btn-circle  text-[yellow] text-[1.4rem]'>
+                                    {/* <AiOutlineStar /> */}
+                                    <AiFillStar />
+                                </button>
+                                <h3>
+                                    {task.title}
+                                </h3>
+                                <Dropdown
+                                    className='w-[120px]'
+                                    classNames={{
+                                        base: " ",
+                                    }}>
+                                    <DropdownTrigger>
+                                        <Button variant="flat" className='rounded-full max-w-[100px] text-md font-bold h-auto'>
+                                            {task.status}
+                                        </Button>
+                                    </DropdownTrigger>
+                                    <DropdownMenu aria-label="Task Status">
+                                        <DropdownItem key="pending" className='text-sm font-bold'>Pending</DropdownItem>
+                                        <DropdownItem key="in_progress" className='text-sm font-bold'>In Progress</DropdownItem>
+                                        <DropdownItem key="completed" className='text-sm font-bold'>Completed</DropdownItem>
+                                    </DropdownMenu>
+                                </Dropdown>   </div>
+                        </ModalHeader>
+                        <ModalBody className=''>
+                            <div className="transition-theme">
                                 <p className="text-[0.825rem] font-semibold mb-3 text-text-50 dark:text-dark-text-50 transition-theme">
                                     {task.description}
                                 </p>
@@ -48,16 +72,16 @@ const TaskModal = ({ task, open, setOpen }: Props) => {
                                         <button
                                             tabIndex={-1}
                                             draggable={false}
-
+                                            onClick={handleAddTag}
                                             className={`  inline-flex items-center min-w-max rounded-sm  px-2 py-1 text-xs font-bold`}
                                         >
                                             Add tag
                                         </button>
                                     </div>
                                 </div>
-                                <div className='flex items-center justify-between'>
+                                <div className='flex items-center justify-between mb-4'>
                                     <p className="text-xs font-semibold text-text-50 dark:text-dark-text-50 transition-theme">
-                                        {DataFormatter.formatCreatedAt(task.createdAt)}
+                                        {DataFormatter.formatDate(task.createdAt)}
                                     </p>
                                     <p className='flex items-center gap-1 font-semibold text-sm text-text dark:text-dark-text transition-theme'>
                                         <span>
@@ -68,17 +92,32 @@ const TaskModal = ({ task, open, setOpen }: Props) => {
                                         </span>
                                     </p>
                                 </div>
+                                <div className='max-h-[300px] overflow-auto'>
+                                    {task.comments.map((comment, index) => (
+                                        <TaskCommentContainer key={index} comment={comment} isEdit={(!!isEditComment && isEditComment === index)} />
+                                    ))}
+                                </div>
+                                <form className='pb-4'>
+                                    <Textarea
+                                        tabIndex={-1}
+                                        minRows={1}
+                                        labelPlacement="outside"
+                                        placeholder="Enter your description"
+                                        className="rounded-md"
+                                    />
+                                </form>
+                                <Divider />
                             </div>
                         </ModalBody>
                         <ModalFooter>
-                            <Button color="danger" variant="light" onClick={onClose} className='rounded-md'>
+                            <Button color="danger" variant="light" onClick={onClose} className='text-sm font-bold rounded-md'>
                                 Close
                             </Button>
-                            <Button color="primary" onPress={onClose} className='rounded-md'>
-                                Action
+                            <Button color="primary" onPress={onClose} className='text-sm font-bold rounded-md'>
+                                Save
                             </Button>
                         </ModalFooter>
-                    </>
+                    </div>
                 )}
             </ModalContent>
         </Modal>

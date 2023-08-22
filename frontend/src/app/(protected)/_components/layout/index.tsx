@@ -36,12 +36,9 @@ const Main: React.FC<Props> = ({ children }) => {
     return (
         <div className='h-[100vh] w-full'>
             <div className='pt-[74px] px-4 h-full overflow-y-auto'>
-                <div className={`${layout.openSidebar ? 'ml-[460px]' : ' ml-[80px]'} h-full flex flex-col flex-1 transition-all`}>
+                <div className={`${layout.openSidebar ? 'ml-[430px]' : 'ml-[80px]'} h-full flex flex-col flex-1 transition-all`}>
                     <div className='flex-1 mt-4'>
                         {children}
-                    </div>
-                    <div className='pb-4'>
-                        <Footer />
                     </div>
                 </div>
             </div>

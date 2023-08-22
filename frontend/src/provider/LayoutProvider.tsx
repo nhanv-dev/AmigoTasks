@@ -1,8 +1,13 @@
 import React, { createContext, useContext, useState } from 'react';
 
+interface Layout {
+    isOpenSidebar: boolean;
+    contentSidebar: string;
+}
+
 interface LayoutProviderType {
-    layout: any;
-    setLayout: React.Dispatch<React.SetStateAction<any>>;
+    layout: Layout | any;
+    setLayout: React.Dispatch<React.SetStateAction<Layout | any>>;
 }
 
 export const LayoutContext = createContext<LayoutProviderType | undefined>(undefined);
@@ -18,10 +23,7 @@ export const useLayoutContext = () => {
 const LayoutContextProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [layout, setLayout] = useState<any>({});
 
-    const contextValue: LayoutProviderType = {
-        layout,
-        setLayout,
-    };
+    const contextValue: LayoutProviderType = { layout, setLayout };
 
     return (
         <LayoutContext.Provider value={contextValue}>

@@ -1,7 +1,7 @@
 export default class DataFormatter {
 
-    static formatCreatedAt(createdAt: string) {
-        return new Date(createdAt).toLocaleString('en-GB', {
+    static formatDate(date: string) {
+        return new Date(date).toLocaleString('en-GB', {
             day: '2-digit',
             month: '2-digit',
             year: 'numeric',

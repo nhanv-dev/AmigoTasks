@@ -73,7 +73,7 @@ const TaskCard = ({ task }: Props) => {
                     </div>
                     <div className='flex items-center justify-between'>
                         <p className="text-xs font-semibold text-text-50 dark:text-dark-text-50 transition-theme">
-                            {DataFormatter.formatCreatedAt(task.createdAt)}
+                            {DataFormatter.formatDate(task.createdAt)}
                         </p>
                         <p className='flex items-center gap-1 font-semibold text-sm text-text dark:text-dark-text transition-theme'>
                             <span>

@@ -6,6 +6,7 @@ import CustomTabs from '../_components/tabs'
 import TopicList from './_components/TopicList'
 import TopicFolders from './_components/TopicFolders'
 import TopicText from './_components/TopicText'
+import Footer from '../_components/layout/Footer'
 
 const Topic = () => {
 
@@ -30,6 +31,7 @@ const Topic = () => {
                 <div className='mb-4'>
                     <TopicText />
                 </div>
+                <Footer />
             </main>
         </Helmet>
     )
