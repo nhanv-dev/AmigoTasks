@@ -11,15 +11,13 @@ export class CreateTaskDto {
   @IsOptional()
   description: string;
 
-
   @IsOptional()
   @IsEnum(TaskStatus)
   status: string;
 
-  @IsOptional()
   @IsEnum(TaskPriority)
-  priority: string;
-
+  @IsOptional()
+  priority: TaskPriority = TaskPriority.LOW;
 
   @IsNotEmpty()
   @IsMongoId()

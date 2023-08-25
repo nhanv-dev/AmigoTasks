@@ -5,32 +5,40 @@ export type Topic = Base & {
     status: TopicStatus;
     description: string;
     parent: any;
+    path: string[],
     tags: string[];
     slug: string;
+    workspace: string;
+    numberOfChildren: number;
 }
 
-export type DetailTopic = Topic & {
+export type DetailTopic = Base & {
+    title: string;
+    status: TopicStatus;
+    description: string;
+    parent: any;
+    path: Topic[],
+    tags: string[];
+    slug: string;
+    workspace: string;
+    numberOfChildren: number;
     content: string;
 }
 
 export type CreateTopic = {
     title: string;
-    description?: string;
-    tags?: string[];
 }
 
-export type UpdateTopic = {
-    title: string;
-    description?: string;
-    tags?: string[];
-}
+export type UpdateTopic = Partial<Topic>;
 
 export type DeleteTopic = {
     id: string;
 }
 
 export const enum TopicStatus {
-    TODO = 'Todo',
-    IN_PROGESS = 'In Progess',
-    COMPLETED  = 'Completed',
+    DRAFT = 'draft',
+    NEW = 'new',
+    IN_PROGRESS = 'in progress',
+    COMPLETED = 'completed',
+    ARCHIVED = 'archived',
 }

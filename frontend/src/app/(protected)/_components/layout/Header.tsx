@@ -7,19 +7,19 @@ import UserAvatar from '../user/UserAvatar';
 
 
 const Header = () => {
-  const { layout, setLayout } = useLayoutContext();
+  const { isOpenSidebar, contentSidebar, setLayout } = useLayoutContext();
 
   const onSearch = () => { }
 
   return (
-    <div className={`${layout.openSidebar ? 'left-[80px]' : 'left-[80px]'} z-50 fixed top-0 right-0 p-4 pb-0 bg-background-50 dark:bg-dark-background-50 transition-all`}>
+    <div className={`${isOpenSidebar ? 'left-[80px]' : 'left-[80px]'} z-50 fixed top-0 right-0 p-4 pb-0 bg-background-50 dark:bg-dark-background-50 transition-all`}>
       <div className='h-[58px] flex items-center rounded-md py-3 px-5 bg-background dark:bg-dark-background text-text dark:text-dark-text w-full min-w-full shadow-sm transition-all'>
         <div className='flex-1 flex items-center justify-between'>
           <div className='flex-1 flex items-center gap-4'>
             <MenuInput
-              isOpen={layout.openSidebar === 'sidebar'}
+              isOpen={isOpenSidebar}
               toggleMenu={() => {
-                setLayout((prev: any) => ({ ...prev, openSidebar: !prev.openSidebar }))
+                setLayout({ isOpenSidebar: !isOpenSidebar, contentSidebar })
               }}
             />
 
@@ -27,10 +27,10 @@ const Header = () => {
           </div>
           <div className='flex items-center justify-end gap-5'>
             <div className='flex items-center justify-end gap-6'>
-              
+
             </div>
             <DarkMode />
-            <UserAvatar/>
+            <UserAvatar />
           </div>
         </div>
       </div>

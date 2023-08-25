@@ -1,13 +1,14 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { ReactNode, createContext, useContext, useState } from 'react';
 
 interface Layout {
-    isOpenSidebar: boolean;
-    contentSidebar: string;
+    isOpenSidebar?: boolean;
+    contentSidebar?: ReactNode | null;
 }
 
 interface LayoutProviderType {
-    layout: Layout | any;
-    setLayout: React.Dispatch<React.SetStateAction<Layout | any>>;
+    isOpenSidebar: boolean;
+    contentSidebar: ReactNode | null;
+    setLayout: React.Dispatch<React.SetStateAction<Layout>>;
 }
 
 export const LayoutContext = createContext<LayoutProviderType | undefined>(undefined);
@@ -20,10 +21,17 @@ export const useLayoutContext = () => {
     return context;
 };
 
-const LayoutContextProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [layout, setLayout] = useState<any>({});
+const LayoutContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+    const [isOpenSidebar, setIsOpenSidebar] = useState<boolean>(true);
+    const [contentSidebar, setContentSidebar] = useState<ReactNode | null>(null);
 
-    const contextValue: LayoutProviderType = { layout, setLayout };
+    const setLayout = ({ isOpenSidebar, contentSidebar }: Layout) => {
+        if (isOpenSidebar === true || isOpenSidebar === false) setIsOpenSidebar(isOpenSidebar)
+
+        setContentSidebar(contentSidebar)
+    }
+
+    const contextValue: LayoutProviderType = { isOpenSidebar, contentSidebar, setLayout };
 
     return (
         <LayoutContext.Provider value={contextValue}>

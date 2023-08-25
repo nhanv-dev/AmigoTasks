@@ -2,12 +2,15 @@
 
 import React from 'react'
 
-const ContainerCard = ({ children }: { children: React.ReactNode }) => {
+interface Props {
+    classNames?: string;
+    children: React.ReactNode;
+}
+
+const ContainerCard = ({ children, classNames }: Props) => {
     return (
-        <div className='pb-4'>
-            <div className='bg-background dark:bg-dark-background transition-all rounded-md shadow-sm p-6'>
-                {children}
-            </div>
+        <div className={`mb-4 bg-background dark:bg-dark-background text-text dark:text-dark-text transition-theme rounded-md shadow-sm p-4 ${classNames}`}>
+            {children}
         </div>
     )
 }

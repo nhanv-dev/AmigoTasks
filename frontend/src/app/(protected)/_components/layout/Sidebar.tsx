@@ -9,6 +9,7 @@ import { SiOpenai } from 'react-icons/si';
 import { GiTwirlyFlower } from 'react-icons/gi';
 import tw from "tailwind-styled-components";
 import { MdGTranslate } from 'react-icons/md';
+import ChatApp from '../chat-gpt';
 
 const handleActive = (pathname: string | null) => {
   if (!pathname) return -1;
@@ -16,7 +17,7 @@ const handleActive = (pathname: string | null) => {
 }
 
 const Sidebar = () => {
-  const { layout, setLayout } = useLayoutContext();
+  const { isOpenSidebar, setLayout } = useLayoutContext();
 
   const pathname = usePathname();
   const [active, setActive] = useState(() => handleActive(pathname))
@@ -28,9 +29,6 @@ const Sidebar = () => {
   return (
     <div className={`w-sidebar h-[100vh] fixed top-0 left-0 bottom-0 border-r border-border dark:border-dark-border bg-background-50 dark:bg-dark-background-50 transition-all`}>
       <div className='h-full py-4 flex flex-col justify-between gap-5'>
-        {/* <div className='flex items-center justify-center text-[1.25rem]'>
-          <GiTwirlyFlower />
-        </div> */}
         <div className='flex-1 flex flex-col items-center gap-2 w-full'>
           {dashboardRoutes.map((route, index) => (
             <LinkWrapper $active={active === index} key={route.href}>
@@ -54,11 +52,7 @@ const Sidebar = () => {
             <button
               tabIndex={-1}
               onClick={() => {
-                setLayout((prev: any) => ({
-                  ...prev,
-                  openSidebar: prev.contentSidebar === 'chatgpt' ? !prev.openSidebar : true,
-                  contentSidebar: 'chatgpt'
-                }))
+
               }}
               className={`text-text-50 hover:text-text dark:text-dark-text-50 dark:hover:text-dark-text flex items-center justify-center gap-1 flex-col`}
             >
@@ -74,11 +68,7 @@ const Sidebar = () => {
             <button
               tabIndex={-1}
               onClick={() => {
-                setLayout((prev: any) => ({
-                  ...prev,
-                  openSidebar: prev.contentSidebar === 'chatgpt' ? !prev.openSidebar : true,
-                  contentSidebar: 'chatgpt'
-                }))
+
               }}
               className={`text-text-50 hover:text-text dark:text-dark-text-50 dark:hover:text-dark-text flex items-center justify-center gap-1 flex-col`}
             >

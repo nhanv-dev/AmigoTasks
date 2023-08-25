@@ -10,7 +10,7 @@ const workspaceStateSelector = (state: PartialWorkspaceState) => state.workspace
 export const WorkspaceSelectors = {
     getForm: () => createSelector(workspaceStateSelector, ({ form }) => form),
 
-    getAllWorkspaces: () => createSelector(workspaceStateSelector, ({ workspaces }) => workspaces),
+    getWorkspaces: () => createSelector(workspaceStateSelector, ({ workspaces, loading }) => ({ workspaces, loading })),
 
     getWorkspace: () => createSelector(workspaceStateSelector, ({ workspace, loading }) => ({ workspace, loading })),
 

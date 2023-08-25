@@ -33,12 +33,12 @@ export class WorkspaceController {
   }
 
   @Get()
-  findAll(): Promise<Workspace[]> {
-    return this.workspaceService.findAll();
+  async findAll(): Promise<Workspace[]> {
+    return this.workspaceService.findAllWithTaskCounts();
   }
 
   @Get(':id')
-  findById(@Param('id') id: string): Promise<Workspace | undefined> {
-    return this.workspaceService.findOne(id);
+  async findById(@Param('id') id: string): Promise<Workspace | undefined> {
+    return this.workspaceService.findOneWithTaskCounts(id);
   }
 }

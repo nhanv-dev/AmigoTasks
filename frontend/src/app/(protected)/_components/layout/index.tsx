@@ -1,11 +1,11 @@
 "use client"
 
-import LayoutContextProvider, { LayoutContext, useLayoutContext } from '@/provider/LayoutProvider';
-import React, { useContext } from 'react';
+import LayoutContextProvider, { useLayoutContext } from '@/provider/LayoutProvider';
+import React from 'react';
 import ExpandedSidebar from './ExpandedSidebar';
+import Footer from './Footer';
 import Header from './Header';
 import Sidebar from './Sidebar';
-import Footer from './Footer';
 
 
 interface Props {
@@ -20,7 +20,7 @@ const Layout: React.FC<Props> = ({ children }) => {
                 <Sidebar />
                 <Header />
                 <ExpandedSidebar />
-                <Main >
+                <Main>
                     {children}
                 </Main>
             </div>
@@ -31,15 +31,16 @@ const Layout: React.FC<Props> = ({ children }) => {
 export default Layout;
 
 const Main: React.FC<Props> = ({ children }) => {
-    const { layout, setLayout } = useLayoutContext();
+    const { isOpenSidebar } = useLayoutContext();
 
     return (
-        <div className='h-[100vh] w-full'>
-            <div className='pt-[74px] px-4 h-full overflow-y-auto'>
-                <div className={`${layout.openSidebar ? 'ml-[430px]' : 'ml-[80px]'} h-full flex flex-col flex-1 transition-all`}>
+        <div className='flex-1 max-h-[100vh] h-[100vh] w-full flex flex-col'>
+            <div className={`${isOpenSidebar ? 'ml-[400px]' : 'ml-[80px]'} mt-[74px] h-[calc(100vh-74px)] transition-all`}>
+                <div className={`px-4 h-full flex flex-col flex-1 overflow-y-auto`}>
                     <div className='flex-1 mt-4'>
                         {children}
                     </div>
+                        <Footer />
                 </div>
             </div>
         </div>

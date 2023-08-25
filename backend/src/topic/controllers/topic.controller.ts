@@ -6,17 +6,18 @@ import {
   Param,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { CreateTopicDto } from '../dtos/create-topic.dto';
 import { TopicService } from '../services/topic.service';
 
 @Controller('topics')
 export class TopicController {
-  constructor(private readonly topicService: TopicService) {}
+  constructor(private readonly topicService: TopicService) { }
 
   @Post()
   create(@Body() createTopicDto: CreateTopicDto) {
-    return this.topicService.create(createTopicDto);
+    return this.topicService.createTopic(createTopicDto);
   }
 
   @Put(':id')
@@ -30,12 +31,22 @@ export class TopicController {
   }
 
   @Get()
-  findAll() {
-    return this.topicService.findAll();
+  findAll(@Query() queryParams: any) {
+    return this.topicService.findAllWithoutContent(queryParams);
+  }
+
+  @Get(":id/children")
+  findByParent(@Param("id") parent: string) {
+    return this.topicService.findByParent(parent);
+  }
+
+  @Get("children")
+  findByRoot() {
+    return this.topicService.findByParent(null);
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.topicService.findOne(id);
+    return this.topicService.findDetailTopic(id);
   }
 }

@@ -1,7 +1,7 @@
-import { BaseWithoutId } from '../_common/type';
+import { Base } from '../_common/type';
 
 
-export type Comment = BaseWithoutId & {
+export type Comment = Base & {
     content: string;
 }
 

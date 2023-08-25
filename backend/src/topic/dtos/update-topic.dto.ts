@@ -1,4 +1,4 @@
-export class UpdateTopicDto {
-  readonly title: string;
-  readonly description: string;
-}
+import { Topic } from "../entities/topic.entity";
+
+
+export type UpdateTopicDto = Partial<Topic>

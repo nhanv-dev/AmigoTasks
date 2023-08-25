@@ -1,8 +1,7 @@
 import { Task } from '@/services/task/types';
 import { useState } from 'react';
-import { BiChevronDown, BiAddToQueue } from "react-icons/bi";
+import { BiChevronDown } from "react-icons/bi";
 import { IoIosAdd } from 'react-icons/io';
-import { GrAdd } from 'react-icons/gr';
 import TaskCard from '../board-view/TaskCard';
 
 interface Props {

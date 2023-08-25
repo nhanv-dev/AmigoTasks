@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Types } from 'mongoose';
 import { BaseEntity, baseSchemaOptions } from 'src/common/entities/base.entity';
+import { TaskStatus } from 'src/task/entities/task.entity';
 
 export enum WorkspaceStatus {
   ACTIVE = 'active',
@@ -38,17 +39,41 @@ export class Workspace extends BaseEntity {
   @Prop({ type: [{ type: String, ref: 'Topic' }], default: [] })
   topics: string[];
 
-  @Prop({ require: false, default: 0 })
-  pendingTaskCount: number;
-
-  @Prop({ require: false, default: 0 })
-  inProgressTaskCount: number;
-
-  @Prop({ require: false, default: 0 })
-  completedTaskCount: number;
-
   @Prop({ type: [{ type: Types.ObjectId, ref: 'User' }], require: false })
   author: string;
 }
 
 export const WorkspaceSchema = SchemaFactory.createForClass(Workspace);
+
+WorkspaceSchema.set('toJSON', {
+  virtuals: true,
+});
+
+WorkspaceSchema.virtual('pendingTaskCount', {
+  ref: 'Task',
+  localField: '_id',
+  foreignField: 'workspace',
+  count: true,
+  match: { status: TaskStatus.PENDING, deletedAt: null },
+  defautl: 0
+});
+
+
+WorkspaceSchema.virtual('inProgressTaskCount', {
+  ref: 'Task',
+  localField: '_id',
+  foreignField: 'workspace',
+  count: true,
+  match: { status: TaskStatus.IN_PROGRESS, deletedAt: null },
+  default: 0
+});
+
+
+WorkspaceSchema.virtual('completedTaskCount', {
+  ref: 'Task',
+  localField: '_id',
+  foreignField: 'workspace',
+  count: true,
+  match: { status: TaskStatus.COMPLETED, deletedAt: null },
+  default: 0
+});

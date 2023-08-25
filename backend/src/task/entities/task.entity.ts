@@ -1,18 +1,19 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument, Types } from 'mongoose';
-import * as slugGenerator from 'mongoose-slug-generator';
+import mongoose, { HydratedDocument } from 'mongoose';
+import { Comment } from 'src/comment/entities/comment.entity';
 import { BaseEntity, baseSchemaOptions } from 'src/common/entities/base.entity';
+import { Workspace } from 'src/workspace/entities/workspace.entity';
 
 export enum TaskStatus {
   PENDING = 'pending',
   IN_PROGRESS = 'in progress',
-  DONE = 'done',
+  COMPLETED = 'completed',
 }
 
 export enum TaskPriority {
-  LOW = 1,
-  MEDIUM = 2,
-  HIGH = 3,
+  LOW = 'LOW',
+  MEDIUM = 'MEDIUM',
+  HIGH = 'HIGH',
 }
 
 export type TaskDocument = HydratedDocument<Task>;
@@ -22,25 +23,24 @@ export class Task extends BaseEntity {
   @Prop({ required: true })
   title: string;
 
-  @Prop({ required: true })
+  @Prop({ required: false })
   description: string;
 
   @Prop({ enum: Object.values(TaskStatus), required: false, default: TaskStatus.PENDING })
   status: string;
 
-  @Prop({ enum: Object.values(TaskPriority), default: TaskPriority.LOW })
+  @Prop({ enum: Object.values(TaskPriority), required: false, default: TaskPriority.LOW })
   priority: TaskPriority;
 
   @Prop({ default: [] })
   tags: string[];
 
-  @Prop({ type: [{ type: Types.ObjectId, ref: 'Comment' }] })
-  comments: string[];
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }] })
+  comments: Comment[];
 
-  @Prop({ type: [{ type: Types.ObjectId, ref: 'Workspace' }], default: null })
-  workspace: string;
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Workspace', default: null })
+  workspace: Workspace;
 }
 
 export const TaskSchema = SchemaFactory.createForClass(Task);
 
-TaskSchema.plugin(slugGenerator);

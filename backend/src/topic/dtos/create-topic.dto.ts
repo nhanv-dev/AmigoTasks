@@ -1,5 +1,24 @@
+import { IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { TopicStatus } from "../entities/topic.entity";
+
 export class CreateTopicDto {
-  readonly title: string;
-  readonly description: string;
-  readonly content: string;
+  @IsNotEmpty()
+  @IsString()
+  title: string;
+
+  @IsString()
+  @IsOptional()
+  description: string;
+
+  @IsString()
+  @IsOptional()
+  status: TopicStatus = TopicStatus.NEW;
+
+  @IsString()
+  @IsOptional()
+  parent: string = null;
+
+  @IsString()
+  @IsOptional()
+  workspace: string = null;
 }

@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { BsThreeDots } from 'react-icons/bs';
 import { IoMdAdd } from 'react-icons/io';
 import { MdOutlineModeComment } from 'react-icons/md';
-import TaskModal from '../TaskModal';
+import TaskModal from '../task/TaskModal';
 
 interface Props {
     task: Task;
@@ -33,7 +33,7 @@ const TaskCard = ({ task }: Props) => {
 
     return (
         <div>
-            <TaskModal task={task} open={open} setOpen={setOpen} />
+            <TaskModal />
             <div
                 draggable
                 onDragStart={(e) => handleDragStart(e)}

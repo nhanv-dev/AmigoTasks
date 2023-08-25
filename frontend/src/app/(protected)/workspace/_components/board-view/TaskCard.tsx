@@ -1,19 +1,23 @@
 import { Task } from '@/services/task/types';
 import DataFormatter from '@/util/DataFormatter';
-import Link from 'next/link';
 import { useState } from 'react';
-import { BsThreeDots } from 'react-icons/bs';
-import { IoMdAdd } from 'react-icons/io';
+import { BsCalendar3 } from 'react-icons/bs';
 import { MdOutlineModeComment } from 'react-icons/md';
-import TaskModal from '../TaskModal';
+import TaskModal from '../task/TaskModal';
+import TaskTag from '../task/TaskTag';
+import DropdownWorkspace from '../workspace/WorkspaceDropdown';
+import { useAppDispatch } from '@redux/hook';
+import { TaskActions } from '@redux/features/task/taskSlice';
+import TaskDropdown from '../task/TaskDropdown';
 
 interface Props {
     task: Task;
 }
 
 const TaskCard = ({ task }: Props) => {
+    const dispatch = useAppDispatch();
     const [draggedItem, setDraggedItem] = useState<Task | null>(null);
-    const [open, setOpen] = useState<boolean>(false);
+    const [openDropdown, setOpenDropDown] = useState<boolean>(false);
 
     const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
         setDraggedItem(task);
@@ -28,62 +32,48 @@ const TaskCard = ({ task }: Props) => {
     };
 
     const handleOpen = () => {
-        setOpen(true);
+        dispatch(TaskActions.setForm({ selectedTask: task, isOpen: true }))
     }
 
     return (
-        <div>
-            <TaskModal task={task} open={open} setOpen={setOpen} />
-            <div
-                draggable
-                onDragStart={(e) => handleDragStart(e)}
-                onDragOver={handleDragOver}
-                onDrop={(e) => handleDrop(e)}
-                onClick={handleOpen}
-
-            >
-                <div className="cursor-pointer bg-background  dark:bg-dark-background shadow-sm p-4 rounded-md transition-theme">
-                    <div className='flex items-center justify-between gap-4 mb-2'>
-                        <h3 onClick={handleOpen} className="text-[0.875rem] font-semibold text-text dark:text-dark-text transition-theme">
-                            {task.title}
-                        </h3>
-                        <button>
-                            <BsThreeDots />
-                        </button>
-                    </div>
-                    <p onClick={handleOpen} className="text-[0.825rem] font-semibold mb-3 text-text-50 dark:text-dark-text-50 transition-theme">
-                        {task.description}
-                    </p>
-
+        <div
+            draggable
+            onDragStart={(e) => handleDragStart(e)}
+            onDragOver={handleDragOver}
+            onDrop={(e) => handleDrop(e)}
+            onClick={handleOpen}
+        >
+            <div className="cursor-pointer bg-background  dark:bg-dark-background shadow-sm p-4 rounded-md transition-theme">
+                <div className='flex items-start justify-between gap-4 mb-2'>
+                    <h3 onClick={handleOpen} className="text-[0.95rem] font-bold text-text dark:text-dark-text transition-theme">
+                        {task.title}
+                    </h3>
+                    <TaskDropdown task={task} />
+                </div>
+                <p onClick={handleOpen} className="text-[0.725rem] font-semibold mb-3 text-text-50 dark:text-dark-text-50 transition-theme">
+                    {task.description}
+                </p>
+                {task.tags?.length > 0 &&
                     <div className='flex items-center justify-between flex-wrap mb-3'>
                         <div className="flex gap-2 items-center">
-                            {[...task.tags, ...task.tags, ...task.tags].slice(0, 3).map((tag, index) => (
+                            {task.tags.slice(0, 3).map((tag, index) => (
                                 <TaskTag key={index} index={index} tag={tag} />
                             ))}
-                            <button
-                                tabIndex={-1}
-                                draggable={false}
-                                onClick={() => setOpen(true)}
-                                className={`gap-1 inline-flex items-center min-w-max rounded-sm px-2 py-1 text-xs font-bold`}
-                            >
-                                <IoMdAdd />
-                                Add tag
-                            </button>
                         </div>
                     </div>
-                    <div className='flex items-center justify-between'>
-                        <p className="text-xs font-semibold text-text-50 dark:text-dark-text-50 transition-theme">
-                            {DataFormatter.formatDate(task.createdAt)}
-                        </p>
-                        <p className='flex items-center gap-1 font-semibold text-sm text-text dark:text-dark-text transition-theme'>
-                            <span>
-                                <MdOutlineModeComment />
-                            </span>
-                            <span className='text-xs relative top-[-0.5px]'>
-                                {task.comments.length}
-                            </span>
-                        </p>
-                    </div>
+                }
+                <div className='flex items-center justify-between'>
+                    <p className="text-xs flex items-center gap-2 font-semibold text-text-50 dark:text-dark-text-50 transition-theme">
+                        <BsCalendar3 /> {DataFormatter.formatDate(task.createdAt)}
+                    </p>
+                    <p className='flex items-center gap-1 font-semibold text-sm text-text dark:text-dark-text transition-theme'>
+                        <span>
+                            <MdOutlineModeComment />
+                        </span>
+                        <span className='text-xs relative top-[-0.5px]'>
+                            {task.comments.length}
+                        </span>
+                    </p>
                 </div>
             </div>
         </div>
@@ -91,22 +81,4 @@ const TaskCard = ({ task }: Props) => {
 }
 
 export default TaskCard;
-
-
-const TaskTag = ({ index, tag }: { index: number, tag: string }) => {
-    let color = 'bg-orange-50 text-orange-600'
-    if (index % 3 === 0) color = ' bg-blue-50 text-blue-600'
-    else if (index % 2 === 0) color = ' bg-indigo-50 text-indigo-600'
-
-    return (
-        <Link
-            tabIndex={-1}
-            draggable={false}
-            href={`/tasks/tag/${tag}`}
-            className={`${color} inline-flex items-center min-w-max rounded-sm  px-2 py-1 text-xs font-bold`}
-        >
-            {tag}
-        </Link>
-    )
-}
 

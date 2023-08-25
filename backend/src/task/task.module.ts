@@ -13,4 +13,4 @@ import { TaskRepository } from './repositories/task.repository';
   providers: [TaskService, TaskRepository],
   exports: [TaskService, TaskRepository],
 })
-export class TopicModule {}
+export class TaskModule { }

@@ -11,7 +11,7 @@ export const dashboardRoutes = [
     { title: 'Home', icon: <BiHomeAlt />, href: '/home' },
     { title: 'Tasks', icon: <FaTasks />, href: '/workspace' },
     { title: 'Topic', icon: <MdOutlineTopic />, href: '/topic' },
-    { title: 'Project', icon: <BsStack />, href: '/project' },
+    { title: 'Issue', icon: <BsStack />, href: '/issue' },
     { title: 'Roadmap', icon: <SiBlueprint />, href: '/roadmaps' },
     { title: 'Recent', icon: <LuHistory />, href: '/recent' },
 ]

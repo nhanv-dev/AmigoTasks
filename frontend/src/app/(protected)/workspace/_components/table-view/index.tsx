@@ -10,7 +10,7 @@ const TableView = ({ tasks }: Props) => {
 
     return (
         <div className='flex-1 flex items-start gap-4 mb-12'>
-            table view
+            <TasksContainer tasks={tasks} />
         </div>
     )
 }

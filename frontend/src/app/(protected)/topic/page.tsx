@@ -3,36 +3,22 @@
 import { TopicStatus } from '@/services/topic/types'
 import Helmet from '../_components/helmet'
 import CustomTabs from '../_components/tabs'
-import TopicList from './_components/TopicList'
-import TopicFolders from './_components/TopicFolders'
-import TopicText from './_components/TopicText'
-import Footer from '../_components/layout/Footer'
+import TopicList from './_components/topic/TopicList'
 
 const Topic = () => {
 
     return (
         <Helmet title='DM - Topic'>
-            <main>
-                <div className='flex items-start justify-between gap-4'>
-                    <div className='w-[300px] min-w-[300px]'>
-                        <TopicFolders />
-                    </div>
-                    <div className='flex-1'>
-                        <CustomTabs
-                            tabs={[
-                                { label: 'All Topic', panel: <TopicList status={null} /> },
-                                { label: 'Todo', panel: <TopicList status={TopicStatus.TODO} /> },
-                                { label: 'In Progress', panel: <TopicList status={TopicStatus.IN_PROGESS} /> },
-                                { label: 'Completed', panel: <TopicList status={TopicStatus.COMPLETED} /> },
-                            ]}
-                        />
-                    </div>
-                </div>
-                <div className='mb-4'>
-                    <TopicText />
-                </div>
-                <Footer />
-            </main>
+            <CustomTabs
+                tabs={[
+                    { label: 'All', panel: <TopicList status={null} /> },
+                    { label: 'New', panel: <TopicList status={TopicStatus.NEW} /> },
+                    { label: 'In Progress', panel: <TopicList status={TopicStatus.IN_PROGRESS} /> },
+                    { label: 'Completed', panel: <TopicList status={TopicStatus.COMPLETED} /> },
+                    { label: 'Draft', panel: <TopicList status={TopicStatus.DRAFT} /> },
+                    { label: 'Archived', panel: <TopicList status={TopicStatus.ARCHIVED} /> },
+                ]}
+            />
         </Helmet>
     )
 }

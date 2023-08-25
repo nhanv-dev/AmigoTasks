@@ -40,4 +40,8 @@ export class TaskController {
     return this.taskService.findOne(id);
   }
 
+  @Get('/workspaces/:id')
+  async findByWorkspaceId(@Param('id') id: string) {
+    return this.taskService.findAll({ workspace: id });
+  }
 }

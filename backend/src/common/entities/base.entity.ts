@@ -7,19 +7,12 @@ export const baseSchemaOptions = {
   toJSON: {
     transform(doc: any, ret: any) {
       ret.id = ret._id;
+      delete ret._id
     },
   },
 };
 
-@Schema({
-  timestamps: true,
-  id: true,
-  toJSON: {
-    transform(doc: any, ret: any) {
-      ret.id = ret._id;
-    },
-  },
-})
+@Schema({ ...baseSchemaOptions })
 export class BaseEntity {
   id?: string;
   _id: mongoose.Types.ObjectId;
