@@ -44,7 +44,7 @@ const CustomTabs = ({ tabs }: Props) => {
                             }
                         </div>
                     }
-                    className='font-bold text-md border-none transition-all'>
+                    className='w-full font-bold text-md border-none transition-all'>
                     {tab.panel}
                 </Tab>
             ))}

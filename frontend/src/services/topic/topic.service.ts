@@ -1,16 +1,16 @@
 import { HttpRequest } from "@util/HttpRequest";
 import { QueryFormatter } from '@util/QueryFormatter';
-import { CreateTopic, DetailTopic, Topic, UpdateTopic } from "./types";
+import { CreateTopic, DetailTopic, Topic, TopicFolder, UpdateTopic } from "./types";
 
 
 class TopicService {
 
     public async create(createTopic: CreateTopic) {
-        return HttpRequest.post<Topic>('/topics', createTopic);
+        return HttpRequest.post<DetailTopic>('/topics', createTopic);
     }
 
     public async update(updateTopic: UpdateTopic) {
-        return HttpRequest.put<Topic>(`/topics/${updateTopic.id}`, updateTopic);
+        return HttpRequest.put<DetailTopic>(`/topics/${updateTopic.id}`, updateTopic);
     }
 
     public async delete(id: string) {
@@ -27,11 +27,11 @@ class TopicService {
     }
 
     public async getByParent(parent: string) {
-        return HttpRequest.get<Topic[]>(`/topics/${parent}/children`);
+        return HttpRequest.get<TopicFolder[]>(`/topics/${parent}/children`);
     }
 
     public async getByRoot() {
-        return HttpRequest.get<Topic[]>(`/topics/children`);
+        return HttpRequest.get<TopicFolder[]>(`/topics/children`);
     }
 
     public async getById(id: string) {

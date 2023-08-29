@@ -13,6 +13,7 @@ export default function WorkSpaceLayout({ children }: { children: React.ReactNod
     useEffect(() => {
         dispatch(WorkspaceThunks.getAll())
         setLayout({ isOpenSidebar: true, contentSidebar: <WorkspaceList /> })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (

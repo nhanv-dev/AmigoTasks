@@ -1,10 +1,12 @@
 "use client"
 
 import { useLayoutContext } from '@/provider/LayoutProvider';
+import { Button } from '@nextui-org/react';
 import { AiOutlineSearch } from 'react-icons/ai';
+import { BiMenu } from 'react-icons/bi';
+import { HiMenuAlt1 } from 'react-icons/hi';
 import DarkMode from '../dark-mode';
 import UserAvatar from '../user/UserAvatar';
-
 
 const Header = () => {
   const { isOpenSidebar, contentSidebar, setLayout } = useLayoutContext();
@@ -12,8 +14,8 @@ const Header = () => {
   const onSearch = () => { }
 
   return (
-    <div className={`${isOpenSidebar ? 'left-[80px]' : 'left-[80px]'} z-50 fixed top-0 right-0 p-4 pb-0 bg-background-50 dark:bg-dark-background-50 transition-all`}>
-      <div className='h-[58px] flex items-center rounded-md py-3 px-5 bg-background dark:bg-dark-background text-text dark:text-dark-text w-full min-w-full shadow-sm transition-all'>
+    <div className={`${isOpenSidebar ? 'left-[80px]' : 'left-[80px]'} z-50 fixed top-0 right-0 pb-0 bg-background-50 dark:bg-dark-background-50 transition-all`}>
+      <div className='h-[58px] flex items-center py-3 px-5 bg-background border-b  dark:bg-gray-800 dark:border-gray-700  text-text dark:text-dark-text w-full min-w-full shadow-sm transition-all'>
         <div className='flex-1 flex items-center justify-between'>
           <div className='flex-1 flex items-center gap-4'>
             <MenuInput
@@ -61,10 +63,17 @@ const SearchInput = ({ onChange }: SearchInputProps) => {
 const MenuInput = ({ isOpen, toggleMenu }: { isOpen: boolean, toggleMenu: () => void }) => {
 
   return (
-    <button onClick={toggleMenu}>
-      <span className={`${isOpen ? '' : ''} block rounded-full my-[3px] w-[20px] h-[2.5px] bg-text-50`}></span>
-      <span className={`${isOpen ? '' : ''} block rounded-full my-[3px] w-[20px] h-[2.5px] bg-text-50`}></span>
-      <span className={`${isOpen ? '' : ''} block rounded-full my-[3px] w-[20px] h-[2.5px] bg-text-50`}></span>
-    </button>
+
+    <Button
+      isIconOnly
+      variant='flat'
+      color="primary"
+      aria-label="Menu"
+      onClick={toggleMenu}
+      className=' text-[1.35rem] rounded-sm max-w-[46px] max-h-[32px] text-primary dark:text-dark-text'
+    >
+      {/* {isOpen ? <BiMenu /> : <HiMenuAlt1 />} */}
+      <BiMenu />
+    </Button>
   )
 }

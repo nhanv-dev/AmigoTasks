@@ -8,15 +8,19 @@ interface PartialTopicState {
 const topicStateSelector = (state: PartialTopicState) => state.topic;
 
 export const TopicSelectors = {
-    getTree: () => createSelector(topicStateSelector, ({ tree, loading }) => ({ tree, loading })),
+    getTopics: () => createSelector(topicStateSelector, ({ topics }) => ({ topics })),
 
-    getChildren: (id: string) => createSelector(topicStateSelector, ({ tree, loading }) => {
+    getTopic: () => createSelector(topicStateSelector, ({ topic }) => ({ topic })),
+
+    getTree: () => createSelector(topicStateSelector, ({ tree }) => ({ tree })),
+
+    getChildren: (id: string) => createSelector(topicStateSelector, ({ tree }) => {
         const children = tree.filter(item => item.root.parent === id);
-        return ({ children, loading })
+        return ({ children })
     }),
 
-    getTopics: () => createSelector(topicStateSelector, ({ topics, loading }) => ({ topics, loading })),
-
-    getTopic: () => createSelector(topicStateSelector, ({ topic, loading }) => ({ topic, loading })),
+    getLoading: () => createSelector(topicStateSelector, ({ loading, treeLoading, topicLoading, editLoading }) => ({
+        loading, treeLoading, topicLoading, editLoading
+    })),
 
 }

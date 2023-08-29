@@ -1,10 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { HydratedDocument, Model, Types } from 'mongoose';
+import mongoose, { HydratedDocument, Model } from 'mongoose';
 import { BaseEntity, baseSchemaOptions } from 'src/common/entities/base.entity';
-import { ExternalLink } from './external-link.entity';
-import { Workspace } from 'src/workspace/entities/workspace.entity';
 import { Task } from 'src/task/entities/task.entity';
-import { Comment } from 'src/comment/entities/comment.entity';
+import { ExternalLink } from './external-link.entity';
 
 export enum TopicStatus {
   DRAFT = 'draft',
@@ -24,16 +22,19 @@ export class Topic extends BaseEntity {
   @Prop({ required: false })
   description: string;
 
-  @Prop()
+  @Prop({ required: false, default: null })
   content: string;
 
   @Prop({ enum: Object.values(TopicStatus), default: TopicStatus.NEW })
   status: TopicStatus;
 
+  @Prop({ type: Boolean, default: false })
+  isFeatured: boolean;
+
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Topic', default: null })
   parent: mongoose.Schema.Types.ObjectId;
 
-  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Topic', default: null }] })
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Topic', default: [] }] })
   path: mongoose.Schema.Types.ObjectId[];
 
   @Prop({ default: [] })
@@ -43,29 +44,35 @@ export class Topic extends BaseEntity {
   tasks: Task[];
 
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }] })
-  comments: Comment[];
+  comments: mongoose.Schema.Types.ObjectId[];
 
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] })
-  author: string;
+  author: mongoose.Schema.Types.ObjectId;
 
-  @Prop({ default: [] })
+  @Prop({ required: false, default: [] })
   externalLinks: ExternalLink[];
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Workspace', default: null })
-  workspace: Workspace;
+  workspace: mongoose.Schema.Types.ObjectId;
 
+  @Prop({ required: false, default: null })
+  background: string;
 }
 
 export const TopicSchema = SchemaFactory.createForClass(Topic);
 
 TopicSchema.set('toJSON', {
   virtuals: true,
+  versionKey: false,
+  transform(doc, ret, options) {
+    delete ret._id
+  },
 });
 
 TopicSchema.pre('save', async function (next) {
   if (this.parent) {
     const parentTopic = await (this.constructor as Model<Topic>).findById(this.parent);
-    if (!parentTopic) throw new Error("Don't find parent topic");
+    if (!parentTopic) throw new Error("Parent topic doesn't exist");
     this.path = [...parentTopic.path, this.parent];
   } else {
     this.path = [];

@@ -1,14 +1,20 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { TopicState } from "./types";
+import TopicHelper from "./topicHelper";
 import { TopicThunks } from "./topicThunks";
+import { TopicState } from "./types";
+import { DetailTopic } from "@services/topic/types";
 
 
 const initialState: TopicState = {
-    tree: [],
-    treeLoading: false,
     topics: [],
     loading: false,
-    topic: null
+
+    tree: [],
+    treeLoading: false,
+
+    topic: null,
+    topicLoading: false,
+    editLoading: false,
 }
 
 export const topic = createSlice({
@@ -18,73 +24,90 @@ export const topic = createSlice({
         setOpenTree(state, action: PayloadAction<{ open: boolean, id: string }>) {
             const index = state.tree.findIndex(item => item.root.id === action.payload.id);
             if (index !== -1) state.tree[index] = { ...state.tree[index], open: action.payload.open };
+        },
+        setTopic(state, action: PayloadAction<DetailTopic | null>) {
+            state.topic = action.payload
         }
     },
     extraReducers: (builder) => {
         builder
-            .addCase(TopicThunks.delete.pending, (state, action) => {
-                state.loading = true;
-            })
-            .addCase(TopicThunks.delete.fulfilled, (state, action) => {
-                state.topics = state.topics.filter(topic => topic.id !== action.meta.arg);
-                state.tree = state.tree.filter(item => item.root.id !== action.meta.arg);
+            .addCase(TopicThunks.create.fulfilled, (state, action) => {
+                TopicHelper.updateWhenCreate(state.tree, state.topics, action.payload);
                 state.loading = false;
+                state.topicLoading = false;
+                state.treeLoading = false;
+            });
+
+        builder
+            .addCase(TopicThunks.update.pending, (state, action) => {
+                state.editLoading = true;
             })
-            .addCase(TopicThunks.delete.rejected, (state, action) => {
-                state.loading = true;
+            .addCase(TopicThunks.update.fulfilled, (state, action) => {
+                const index = state.tree.findIndex(item => item.root.id === action.payload.id);
+                state.tree[index] = {
+                    ...state.tree[index],
+                    root: TopicHelper.convertDetailTopicToFolder({ ...state.tree[index]?.root, ...action.payload }),
+                }
+                console.log({
+                    ...state.topic,
+                    ...action.payload,
+                })
+                state.topic = {
+                    ...state.topic,
+                    ...action.payload,
+                }
+                state.editLoading = false;
+            });
+
+        builder
+            .addCase(TopicThunks.delete.fulfilled, (state, action) => {
+                TopicHelper.updateWhenDelete(state.tree, state.topics, action.meta.arg);
+                state.treeLoading = false;
+                state.loading = false;
             });
 
         builder
             .addCase(TopicThunks.getAll.fulfilled, (state, action) => {
-                state.topics = action.payload
-            })
-            .addCase(TopicThunks.getByStatus.fulfilled, (state, action) => {
                 state.topics = action.payload;
-            })
-
-        builder
-            .addCase(TopicThunks.getById.pending, (state, action) => {
-                state.loading = true;
-            })
-            .addCase(TopicThunks.getById.fulfilled, (state, action) => {
-                state.topic = action.payload;
                 state.loading = false;
-            })
-            .addCase(TopicThunks.getById.rejected, (state, action) => {
-                state.loading = true;
             });
 
         builder
-            .addCase(TopicThunks.getByParent.pending, (state, action) => {
-                state.treeLoading = true;
+            .addCase(TopicThunks.getByStatus.fulfilled, (state, action) => {
+                state.topics = action.payload;
+                state.loading = false;
+            });
+
+        builder
+            .addCase(TopicThunks.getById.pending, (state, action) => {
+                // state.topic = null;
+                state.topicLoading = true;
             })
+            .addCase(TopicThunks.getById.fulfilled, (state, action) => {
+                state.topic = action.payload;
+                state.topicLoading = false;
+            });
+
+        builder
             .addCase(TopicThunks.getByParent.fulfilled, (state, action) => {
                 const id = action.meta.arg;
+                const index = state.tree.findIndex(_item => _item.root.id === id);
                 const ids = action.payload.map(item => {
-                    const index = state.tree.findIndex(_item => _item.root.id === item.parent);
                     const has = state.tree.findIndex(_item => _item.root.id === item.id);
                     if (index !== -1 && has === -1) state.tree.push({ root: item, children: [], open: false });
                     return item.id
                 });
-                const index = state.tree.findIndex(item => item.root.id === id);
-                state.tree[index] = { ...state.tree[index], open: true, children: ids }
-                state.treeLoading = false;
-            })
-            .addCase(TopicThunks.getByParent.rejected, (state, action) => {
+                state.tree[index] = { ...state.tree[index], children: ids }
+                state.loading = false;
                 state.treeLoading = false;
             });
 
         builder
-            .addCase(TopicThunks.getByRoot.pending, (state, action) => {
-                state.treeLoading = true;
-            })
             .addCase(TopicThunks.getByRoot.fulfilled, (state, action) => {
                 state.tree = action.payload.map(topic => ({ root: topic, children: [], open: false }))
+                state.loading = false;
                 state.treeLoading = false;
             })
-            .addCase(TopicThunks.getByRoot.rejected, (state, action) => {
-                state.treeLoading = false;
-            });
     }
 })
 

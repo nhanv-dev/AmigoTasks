@@ -10,6 +10,7 @@ import {
 } from '@nestjs/common';
 import { CreateTopicDto } from '../dtos/create-topic.dto';
 import { TopicService } from '../services/topic.service';
+import { UpdateTopicDto } from '../dtos/update-topic.dto';
 
 @Controller('topics')
 export class TopicController {
@@ -21,13 +22,13 @@ export class TopicController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateTopicDto: any) {
-    return this.topicService.update(id, updateTopicDto);
+  update(@Param('id') id: string, @Body() updateTopicDto: UpdateTopicDto) {
+    return this.topicService.updateTopic(id, updateTopicDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.topicService.remove(id);
+    return this.topicService.deleteTopic(id);
   }
 
   @Get()

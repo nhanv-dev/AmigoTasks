@@ -32,16 +32,18 @@ const WorkSpace = ({ params }: Props) => {
     useEffect(() => {
         if (!params?.id) return;
         dispatch(TaskThunks.getByWorkspaceId(params.id))
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [params])
 
     useEffect(() => {
         const index = workspaces.findIndex(ws => ws.id === params.id);
         dispatch(WorkspaceActions.setWorkspace(workspaces[index]))
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [params, workspaces])
 
     return (
         <Helmet title={workspace?.title ? `DM - ${workspace.title}` : 'DM - Workspace'}>
-            <div>
+            <div className='px-4 pt-4'>
                 <TaskModal />
                 <WorkspaceProfile />
                 <CustomTabs

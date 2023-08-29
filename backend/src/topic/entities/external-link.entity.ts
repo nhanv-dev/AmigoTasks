@@ -8,7 +8,4 @@ export class ExternalLink {
 
   @Prop({ required: true })
   url: string;
-
-  @Prop({ default: [] })
-  tags: string[];
 }

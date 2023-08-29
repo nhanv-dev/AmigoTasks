@@ -16,11 +16,7 @@ const WorkspacePriority = ({ onOpenChange }) => {
             <HeaderSidebarCard title='Priority'>
                 <DropdownWorkspace onOpenChange={onOpenChange} />
             </HeaderSidebarCard>
-            {(loading && workspaces.length <= 0) &&
-                <div className='flex items-center justify-center py-6'>
-                    <InnerLoading />
-                </div>
-            }
+            <InnerLoading loading={loading && workspaces.length <= 0} />
             {workspaces.filter(workspace => workspace.isPriority).map(workspace => (
                 <motion.div
                     key={workspace.id}

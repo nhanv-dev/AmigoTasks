@@ -35,7 +35,7 @@ const Sidebar = () => {
               <Link
                 href={route.href}
                 tabIndex={-1}
-                className={`${active === index ? 'text-primary hover:text-primary-hover' : 'text-text-50 hover:text-text dark:text-dark-text-50 dark:hover:text-dark-text'}    flex items-center justify-center gap-1 flex-col`}
+                className={`${active === index ? 'text-primary hover:text-primary-hover' : 'text-text-50 hover:text-text dark:text-dark-text-50 dark:hover:text-dark-text'} flex items-center justify-center gap-1 flex-col`}
               >
                 <p className='text-[1.25rem]'>
                   {route.icon}
@@ -104,8 +104,8 @@ const LinkWrapper = tw.div<LinkWrapperProps>`
   relative
   before:absolute
   before:left-0
-  before:top-3
-  before:bottom-3
+  before:top-3.5
+  before:bottom-3.5
   before:bg-primary
   before:w-[4px]
   before:rounded-full

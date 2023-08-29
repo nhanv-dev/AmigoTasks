@@ -35,12 +35,14 @@ const Main: React.FC<Props> = ({ children }) => {
 
     return (
         <div className='flex-1 max-h-[100vh] h-[100vh] w-full flex flex-col'>
-            <div className={`${isOpenSidebar ? 'ml-[400px]' : 'ml-[80px]'} mt-[74px] h-[calc(100vh-74px)] transition-all`}>
-                <div className={`px-4 h-full flex flex-col flex-1 overflow-y-auto`}>
-                    <div className='flex-1 mt-4'>
+            <div className={`${isOpenSidebar ? 'ml-[370px]' : 'ml-[80px]'} mt-[58px] h-[calc(100vh-58px)] transition-all`}>
+                <div className={`h-full flex flex-col flex-1 overflow-y-auto`}>
+                    <div className='flex-1'>
                         {children}
                     </div>
+                    <div className='px-4'>
                         <Footer />
+                    </div>
                 </div>
             </div>
         </div>

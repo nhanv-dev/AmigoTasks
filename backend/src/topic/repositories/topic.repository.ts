@@ -14,6 +14,7 @@ export class TopicRepository extends BaseRepositoryAbstract<Topic> implements To
     super(topicModel);
   }
 
+
   async findDetailTopic(id: string) {
     return this.topicModel
       .findOne({ _id: id, deletedAt: null })
@@ -29,7 +30,10 @@ export class TopicRepository extends BaseRepositoryAbstract<Topic> implements To
       .select('-content -comments -externalLinks')
       .populate('workspace')
       .populate('numberOfChildren')
-      .populate('parent')
+      .populate({
+        path: 'parent',
+        select: 'id title',
+      })
       .sort({ createdAt: -1 })
   }
 

@@ -44,3 +44,10 @@ export class Task extends BaseEntity {
 
 export const TaskSchema = SchemaFactory.createForClass(Task);
 
+TaskSchema.set('toJSON', {
+  virtuals: true,
+  versionKey: false,
+  transform(doc, ret, options) {
+    delete ret._id
+  },
+});

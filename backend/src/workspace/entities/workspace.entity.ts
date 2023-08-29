@@ -47,6 +47,10 @@ export const WorkspaceSchema = SchemaFactory.createForClass(Workspace);
 
 WorkspaceSchema.set('toJSON', {
   virtuals: true,
+  versionKey: false,
+  transform(doc, ret, options) {
+    delete ret._id
+  },
 });
 
 WorkspaceSchema.virtual('pendingTaskCount', {

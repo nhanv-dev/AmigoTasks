@@ -1,18 +1,24 @@
 "use client";
 
-import { useLayoutContext } from '@provider/LayoutProvider';
 import { TopicThunks } from '@redux/features/topic/topicThunks';
-import { useAppDispatch } from '@redux/hook';
-import React, { useEffect } from 'react';
+import React from 'react';
 import TopicFolders from './_components/sidebar/TopicFolders';
+import { useAppDispatch } from '@redux/hook';
+import { useLayoutContext } from '@provider/LayoutProvider';
 
 export default function WorkSpaceLayout({ children }: { children: React.ReactNode }) {
-    const { setLayout } = useLayoutContext();
     const dispatch = useAppDispatch();
+    const { setLayout } = useLayoutContext();
 
-    useEffect(() => {
-        dispatch(TopicThunks.getAll())
-        setLayout({ isOpenSidebar: true, contentSidebar: <TopicFolders /> })
+    React.useEffect(() => {
+        const fetch = async () => {
+            Promise.all([
+                dispatch(TopicThunks.getByRoot()),
+                setLayout({ isOpenSidebar: true, contentSidebar: <TopicFolders /> })
+            ])
+        }
+        fetch()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (

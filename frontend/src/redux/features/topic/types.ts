@@ -1,15 +1,19 @@
-import { DetailTopic, Topic } from "@services/topic/types"
+import { DetailTopic, Topic, TopicFolder } from "@services/topic/types"
 
-export type Tree = {
-    root: Topic;
+export type TreeItem = {
+    root: TopicFolder;
     open: boolean;
     children: string[];
 }
 
 export type TopicState = {
-    tree: Tree[];
-    treeLoading: boolean;
     topics: Topic[];
-    topic: DetailTopic | null;
     loading: boolean;
+
+    tree: TreeItem[];
+    treeLoading: boolean;
+    
+    topic: DetailTopic | null;
+    editLoading: boolean;
+    topicLoading: boolean;
 }

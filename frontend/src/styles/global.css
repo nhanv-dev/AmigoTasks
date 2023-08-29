@@ -12,6 +12,12 @@ body {
     transition: color .15s ease, background .15s ease, background-color .15s ease !important;
 }
 
+div:active:focus,
+button:active:focus,
+input:active:focus {
+    outline: none;
+}
+
 /* ─── SCROLLBAR ──────────────────────────────────────────────────────────────── */
 
 ::-webkit-scrollbar {
