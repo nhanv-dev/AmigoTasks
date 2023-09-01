@@ -16,7 +16,7 @@ const TopicPath = () => {
                     <div className='flex items-center gap-2 h-[36px]'>
                         <Link
                             href={`/`}
-                            className='relative top-[-0.25px] hover:text-primary text-[1.1rem] font-semibold text-text-50 dark:text-dark-text-50 transition-theme'
+                            className='relative top-[-0.5px] hover:text-primary text-[1.1rem] font-semibold text-text-50 dark:text-dark-text-50 transition-theme'
                         >
                             <FiHome />
                         </Link>
@@ -47,13 +47,13 @@ const TopicPath = () => {
                         </div>
                     ))}
                 </div>
-                <div>
+                <div className='flex items-center gap-2'>
+                    <div className='font-semibold text-md'>
+                        Workspace
+                    </div>
                     <button className='flex items-center gap-2 bg-dark-background text-dark-text py-1.5 px-4 rounded-md'>
                         <p className=' '>
-                            {topic?.isFeatured ?
-                                <AiOutlineStar /> :
-                                <AiOutlineStar />
-                            }
+                            {topic?.isFeatured ? <AiOutlineStar /> : <AiOutlineStar />}
                         </p>
                         <p className='font-bold text-md'>
                             Star

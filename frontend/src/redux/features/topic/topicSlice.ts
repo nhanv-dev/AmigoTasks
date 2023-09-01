@@ -48,10 +48,6 @@ export const topic = createSlice({
                     ...state.tree[index],
                     root: TopicHelper.convertDetailTopicToFolder({ ...state.tree[index]?.root, ...action.payload }),
                 }
-                console.log({
-                    ...state.topic,
-                    ...action.payload,
-                })
                 state.topic = {
                     ...state.topic,
                     ...action.payload,
@@ -79,13 +75,9 @@ export const topic = createSlice({
             });
 
         builder
-            .addCase(TopicThunks.getById.pending, (state, action) => {
-                // state.topic = null;
-                state.topicLoading = true;
-            })
-            .addCase(TopicThunks.getById.fulfilled, (state, action) => {
-                state.topic = action.payload;
-                state.topicLoading = false;
+            .addCase(TopicThunks.getByConditions.fulfilled, (state, action) => {
+                state.topics = action.payload;
+                state.loading = false;
             });
 
         builder
@@ -108,6 +100,17 @@ export const topic = createSlice({
                 state.loading = false;
                 state.treeLoading = false;
             })
+
+        builder
+            .addCase(TopicThunks.getById.pending, (state, action) => {
+                // state.topic = null;
+                state.topicLoading = true;
+            })
+            .addCase(TopicThunks.getById.fulfilled, (state, action) => {
+                state.topic = action.payload;
+                state.topicLoading = false;
+            });
+
     }
 })
 

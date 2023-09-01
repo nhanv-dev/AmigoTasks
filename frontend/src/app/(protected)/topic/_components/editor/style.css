@@ -1,21 +1,34 @@
  h2.ce-header {
-     @apply text-3xl font-extrabold
+     @apply text-3xl font-extrabold;
+     margin-bottom: 8px;
  }
 
  h3.ce-header {
-     @apply text-2xl font-bold
+     @apply text-2xl font-bold;
+     margin-bottom: 8px;
  }
 
  h4.ce-header {
-     @apply text-xl font-bold
+     @apply text-xl font-bold;
+     margin-bottom: 8px;
  }
 
  h5.ce-header {
-     @apply text-lg font-semibold
+     @apply text-lg font-semibold;
+     margin-bottom: 8px;
  }
 
  h6.ce-header {
-     @apply text-base font-semibold
+     @apply text-base font-semibold;
+     margin-bottom: 8px;
+ }
+
+ /* Embed */
+ .cdx-input.embed-tool__caption {
+     text-align: center;
+     outline: none;
+     border: none;
+     box-shadow: none;
  }
 
  /* Warning */

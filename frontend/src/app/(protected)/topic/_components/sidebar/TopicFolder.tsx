@@ -9,6 +9,7 @@ import { FcFolder, FcOpenedFolder } from 'react-icons/fc';
 import { GoTriangleRight } from 'react-icons/go';
 import TopicFolderDropdown from './TopicFolderDropdown';
 import DataFormatter from '@util/DataFormatter';
+import { backgroundImages } from '../topic/TopicImages';
 
 interface Props {
     item: ITreeItem;
@@ -79,16 +80,16 @@ export default TreeItem;
 const LabelTopic = ({ item }) => {
     return (
         <div className='flex items-center gap-2'>
-            <div className='min-w-[34px] min-h-[34px] w-[34px] h-[34px] rounded-sm bg-center bg-cover'
-                style={{ backgroundImage: `url(https://images.unsplash.com/photo-1692060234392-aa41b4703065?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80)` }}>
-            </div>
+            {/* <div className='min-w-[45px] w-[45px] h-[36px] min-h-[36px] rounded-sm bg-center bg-cover'
+                style={{ backgroundImage: `url(${item.root.background || backgroundImages[0]})` }}>
+            </div> */}
             <div className='flex flex-col justify-center'>
-                <div className='flex items-center gap-2'>
-                    <p className='text-[0.825rem] flex-1 whitespace-nowrap text-ellipsis max-w-[120px] overflow-hidden'>
+                <div className='flex items-center '>
+                    <p className='text-[0.825rem] flex-1 whitespace-nowrap text-ellipsis max-w-[100px] overflow-hidden'>
                         {item.root.title}
                     </p>
                     {item.root.numberOfChildren > 0 &&
-                        <p className='flex items-center justify-center rounded-full text-xs font-bold px-3 h-[15px] bg-slate-300'>
+                        <p className='ml-1.5 flex items-center justify-center rounded-full text-xs font-bold px-2 h-[15px] bg-slate-300'>
                             <span className='relative top-[-0.35px] left-[-0.5px]'>
                                 {item.root.numberOfChildren}
                             </span>
@@ -96,7 +97,9 @@ const LabelTopic = ({ item }) => {
                     }
                 </div>
                 <div className='flex items-center gap-3'>
-
+                    {/* <p className='text-xs px-2 bg-primary-50 rounded-full'>
+                        {item.root.status}
+                    </p> */}
                     <p className='text-[0.675rem] flex-1 whitespace-nowrap overflow-hidden'>
                         {DataFormatter.formatDateToDaysAgo(item.root.updatedAt)}
                     </p>

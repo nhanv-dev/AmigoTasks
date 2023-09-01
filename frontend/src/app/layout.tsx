@@ -1,11 +1,11 @@
 "use client";
 
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import '../styles/global.css';
 import { NextUIProvider } from "@nextui-org/react";
 import { Providers } from '@redux/provider';
-import Head from 'next/head';
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import { ThemeProvider as NextThemesProvider } from "next-themes";
+import '../styles/global.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,12 +21,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <link rel="icon" href="/favicon.ico" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
-
       </head>
-      <body className={inter.className} style={{ position: 'relative' }}>
+      <body className={`${inter.className} dark`} style={{ position: 'relative' }}>
         <Providers>
           <NextUIProvider>
-            {children}
+            <NextThemesProvider attribute="class" defaultTheme="dark">
+              {children}
+            </NextThemesProvider>
           </NextUIProvider>
         </Providers>
       </body>

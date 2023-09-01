@@ -65,7 +65,7 @@ const TopicDetail = () => {
                     {DataFormatter.formatDate(topic.updatedAt)}
                 </div>
             </div>
-            <div className='flex justify-between mb-5'>
+            {/* <div className='flex justify-between mb-5'>
                 <div className='flex items-center gap-2 min-w-[150px]'>
                     <p>
                         <AiFillTags />
@@ -77,7 +77,7 @@ const TopicDetail = () => {
                 <div className='flex-1 text-sm font-semibold text-text-50 dark:text-dark-text-50 transition-theme'>
                     <TopicTags />
                 </div>
-            </div>
+            </div> */}
 
             <div className='flex justify-between pb-5 mb-3 border-b'>
                 <div className='flex items-center gap-2 min-w-[150px]'>
@@ -89,18 +89,11 @@ const TopicDetail = () => {
                     </label>
                 </div>
                 <div className='flex-1 flex items-center gap-1 justify-start'>
-                    <div className='w-max px-3 h-[24px] flex items-center justify-center rounded-full bg-primary-50 text-sm font-semibold text-text-50 dark:text-dark-text-50 transition-theme'>
-                        {topic.numberOfChildren} topics
-                    </div>
                     <Link
-                        href={`/topic/${topic.id}/items`}
-                        className='bg-primary-50 flex items-center justify-center h-[24px] px-3 py-1 rounded-full gap-1 text-[0.8rem] font-semibold text-text-50 dark:text-dark-text-50 transition-theme'
-                    >
-                        Explore
-                        {/* <span className='text-[1rem] relative top-[0.85px]'>
-                            <FiArrowRight />
-                        </span> */}
+                        href={`/topic/${topic.id}/items`} className='w-max px-3 h-[24px] flex items-center justify-center rounded-full bg-primary-50 text-sm font-semibold text-text-50 dark:text-dark-text-50 transition-theme'>
+                        {topic.numberOfChildren} topics
                     </Link>
+
                 </div>
             </div>
             <TopicComments />

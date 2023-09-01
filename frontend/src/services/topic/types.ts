@@ -11,6 +11,7 @@ export type Topic = Base & {
     isFeatured: boolean;
     tags: string[];
     numberOfChildren: number;
+    background?: string;
 }
 
 export type TopicFolder = Base & {
@@ -36,12 +37,14 @@ export type DetailTopic = Base & {
     path: Topic[];
     tags: string[];
     numberOfChildren: number;
+    background?: string;
 }
 
 export type CreateTopic = {
     title: string;
     parent: string | null;
     content?: string;
+    background?: string;
 }
 
 export type UpdateTopic = {
@@ -54,6 +57,7 @@ export type UpdateTopic = {
     path?: string[];
     tags?: string[];
     content?: string;
+    background?: string;
 };
 
 export type DeleteTopic = {

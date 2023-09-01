@@ -15,22 +15,22 @@ export const emptyBlock = {
     }]
 }
 
-const Editor = ({ topic, initialValue, onSave }) => {
+const Editor = ({ id, topic, initialValue, onSave }) => {
     const ref = useRef<EditorJS | null>(null);
     const saveTimeoutRef = useRef<any>(null);
 
     useEffect(() => {
-        if (typeof window !== "undefined") {
-            ref?.current?.destroy();
-            ref.current = null;
+        if (typeof window !== "undefined" && topic) {
             initEditor();
             return () => {
-                ref?.current?.destroy();
-                ref.current = null;
+                if (!id || !topic) {
+                    ref?.current?.destroy();
+                    ref.current = null;
+                }
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [topic])
+    }, [id, topic])
 
     const initData = async () => {
         if (!initialValue) return emptyBlock;
@@ -45,44 +45,48 @@ const Editor = ({ topic, initialValue, onSave }) => {
     const initEditor = async () => {
         try {
             const EditorJS = (await import("@editorjs/editorjs")).default;
+            const Undo = (await import("editorjs-undo")).default;
+
             const data = await initData();
             if (!ref.current) {
                 const editor = new EditorJS({
                     holder: "editorjs",
                     tools: await generateTools(),
                     minHeight: 500,
-                    autofocus: true,
+                    autofocus: false,
+
+                    onReady: () => {
+                        new Undo({ editor });
+                        const editorContainer = document.getElementById("editorjs");
+                        if (editorContainer) {
+                            editorContainer.setAttribute("spellcheck", "false");
+                        }
+                    },
                     onChange: async () => {
-                        const savedData = await editor.saver.save();
+                        const savedData = await ref.current?.save();
                         const newInputValue: any = JSON.stringify(savedData);
                         clearTimeout(saveTimeoutRef.current);
                         saveTimeoutRef.current = setTimeout(() => {
                             onSave(newInputValue)
                         }, 500);
                     },
-                    onReady: () => {
-                        ref.current = editor;
-                    },
                     data: data,
                 })
-            }
+                ref.current = editor;
 
+            }
         } catch (error) {
             console.log(error)
         }
     }
-
     return (
         <div
-            className='p-4 bg-cover bg-center rounded-md mb-4 bg-background dark:bg-dark-background'
+            className='min-h-[400px] editor-container p-4 bg-cover bg-center rounded-md mb-4 bg-background dark:bg-dark-background transition-theme'
             style={{
                 // backgroundImage: 'url(https://images.unsplash.com/photo-1692023350707-33d901c2c4fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1771&q=80)'
             }}
         >
-
-            <div id='editorjs' className='text-[0.9rem] font-semibold rounded-md relative sbg-[rgba(0,0,0,0.3)] stext-dark-text'>
-
-            </div>
+            <div id='editorjs' className='text-[0.9rem] font-semibold rounded-md relative sbg-[rgba(0,0,0,0.3)] text-text dark:text-dark-text transition-theme' />
         </div>
     )
 }
@@ -93,11 +97,10 @@ export default Editor;
 const generateTools = async () => {
     const Header = (await import("@editorjs/header")).default;
     const NestedList = (await import("@editorjs/nested-list")).default;
-    // const Paragraph = (await import("@editorjs/paragraph")).default;
+    const Paragraph = (await import("@editorjs/paragraph")).default;
     const Table = (await import("@editorjs/table")).default;
     const Quote = (await import("@editorjs/quote")).default;
-    // const Image = (await import("@editorjs/image")).default;
-    const Image = (await import("@editorjs/simple-image")).default;
+    const SimpleImage = (await import("@editorjs/simple-image")).default;
     const Embed = (await import("@editorjs/embed")).default;
     const Checklist = (await import("@editorjs/checklist")).default;
     const InlineCode = (await import("@editorjs/inline-code")).default;
@@ -105,6 +108,7 @@ const generateTools = async () => {
     const Delimiter = (await import("@editorjs/delimiter")).default;
     const Code = (await import("@editorjs/code")).default;
     const Warning = (await import("@editorjs/warning")).default;
+    const Color = (await import("editorjs-text-color-plugin")).default;
 
     return {
         header: {
@@ -123,6 +127,7 @@ const generateTools = async () => {
         checklist: {
             class: Checklist,
             inlineToolbar: true,
+            shortcut: 'CMD+SHIFT+K',
         },
         table: {
             class: Table,
@@ -140,10 +145,13 @@ const generateTools = async () => {
             class: Delimiter,
             shortcut: 'CMD+SHIFT+D',
         },
-        // paragraph: {
-        //     class: Paragraph,
-        //     inlineToolbar: true,
-        // },
+        image: {
+            class: SimpleImage
+        },
+        paragraph: {
+            class: Paragraph,
+            inlineToolbar: true,
+        },
         warning: {
             class: Warning,
             inlineToolbar: true,
@@ -153,9 +161,18 @@ const generateTools = async () => {
                 messagePlaceholder: 'Message',
             },
         },
+        Color: {
+            class: Color,
+            config: {
+               colorCollections: ['#EC7878','#9C27B0','#673AB7','#3F51B5','#0070FF','#03A9F4','#00BCD4','#4CAF50','#8BC34A','#CDDC39', '#FFF'],
+               defaultColor: '#FF1300',
+               type: 'text', 
+               customPicker: true
+            }     
+          },
         Marker: {
             class: Marker,
-            shortcut: 'CMD+SHIFT+M',
+            shortcut: 'CMD+SHIFT+V',
         },
         quote: {
             class: Quote,
@@ -168,16 +185,15 @@ const generateTools = async () => {
         },
         embed: {
             class: Embed,
+            inlineToolbar: true,
             config: {
                 services: {
                     youtube: true,
                     coub: true
-                }
+                },
             }
         },
-        image: {
-            class: Image,
-        },
+
     }
 
 }

@@ -7,6 +7,7 @@ import { CreateTopic } from '@services/topic/types';
 import { useRouter } from 'next/navigation';
 import { BsThreeDots } from 'react-icons/bs';
 import { MdDelete, MdOpenInNew } from 'react-icons/md';
+import { backgroundImages } from '../topic/TopicImages';
 
 const TopicFolderDropdown = ({ topic }) => {
     const dispatch = useAppDispatch();
@@ -16,6 +17,8 @@ const TopicFolderDropdown = ({ topic }) => {
         e.preventDefault();
         e.stopPropagation();
         try {
+            const randomIndex = Math.floor(Math.random() * backgroundImages.length);
+
             const newTopic: CreateTopic = {
                 title: 'Untitled',
                 parent: topic.id,
@@ -30,7 +33,8 @@ const TopicFolderDropdown = ({ topic }) => {
                             placeholder: 'Write your content here'
                         }]
                     }
-                )
+                ),
+                background: backgroundImages[randomIndex],
             }
             const action: PayloadAction<any> = await dispatch(TopicThunks.create(newTopic))
             router.push(`/topic/${action.payload.id}`)

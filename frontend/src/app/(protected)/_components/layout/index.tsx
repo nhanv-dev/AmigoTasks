@@ -19,7 +19,6 @@ const Layout: React.FC<Props> = ({ children }) => {
             <div className='flex bg-background-50 dark:bg-dark-background-50 transition-all'>
                 <Sidebar />
                 <Header />
-                <ExpandedSidebar />
                 <Main>
                     {children}
                 </Main>

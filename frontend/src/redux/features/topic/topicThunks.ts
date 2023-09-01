@@ -25,6 +25,10 @@ export const TopicThunks = {
         return await topicService.getByConditions({ status });
     }),
 
+    getByConditions: createAsyncThunk<Topic[], { status?: TopicStatus, parent?: string }>("topic/get-by-conditions", async ({ status, parent }) => {
+        return await topicService.getByConditions({ status, parent });
+    }),
+
     getByParent: createAsyncThunk<TopicFolder[], string>("topic/get-by-parent", async (parent) => {
         return await topicService.getByParent(parent);
     }),

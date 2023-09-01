@@ -21,4 +21,9 @@ export class CreateTopicDto {
   @IsString()
   @IsOptional()
   workspace: string = null;
+
+
+  @IsString()
+  @IsOptional()
+  background: string = null;
 }

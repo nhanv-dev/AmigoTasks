@@ -5,11 +5,9 @@ import { useLayoutContext } from '@provider/LayoutProvider';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { SiOpenai } from 'react-icons/si';
-import { GiTwirlyFlower } from 'react-icons/gi';
-import tw from "tailwind-styled-components";
 import { MdGTranslate } from 'react-icons/md';
-import ChatApp from '../chat-gpt';
+import { SiOpenai } from 'react-icons/si';
+import tw from "tailwind-styled-components";
 
 const handleActive = (pathname: string | null) => {
   if (!pathname) return -1;
@@ -17,7 +15,7 @@ const handleActive = (pathname: string | null) => {
 }
 
 const Sidebar = () => {
-  const { isOpenSidebar, setLayout } = useLayoutContext();
+  const { isOpenSidebar, setLayout, contentSidebar } = useLayoutContext();
 
   const pathname = usePathname();
   const [active, setActive] = useState(() => handleActive(pathname))
@@ -27,59 +25,68 @@ const Sidebar = () => {
   }, [pathname])
 
   return (
-    <div className={`w-sidebar h-[100vh] fixed top-0 left-0 bottom-0 border-r border-border dark:border-dark-border bg-background-50 dark:bg-dark-background-50 transition-all`}>
-      <div className='h-full py-4 flex flex-col justify-between gap-5'>
-        <div className='flex-1 flex flex-col items-center gap-2 w-full'>
-          {dashboardRoutes.map((route, index) => (
-            <LinkWrapper $active={active === index} key={route.href}>
-              <Link
-                href={route.href}
+    <div className={`w-[360px] h-[100vh] rounded-md fixed top-0 left-0 bottom-0 p-3`}>
+      <div className='flex h-full rounded-md bg-background dark:bg-dark-background transition-theme'>
+        <div className='px-1 border-r border-border dark:border-dark-border h-full py-4 flex flex-col justify-between gap-5'>
+          <div className='flex-1 flex flex-col items-center gap-2 w-full'>
+            {dashboardRoutes.map((route, index) => (
+              <LinkWrapper $active={active === index} key={route.href}>
+                <Link
+                  href={route.href}
+                  tabIndex={-1}
+                  className={`${active === index ? 'text-primary hover:text-primary-hover' : 'text-text-50 hover:text-text dark:text-dark-text-50 dark:hover:text-dark-text'} flex items-center justify-center gap-1 flex-col`}
+                >
+                  <p className='text-[1.25rem]'>
+                    {route.icon}
+                  </p>
+                  <p className='text-xs font-semibold'>
+                    {route.title}
+                  </p>
+                </Link>
+              </LinkWrapper>
+            ))}
+          </div>
+          <div className='flex flex-col items-center gap-2'>
+            <LinkWrapper $active={false}>
+              <button
                 tabIndex={-1}
-                className={`${active === index ? 'text-primary hover:text-primary-hover' : 'text-text-50 hover:text-text dark:text-dark-text-50 dark:hover:text-dark-text'} flex items-center justify-center gap-1 flex-col`}
+                onClick={() => {
+
+                }}
+                className={`text-text-50 hover:text-text dark:text-dark-text-50 dark:hover:text-dark-text flex items-center justify-center gap-1 flex-col`}
               >
-                <p className='text-[1.25rem]'>
-                  {route.icon}
+                <p className={`text-[1.25rem]`}>
+                  <MdGTranslate />
                 </p>
                 <p className='text-xs font-semibold'>
-                  {route.title}
+                  Translate
                 </p>
-              </Link>
+              </button>
             </LinkWrapper>
-          ))}
+            <LinkWrapper $active={false}>
+              <button
+                tabIndex={-1}
+                onClick={() => {
+
+                }}
+                className={`text-text-50 hover:text-text dark:text-dark-text-50 dark:hover:text-dark-text flex items-center justify-center gap-1 flex-col`}
+              >
+                <p className={`text-[1.25rem]`}>
+                  <SiOpenai />
+                </p>
+                <p className='text-xs font-semibold'>
+                  Chat GPT
+                </p>
+              </button>
+            </LinkWrapper>
+          </div>
         </div>
-        <div className='flex flex-col items-center gap-2'>
-          <LinkWrapper $active={false}>
-            <button
-              tabIndex={-1}
-              onClick={() => {
-
-              }}
-              className={`text-text-50 hover:text-text dark:text-dark-text-50 dark:hover:text-dark-text flex items-center justify-center gap-1 flex-col`}
-            >
-              <p className={`text-[1.25rem]`}>
-                <MdGTranslate />
-              </p>
-              <p className='text-xs font-semibold'>
-                Translate
-              </p>
-            </button>
-          </LinkWrapper>
-          <LinkWrapper $active={false}>
-            <button
-              tabIndex={-1}
-              onClick={() => {
-
-              }}
-              className={`text-text-50 hover:text-text dark:text-dark-text-50 dark:hover:text-dark-text flex items-center justify-center gap-1 flex-col`}
-            >
-              <p className={`text-[1.25rem]`}>
-                <SiOpenai />
-              </p>
-              <p className='text-xs font-semibold'>
-                Chat GPT
-              </p>
-            </button>
-          </LinkWrapper>
+        <div className={`${isOpenSidebar ? 'w-full' : 'w-0'} p-3 bg-background dark:bg-dark-background z-[11] transition-all`}>
+          <div className="min-w-full overflow-hidden h-full pr-0">
+            <div className='h-full gap-4 bg-background-50 dark:bg-dark-background transition-all'>
+              {contentSidebar}
+            </div>
+          </div>
         </div>
       </div>
     </div>

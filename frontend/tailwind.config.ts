@@ -67,13 +67,6 @@ const config: Config = {
       boxShadow: {
         'tiny': '0 -2px 8px 0 rgb(0 0 0 / 10%), 0 4px 8px 0 rgb(0 0 0 / 10%)'
       },
-      width: {
-        'sidebar': '80px',
-        'expandSidebar': '280px',
-      },
-      margin: {
-        'sidebar': '80px',
-      }
     },
     screens: {
       'sm': '640px',

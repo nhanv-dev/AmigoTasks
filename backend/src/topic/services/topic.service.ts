@@ -18,7 +18,7 @@ export class TopicService extends BaseServiceAbstract<Topic> {
 
   async updateTopic(id: string, updateTopicDto: UpdateTopicDto) {
     const topic = await this.findOne(updateTopicDto.id);
-    if (topic.parent && topic.parent !== updateTopicDto.parent) {
+    if (topic && topic.parent && topic.parent !== updateTopicDto.parent) {
 
     }
     const savedTopic = await this.update(id, updateTopicDto);

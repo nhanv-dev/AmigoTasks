@@ -1129,13 +1129,6 @@
   dependencies:
     "@codexteam/icons" "^0.0.5"
 
-"@editorjs/image@^2.8.1":
-  version "2.8.1"
-  resolved "https://registry.yarnpkg.com/@editorjs/image/-/image-2.8.1.tgz#f78dd5ba52356d9fb2f61ff7498ea6c1510a80e4"
-  integrity sha512-4WscDAoi6OO0F6L7N1mkQymADwj8hHgH/ICk5wGRPdkesUZW1TgldX8XvSmy+f5VylsEi3F/gUggaZsrYxu2sA==
-  dependencies:
-    "@codexteam/icons" "^0.0.6"
-
 "@editorjs/inline-code@^1.4.0":
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@editorjs/inline-code/-/inline-code-1.4.0.tgz#25e9728bc6c73b7af2a009689679b4950e744417"
@@ -3744,6 +3737,18 @@ doctrine@^3.0.0:
   dependencies:
     esutils "^2.0.2"
 
+editorjs-text-color-plugin@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/editorjs-text-color-plugin/-/editorjs-text-color-plugin-2.0.4.tgz#6e143c9507abe59da54ca0f8d6f9ffb14447c29d"
+  integrity sha512-QpibTkOxs3ndlKNOLT8ZlC4ktc3/eKIajiLO0Jm/hh9AJug/CrM1/rAvHy+ldfUKavbWeI+YZvgjad0YTyoyGw==
+
+editorjs-undo@^2.0.22:
+  version "2.0.22"
+  resolved "https://registry.yarnpkg.com/editorjs-undo/-/editorjs-undo-2.0.22.tgz#3250418ce61f8fde05ea04e141ca5920e0894650"
+  integrity sha512-g3S3mDwUzOKYFS8uLr84b0nwMdV5YPvmVrrr9g2C0UrKdJSPFQUzoJY4HB+O4mvBsMvNJr9nnTFi/ahGpd0vuQ==
+  dependencies:
+    vanilla-caret-js "^1.0.1"
+
 electron-to-chromium@^1.4.477:
   version "1.4.501"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.501.tgz#05e97f61d109dc7a5ab246a81bb3fb892edfe954"
@@ -4927,6 +4932,11 @@ natural-compare@^1.4.0:
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
   integrity sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==
 
+next-themes@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/next-themes/-/next-themes-0.2.1.tgz#0c9f128e847979daf6c67f70b38e6b6567856e45"
+  integrity sha512-B+AKNfYNIzh0vqQQKqQItTS8evEouKD7H5Hj3kmuPERwddR2TxvDSFZuTj6T7Jfn1oyeUyJMydPl1Bkxkh0W7A==
+
 next@13.4.19:
   version "13.4.19"
   resolved "https://registry.yarnpkg.com/next/-/next-13.4.19.tgz#2326e02aeedee2c693d4f37b90e4f0ed6882b35f"
@@ -5979,6 +5989,11 @@ util-deprecate@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
   integrity sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==
+
+vanilla-caret-js@^1.0.1:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/vanilla-caret-js/-/vanilla-caret-js-1.1.0.tgz#851acd7be81998223ce69ae1b62e03f472fa4e90"
+  integrity sha512-vl3R4Xjqb+xnM0gYyg+wcqWGYwKKnkz58Yj29/FQB+w+yP7R8IR1DGoJnDIs05moEZiGlQUTabPMoEtnQNcrpQ==
 
 watchpack@2.4.0:
   version "2.4.0"

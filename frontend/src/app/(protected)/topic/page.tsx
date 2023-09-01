@@ -12,7 +12,7 @@ const Topic = () => {
             <div className='px-4 pt-4'>
                 <CustomTabs
                     tabs={[
-                        { label: 'All', panel: <TopicList status={null} /> },
+                        { label: 'All', panel: <TopicList /> },
                         { label: 'New', panel: <TopicList status={TopicStatus.NEW} /> },
                         { label: 'In Progress', panel: <TopicList status={TopicStatus.IN_PROGRESS} /> },
                         { label: 'Completed', panel: <TopicList status={TopicStatus.COMPLETED} /> },

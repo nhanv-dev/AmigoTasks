@@ -6,7 +6,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (!process.env.URL_SERVER_API) throw Error("URL_SERVER_API environment variable is empty");
     req.url = process.env.URL_SERVER_API + req.url;
     let response: any | null = null;
-    console.log(req.method, req.url)
+    console.log(req.method, req.url, req.body)
     try {
         switch (req.method) {
             case "GET":

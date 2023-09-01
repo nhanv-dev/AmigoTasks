@@ -1,11 +1,13 @@
 import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/react';
 import { TopicSelectors } from '@redux/features/topic/topicSelectors';
-import { useAppSelector } from '@redux/hook';
+import { TopicThunks } from '@redux/features/topic/topicThunks';
+import { useAppDispatch, useAppSelector } from '@redux/hook';
 import React from 'react';
 
 const TopicStatus = () => {
     const { topic } = useAppSelector(TopicSelectors.getTopic());
     const [selectedKeys, setSelectedKeys] = React.useState<any>(new Set([topic?.status]));
+    const dispatch = useAppDispatch();
 
     const selectedValue = React.useMemo(
         () => Array.from(selectedKeys).join(", ").replaceAll("_", " "),
@@ -32,7 +34,13 @@ const TopicStatus = () => {
                 disallowEmptySelection
                 selectionMode="single"
                 selectedKeys={selectedKeys}
-                onSelectionChange={setSelectedKeys}
+                onSelectionChange={(keys: any) => {
+                    setSelectedKeys(keys)
+                    for (const value of keys) {
+                        if (!topic) return;
+                        dispatch(TopicThunks.update({ id: topic.id, status: value }))
+                    }
+                }}
                 itemClasses={{
                     base: "rounded-sm",
                     title: "font-semibold text-[0.85rem]",

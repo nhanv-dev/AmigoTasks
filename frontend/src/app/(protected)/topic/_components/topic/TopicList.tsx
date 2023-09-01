@@ -1,27 +1,32 @@
 import { useLayoutContext } from '@/provider/LayoutProvider';
+import Message from '@app/(protected)/_components/message/Message';
+import { CircularProgress } from '@nextui-org/react';
 import { TopicSelectors } from '@redux/features/topic/topicSelectors';
 import { TopicThunks } from '@redux/features/topic/topicThunks';
 import { useAppDispatch, useAppSelector } from '@redux/hook';
 import { TopicStatus } from '@services/topic/types';
 import { useEffect } from 'react';
 import TopicCard from './TopicCard';
-import InnerLoading from '@app/(protected)/_components/loading/InnerLoading';
-import Message from '@app/(protected)/_components/message/Message';
-import { CircularProgress } from '@nextui-org/react';
 
 interface Props {
-    status: TopicStatus | null;
+    id?: string;
+    status?: TopicStatus;
 }
 
-const TopicList = ({ status }: Props) => {
+const TopicList = ({ id, status }: Props) => {
     const dispatch = useAppDispatch();
     const { isOpenSidebar } = useLayoutContext();
     const { topics } = useAppSelector(TopicSelectors.getTopics());
     const { loading } = useAppSelector(TopicSelectors.getLoading());
 
     useEffect(() => {
-        if (status) dispatch(TopicThunks.getByStatus(status))
-        else dispatch(TopicThunks.getAll())
+        if (id) {
+            dispatch(TopicThunks.getByConditions({ status, parent: id }));
+            console.log(id)
+        } else {
+            if (status) dispatch(TopicThunks.getByStatus(status))
+            else dispatch(TopicThunks.getAll())
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
