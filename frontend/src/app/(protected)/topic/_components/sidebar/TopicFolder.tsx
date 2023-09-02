@@ -100,9 +100,9 @@ const LabelTopic = ({ item }) => {
                     {/* <p className='text-xs px-2 bg-primary-50 rounded-full'>
                         {item.root.status}
                     </p> */}
-                    <p className='text-[0.675rem] flex-1 whitespace-nowrap overflow-hidden'>
+                    {/* <p className='text-[0.675rem] flex-1 whitespace-nowrap overflow-hidden'>
                         {DataFormatter.formatDateToDaysAgo(item.root.updatedAt)}
-                    </p>
+                    </p> */}
                 </div>
             </div>
         </div>

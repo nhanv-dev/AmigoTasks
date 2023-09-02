@@ -14,16 +14,16 @@ const Header = () => {
   const onSearch = () => { }
 
   return (
-    <div className={`${isOpenSidebar ? 'left-[380px]' : 'left-[80px]'} z-50 fixed top-0 right-0 pb-0 bg-background-50 dark:bg-dark-background-50 transition-all`}>
+    <div className={`${isOpenSidebar ? 'left-[360px]' : 'left-[80px]'} z-50 fixed top-0 right-0 pb-0 bg-background-50 dark:bg-dark-background-50 transition-all`}>
       <div className='h-[58px] flex items-center py-3 px-5 bg-background border-b  dark:bg-gray-800 dark:border-gray-700  text-text dark:text-dark-text w-full min-w-full shadow-sm transition-all'>
         <div className='flex-1 flex items-center justify-between'>
           <div className='flex-1 flex items-center gap-4'>
-            <MenuInput
+            {/* <MenuInput
               isOpen={isOpenSidebar}
               toggleMenu={() => {
                 setLayout({ isOpenSidebar: !isOpenSidebar, contentSidebar })
               }}
-            />
+            /> */}
 
             {/* <SearchInput onChange={onSearch} /> */}
           </div>

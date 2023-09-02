@@ -76,12 +76,12 @@ const TopicCard = ({ topic }: Props) => {
                     </div>
                     <div className="px-3 pt-5 pb-3 flex flex-col">
                         <Link href={`/topic/${topic.id}`}
-                            className="mb-2 text-lg font-bold text-dark-text dark:text-dark-text transition-all"
+                            className="mb-0.5 text-lg font-bold text-dark-text dark:text-dark-text transition-all"
                         >
                             {topic.title}
                         </Link>
                         <div className='flex items-center gap-4 justify-between'>
-                            <p className='text-[0.75rem] text-dark-text dark:text-dark-text transition-theme'>
+                            <p className='text-[0.75rem] font-semibold text-dark-text dark:text-dark-text transition-theme'>
                                 {DataFormatter.formatDateToDaysAgo(topic.createdAt)}
                             </p>
 

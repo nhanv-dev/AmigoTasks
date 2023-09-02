@@ -1,12 +1,14 @@
 "use client"
 
 import { dashboardRoutes } from '@/config/routes';
+import { ScrollShadow } from '@nextui-org/react';
 import { useLayoutContext } from '@provider/LayoutProvider';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { MdGTranslate } from 'react-icons/md';
-import { SiOpenai } from 'react-icons/si';
+import { RiBox2Fill } from 'react-icons/ri';
+import { SiBlueprint, SiOpenai } from 'react-icons/si';
 import tw from "tailwind-styled-components";
 
 const handleActive = (pathname: string | null) => {
@@ -25,10 +27,22 @@ const Sidebar = () => {
   }, [pathname])
 
   return (
-    <div className={`w-[360px] h-[100vh] rounded-md fixed top-0 left-0 bottom-0 p-3`}>
-      <div className='flex h-full rounded-md bg-background dark:bg-dark-background transition-theme'>
-        <div className='px-1 border-r border-border dark:border-dark-border h-full py-4 flex flex-col justify-between gap-5'>
+    <div className={`w-[360px] h-[100vh] rounded-md fixed top-0 left-0 bottom-0`}>
+      <div className='flex h-full rounded-md bg-background-50 dark:bg-dark-background transition-theme'>
+        <div className='px-2 border-r border-border dark:border-dark-border h-full py-4 flex flex-col justify-between gap-5'>
           <div className='flex-1 flex flex-col items-center gap-2 w-full'>
+            <div className='bg-primary/40 w-[60px] h-[54px] flex items-center justify-center rounded-md' >
+              <Link
+                href={'/'}
+                tabIndex={-1}
+                className={` text-text-50 hover:text-text dark:text-dark-text-50 dark:hover:text-dark-text flex items-center justify-center`}
+              >
+                <p className='text-[2rem]'>
+                  <SiBlueprint />
+                </p>
+
+              </Link>
+            </div>
             {dashboardRoutes.map((route, index) => (
               <LinkWrapper $active={active === index} key={route.href}>
                 <Link
@@ -81,10 +95,12 @@ const Sidebar = () => {
             </LinkWrapper>
           </div>
         </div>
-        <div className={`${isOpenSidebar ? 'w-full' : 'w-0'} p-3 bg-background dark:bg-dark-background z-[11] transition-all`}>
-          <div className="min-w-full overflow-hidden h-full pr-0">
-            <div className='h-full gap-4 bg-background-50 dark:bg-dark-background transition-all'>
-              {contentSidebar}
+        <div className={`${isOpenSidebar ? 'w-full' : 'w-0'} bg-background dark:bg-dark-background z-[11] transition-all`}>
+          <div className="min-w-full overflow-hidden h-full">
+            <div className='h-full gap-4 rounded-md bg-background dark:bg-dark-background transition-all'>
+              <ScrollShadow className='h-full' hideScrollBar>
+                {contentSidebar}
+              </ScrollShadow>
             </div>
           </div>
         </div>
@@ -100,8 +116,8 @@ interface LinkWrapperProps {
 }
 
 const LinkWrapper = tw.div<LinkWrapperProps>`
-  w-[66px]
-  h-[60px]
+  w-[62px]
+  h-[54px]
   flex
   items-center
   justify-center

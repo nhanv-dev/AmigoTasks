@@ -9,7 +9,6 @@ const config: Config = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
-
   ],
   plugins: [
     nextui()
@@ -20,10 +19,8 @@ const config: Config = {
 
         // ─── PRIMARY COLOR ────────────────────────────────────
 
-        'primary': '#0083ff',
-        'primary-hover': '#346BA0',
-        'primary-bg': '#dfe7f6',
-        'primary-bg-hover': '#CDD8EC',
+        'primary': '#4169E1',
+        'primary-hover': '#346BA0', 
 
         'dark-primary': ' ',
         'dark-primary-hover': ' ',

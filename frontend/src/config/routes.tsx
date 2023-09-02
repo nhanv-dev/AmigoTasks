@@ -6,10 +6,11 @@ import { RxGithubLogo } from "react-icons/rx";
 import { FaTasks } from "react-icons/fa";
 import { LuHistory } from "react-icons/lu";
 import { SiBlueprint } from "react-icons/si";
+import { AiOutlineAppstore } from "react-icons/ai";
 
 export const dashboardRoutes = [
     { title: 'Home', icon: <BiHomeAlt />, href: '/home' },
-    { title: 'Tasks', icon: <FaTasks />, href: '/workspace' },
+    { title: 'Tasks', icon: <AiOutlineAppstore />, href: '/workspace' },
     { title: 'Topic', icon: <MdOutlineTopic />, href: '/topic' },
     { title: 'Issue', icon: <BsStack />, href: '/issue' },
     { title: 'Roadmap', icon: <SiBlueprint />, href: '/roadmaps' },

@@ -6,7 +6,7 @@ import { Switch } from "@nextui-org/react";
 import { useTheme } from "next-themes";
 
 const DarkMode = () => {
-    const [selected, setSelected] = useState(false);
+    const [selected, setSelected] = useState(true);
     const { theme, setTheme } = useTheme()
 
     const changeMode = (mode: boolean) => {
@@ -20,7 +20,9 @@ const DarkMode = () => {
         <Switch
             tabIndex={-1}
             size="md"
-
+            classNames={{
+                wrapper: 'border-none'
+            }}
             isSelected={selected}
             onValueChange={changeMode}
             thumbIcon={({ isSelected, className }) =>

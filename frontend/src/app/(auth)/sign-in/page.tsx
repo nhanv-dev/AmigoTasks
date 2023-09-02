@@ -27,7 +27,7 @@ const Login = () => {
         >
           <source src='/static/videos/login-page.mp4' type='video/mp4' />
         </video>
-        <div className='absolute top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.4)]'/>
+        <div className='absolute top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.4)]' />
         <div className='absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] bg-dark-background shadow-md flex items-start gap-3 rounded-lg min-w-[850px] max-w-[100vh]'>
           <div className='h-full w-[400px] p-4'>
             <div className='w-[400px] h-full relative'>
@@ -52,15 +52,12 @@ const Login = () => {
           </div>
           <div className='flex-1 p-4 px-8'>
             <div className='mb-8 mt-1'>
-              <h3 className='text-xl text-dark-text font-bold'>
-                Welcome back
+              <h3 className='text-2xl text-dark-text font-extrabold'>
+                Sign in to Design Me
               </h3>
             </div>
-            <form
-              onSubmit={handleSubmit}
-              className='mb-5'
-            >
-              <div className='mb-5 flex flex-col gap-2'>
+            <form onSubmit={handleSubmit} className='mb-3'>
+              <div className='mb-3 flex flex-col gap-2'>
                 <label className='text-dark-text-50 font-bold text-md'>
                   Username
                 </label>
@@ -69,7 +66,7 @@ const Login = () => {
                   className='rounded-md text-dark-text font-semibold text-md bg-dark-background-50 border-none outline-none py-2.5 px-3 shadow-sm border'
                 />
               </div>
-              <div className='mb-8 flex flex-col gap-2'>
+              <div className='mb-6 flex flex-col gap-2'>
                 <label className='text-dark-text-50 font-bold text-md'>
                   Password
                 </label>
@@ -108,14 +105,14 @@ const Login = () => {
                 Sign In
               </Button>
             </form>
-            <div className='flex items-center gap-2 justify-between my-6'>
+            <div className='flex items-center gap-2 justify-between mt-8 mb-7 opacity-40'>
               <p className='flex-1 h-[1px] rounded-full border border-dark-text-50' />
               <p className='font-semibold text-xs text-dark-text-50'>
                 OR
               </p>
               <p className='flex-1 h-[1px] rounded-full border border-dark-text-50' />
             </div>
-            <div className='pb-2.5'>
+            <div className='pb-2'>
               <SignInWithGoogle />
               <SignInWithGithub />
             </div>

@@ -8,15 +8,17 @@ import { TopicSelectors } from '@redux/features/topic/topicSelectors';
 import { TopicActions } from '@redux/features/topic/topicSlice';
 import { TopicThunks } from '@redux/features/topic/topicThunks';
 import { useAppDispatch, useAppSelector } from '@redux/hook';
-import { DetailTopic, UpdateTopic } from '@services/topic/types';
+import { DetailTopic, Topic } from '@services/topic/types';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { AiTwotoneEdit } from 'react-icons/ai';
 import AutoSaveTextarea from '../_components/editor/AutoSaveTextarea';
 import Editor from '../_components/editor/Editor';
 import TopicDetail from '../_components/topic/TopicDetail';
-import TopicPath from '../_components/topic/TopicPath';
 import { backgroundImages } from '../_components/topic/TopicImages';
+import TopicPath from '../_components/topic/TopicPath';
+import TopicCard from '../_components/topic/TopicCard';
+import Link from 'next/link';
 
 
 interface Props {
@@ -26,6 +28,7 @@ interface Props {
 const Page = ({ params }: Props) => {
   const dispatch = useAppDispatch();
   const [topic, setTopic] = useState<DetailTopic | null>(null);
+  const [topics, setTopics] = useState<Topic[]>([]);
   const { topicLoading } = useAppSelector(TopicSelectors.getLoading());
   const router = useRouter();
 
@@ -34,11 +37,12 @@ const Page = ({ params }: Props) => {
     const fetch = async () => {
       const action: any = await dispatch(TopicThunks.getById(params.id));
       setTopic(action.payload)
-
-
+      const relatedTopics: any = await dispatch(TopicThunks.getByParent(params.id));
+      setTopics(relatedTopics.payload)
       if (action.payload?.id) return;
       router.push('/topic');
     }
+
     fetch()
     return () => {
       dispatch(TopicActions.setTopic(null))
@@ -65,7 +69,7 @@ const Page = ({ params }: Props) => {
           className='z-0 absolute w-full h-[450px] bg-fixed bg-cover bg-center bg-no-repeat'
         >
           <div className='z-0 absolute top-0 left-0 bottom-0 right-0 bg-[rgba(0,0,0,0.4)]' />
-          <div className='z-0 absolute top-4 lg:left-[60px] left-4 lg:right-[60px] right-4 flex gap-4 justify-between'>
+          <div className='z-0 absolute top-4 left-4 right-4 flex gap-4 justify-between'>
             <div className='flex-1 text-dark-text p-4 bg-[rgba(0,0,0,0.5)] backdrop-blur-sm rounded-md'>
               Workspace
               <div>
@@ -84,7 +88,7 @@ const Page = ({ params }: Props) => {
             </div>
           </div>
         </div>
-        <div className='lg:px-[60px] px-4 pt-[300px]'>
+        <div className='px-4 pt-[300px]'>
           <div className='flex flex-wrap items-start gap-4 justify-between h-full'>
             {/* <div className='sticky top-4 min-w-[280px] max-w-[280px]'>
               <ContainerCard classNames='h-full'>
@@ -122,11 +126,26 @@ const Page = ({ params }: Props) => {
               </ContainerCard>
             </div>
           </div>
-          <div>
-            <ContainerCard>
-              asd
-            </ContainerCard>
-          </div>
+          {topics.length > 0 &&
+            <div className='mt-4'>
+              <div className='mb-4 flex items-center justify-between gap-4'>
+                <h5 className=' font-bold text-xl'>
+                  Related Topics
+                </h5>
+                <Link
+                  href={`/topic/${params.id}/items`}
+                  className='font-semibold text-md text-text-50 dark:text-dark-text-50'
+                >
+                  View
+                </Link>
+              </div>
+              <div className={`xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-2 grid gap-4 mb-5 pt-1.5 px-0 transition-all`}>
+                {topics.map(topic => (
+                  <TopicCard key={topic.id} topic={topic} />
+                ))}
+              </div>
+            </div>
+          }
         </div>
       </div>
     </Helmet >

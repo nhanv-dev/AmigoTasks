@@ -22,7 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="icon" href="/favicon.ico" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
-      <body className={`${inter.className} dark`} style={{ position: 'relative' }}>
+      <body className={`${inter.className}`} style={{ position: 'relative' }}>
         <Providers>
           <NextUIProvider>
             <NextThemesProvider attribute="class" defaultTheme="dark">
