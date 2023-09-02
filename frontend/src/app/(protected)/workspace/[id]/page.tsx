@@ -42,7 +42,7 @@ const WorkSpace = ({ params }: Props) => {
     }, [params, workspaces])
 
     return (
-        <Helmet title={workspace?.title ? `DM - ${workspace.title}` : 'DM - Workspace'}>
+        <Helmet title={workspace?.title ? ` ${workspace.title} | AmigoTasks` : 'Workspace | AmigoTasks'}>
             <div className='px-4 pt-4'>
                 <TaskModal />
                 <WorkspaceProfile />

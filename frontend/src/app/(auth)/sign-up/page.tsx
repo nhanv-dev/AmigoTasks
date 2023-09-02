@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { Button } from '@nextui-org/react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const SignUp = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -29,7 +30,10 @@ const SignUp = () => {
         <div className='absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] bg-dark-background shadow-md flex items-start gap-3 rounded-lg min-w-[850px] max-w-[100vh]'>
           <div className='h-full w-[400px] p-4'>
             <div className='w-[400px] h-full relative'>
-              <img
+              <Image
+                width={0}
+                height={0}
+                alt='sign up'
                 src='https://images.unsplash.com/photo-1493839523149-2864fca44919?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1965&q=80'
                 className='w-full object-cover rounded-lg'
               />
@@ -113,7 +117,7 @@ const SignUp = () => {
 
             <div className='flex items-center justify-center'>
               <p className='flex items-center justify-center gap-1 font-semibold text-dark-text-50 text-md'>
-                Don't have an account?
+                Don&apos;t have an account?
                 <Link
                   href={"/sign-up"}
                   className='text-dark-text'

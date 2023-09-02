@@ -8,6 +8,7 @@ import { BiFolder } from 'react-icons/bi';
 import { FaStar } from 'react-icons/fa';
 import { MdOutlineModeComment } from 'react-icons/md';
 import { backgroundImages } from './TopicImages';
+import { Image } from "@nextui-org/react";
 
 interface Props {
     topic: Topic;
@@ -18,15 +19,26 @@ const TopicCard = ({ topic }: Props) => {
 
     return (
         <div className=' border rounded-md dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7] transition-all'>
+            {/* <Image
+                isZoomed
+                src={topic.background || backgroundImages[0]}
+                alt='topic'
+                fallbackSrc="https://via.placeholder.com/300x200"
+                height={260}
+                classNames={{
+                    wrapper: 'rounded-md',
+                    img: 'rounded-md'
+                }}
+            /> */}
             <Link href={`/topic/${topic.id}`}
                 style={{ backgroundImage: `url(${topic.background || backgroundImages[0]})` }}
-                className="rounded-md w-full bg-cover bg-center overflow-hidden block group relative h-[260px]">
-
-                {topic.parent &&
+                className="h-[260px] rounded-md w-full bg-cover bg-center overflow-hidden block group relative "
+            >
+                {topic?.parent?.title &&
                     <div className='absolute left-1.5 top-1.5'>
                         <Link href={`/topic/${topic.parent.id}`}
                             className='max-w-full line-clamp-1 text-ellipsis bg-primary-50 px-3 py-1 text-sm font- text-text-50 dark:text-dark-text-50 transition-theme shadow-md rounded-full'>
-                            {topic.parent?.title}
+                            {topic.parent.title}
                         </Link>
                     </div>
                 }
@@ -37,13 +49,11 @@ const TopicCard = ({ topic }: Props) => {
                             e.stopPropagation();
                         }}
                         isIconOnly color="danger" aria-label="Like"
-                        className={`${topic.isFeatured ? 'bg-danger' : 'bg-zinc-500 text-zinc-100'} min-w-[26px] min-h-[26px] max-w-[26px] max-h-[26px] p-0 text-[0.9rem] transition-theme shadow-md rounded-full`}
+                        className={`${topic.isFeatured ? 'bg-danger' : 'bg-zinc-400/20 text-zinc-100/20'} min-w-[26px] min-h-[26px] max-w-[26px] max-h-[26px] p-0 text-[0.9rem] transition-theme shadow-md rounded-full`}
                     >
                         <FaStar />
                     </Button>
                 </div>
-
-
                 <div className='absolute bottom-0 left-0 right-0 sgroup-hover:bg-[rgba(0,0,0)] bg-[rgba(0,0,0,0.5)] backdrop-blur-sm transition-all'>
                     <div className='absolute top-[-1.5rem] left-1.5 flex items-center justify-end gap-2'>
                         <p className='flex overflow-hidden items-center justify-start gap-2 mt-2'>

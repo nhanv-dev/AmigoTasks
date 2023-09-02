@@ -1,4 +1,5 @@
 import { Button } from '@nextui-org/react'
+import Image from 'next/image'
 import React from 'react'
 
 const SignInWithGoogle = () => {
@@ -8,7 +9,8 @@ const SignInWithGoogle = () => {
       tabIndex={-1}
       className='w-full mb-3 bg-black rounded-full flex items-center justify-center gap-4 '
     >
-      <img
+      <Image
+        alt='google'
         src='/static/icons/google-logo.png'
         className='w-[20px] h-[20xp]'
       />

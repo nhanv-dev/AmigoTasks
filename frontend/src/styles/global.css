@@ -9,7 +9,7 @@ body {
 }
 
 .transition-theme {
-    transition: color .15s ease, background .15s ease, background-color .15s ease !important;
+    transition: color .15s ease, background .15s ease, border-color .15s ease, background-color .15s ease !important;
 }
 
 div:active:focus,

@@ -1,10 +1,11 @@
-import { ScrollShadow } from '@nextui-org/react';
+import { ScrollShadow, Textarea } from '@nextui-org/react';
 import { TopicSelectors } from '@redux/features/topic/topicSelectors'
 import { useAppSelector } from '@redux/hook'
 import DataFormatter from '@util/DataFormatter';
 import React from 'react'
 import { BiTime } from 'react-icons/bi';
 import { BsThreeDots } from 'react-icons/bs';
+import { TbSend } from 'react-icons/tb';
 
 const TopicComments = () => {
     // const { topic } = useAppSelector(TopicSelectors.getTopic());
@@ -21,6 +22,28 @@ const TopicComments = () => {
                 </button>
             </div>
             <div className='mb-6'>
+                <div className='mb-3'>
+                    <form className='rounded-md bg-default-100 hover:bg-default-200 transition-theme'>
+                        <Textarea
+                            name='content'
+                            maxRows={3}
+                            minRows={3}
+                            placeholder="Write something..."
+                            tabIndex={-1}
+                            classNames={{
+                                base: '',
+                                inputWrapper: 'bg-transparent rounded-md',
+                            }}
+                        />
+                        <div className='flex items-center gap-2 justify-end'>
+                            <button type='submit' className='w-[30px] h-[30px] bg-background dark:bg-dark-background rounded-md flex items-center justify-center'>
+                                <p className='text-[1rem]'>
+                                    <TbSend />
+                                </p>
+                            </button>
+                        </div>
+                    </form>
+                </div>
                 {comments.map((comment) => (
                     <TopicComment key={comment.id} comment={comment} />
                 ))}
@@ -45,7 +68,7 @@ const TopicComment = ({ comment }) => {
                     <p>
                         <BiTime />
                     </p>
-                    <p className='text-sm font-semibold'>
+                    <p className='text-xs font-semibold'>
                         {DataFormatter.formatDateToDaysAgo(comment.createdAt)}
                     </p>
                 </div>

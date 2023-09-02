@@ -20,12 +20,7 @@ const config: Config = {
         // ─── PRIMARY COLOR ────────────────────────────────────
 
         'primary': '#4169E1',
-        'primary-hover': '#346BA0', 
-
-        'dark-primary': ' ',
-        'dark-primary-hover': ' ',
-        'dark-primary-bg': ' ',
-        'dark-primary-bg-hover': ' ',
+        'primary-hover': '#346BA0',
 
         'green': '#00D68F',
         'organe': '#FFA500',
@@ -34,9 +29,9 @@ const config: Config = {
         // ─── THEME BACKGROUND COLOR ────────────────────────────────────
 
         'background': 'white',
-        'dark-background': '#1F2937',
+        'dark-background': '#191A1D',
         'background-50': 'rgb(241, 245, 249)',
-        'dark-background-50': '#0F172A',
+        'dark-background-50': '#121316',
 
         // ─── THEME TEXT COLOR ────────────────────────────────────
 

@@ -65,7 +65,7 @@ const TopicDetail = () => {
                     {DataFormatter.formatDate(topic.updatedAt)}
                 </div>
             </div>
-            {/* <div className='flex justify-between mb-5'>
+            <div className='flex justify-between items-start mb-5'>
                 <div className='flex items-center gap-2 min-w-[150px]'>
                     <p>
                         <AiFillTags />
@@ -77,7 +77,7 @@ const TopicDetail = () => {
                 <div className='flex-1 text-sm font-semibold text-text-50 dark:text-dark-text-50 transition-theme'>
                     <TopicTags />
                 </div>
-            </div> */}
+            </div>
 
             <div className='flex justify-between pb-5 mb-3 border-b'>
                 <div className='flex items-center gap-2 min-w-[150px]'>

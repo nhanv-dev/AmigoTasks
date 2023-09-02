@@ -16,7 +16,7 @@ const WorkspaceProfile = () => {
 
         <div className='mb-3 rounded-md shadow-sm'>
             <div
-                style={{ backgroundImage: `url("/images/bg-wp.jpg")` }}
+                style={{ backgroundImage: `url("/static/images/bg-wp.jpg")` }}
                 className='relative w-full h-[250px] bg-cover bg-center bg-no-repeat rounded-md'
             >
                 <div className='flex items-end justify-start p-4 absolute left-0 bottom-0 bg-[rgba(0,0,0,0.4)] rounded-md w-full h-full'>

@@ -9,9 +9,10 @@ type User = {
 }
 
 const UserAvatar = () => {
-    const [user] = useState<User>({
+    const [user] = useState<User & any>({
         fullName: 'Thanh Nhân',
         userName: 'nhanv-dev',
+        avatar: 'https://th.bing.com/th/id/OIP.Ojdx8R7IOIu8KGUad8YcfgHaHa?pid=ImgDet&rs=1',
     })
 
     return (
@@ -21,12 +22,12 @@ const UserAvatar = () => {
                     as="button"
                     name={user.fullName}
                     description={user.userName}
-
                     className="transition-transform"
-                    avatarProps={{
-                        size: 'sm',
-                        src: "https://th.bing.com/th/id/R.0f8e789e159dcc08df61455201923173?rik=CVA9QIZ5oJUTVA&pid=ImgRaw&r=0&sres=1&sresct=1",
+                    classNames={{
+                        name: 'font-bold',
+                        description: 'font-semibold'
                     }}
+                    avatarProps={{ isBordered: true, color: "primary", size: 'sm', src: user.avatar }}
                 />
             </PopoverTrigger>
             <PopoverContent className="p-1">

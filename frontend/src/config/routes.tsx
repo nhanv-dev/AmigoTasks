@@ -1,27 +1,14 @@
-import { BiHistory, BiHomeAlt } from "react-icons/bi";
-import { BsStack } from "react-icons/bs";
-import { LiaNetworkWiredSolid } from "react-icons/lia";
+import { BiHomeAlt } from "react-icons/bi";
+import { CgGoogleTasks } from "react-icons/cg";
+import { FaRegMap } from "react-icons/fa";
 import { MdOutlineTopic } from "react-icons/md";
-import { RxGithubLogo } from "react-icons/rx";
-import { FaTasks } from "react-icons/fa";
-import { LuHistory } from "react-icons/lu";
-import { SiBlueprint } from "react-icons/si";
-import { AiOutlineAppstore } from "react-icons/ai";
+import { PiAppWindowLight } from "react-icons/pi";
 
 export const dashboardRoutes = [
     { title: 'Home', icon: <BiHomeAlt />, href: '/home' },
-    { title: 'Tasks', icon: <AiOutlineAppstore />, href: '/workspace' },
+    { title: 'Workspace', icon: <PiAppWindowLight />, href: '/workspace' },
+    { title: 'Task', icon: <CgGoogleTasks />, href: '/workspace' },
     { title: 'Topic', icon: <MdOutlineTopic />, href: '/topic' },
-    { title: 'Issue', icon: <BsStack />, href: '/issue' },
-    { title: 'Roadmap', icon: <SiBlueprint />, href: '/roadmaps' },
-    { title: 'Recent', icon: <LuHistory />, href: '/recent' },
+    { title: 'Roadmap', icon: <FaRegMap />, href: '/roadmaps' },
 ]
 
-
-export const headerRoutes = [
-    { title: 'Home', icon: <BiHomeAlt />, href: '/home' },
-    { title: 'Topic', icon: <MdOutlineTopic />, href: '/topic' },
-    { title: 'Project', icon: <RxGithubLogo />, href: '/project' },
-    { title: 'Sprint', icon: <LiaNetworkWiredSolid />, href: '/sprint' },
-    { title: 'Recent', icon: <BiHistory />, href: '/recent' },
-]

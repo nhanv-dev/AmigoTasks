@@ -90,13 +90,7 @@ const Page = ({ params }: Props) => {
         </div>
         <div className='px-4 pt-[300px]'>
           <div className='flex flex-wrap items-start gap-4 justify-between h-full'>
-            {/* <div className='sticky top-4 min-w-[280px] max-w-[280px]'>
-              <ContainerCard classNames='h-full'>
-                <ScrollShadow className='h-[calc(100vh-58px-32px-32px)]' hideScrollBar={true}>
-
-                </ScrollShadow>
-              </ContainerCard>
-            </div> */}
+           
             <div className='relative flex-1 min-w-[650px]'>
               <TopicPath />
               <ContainerCard>
