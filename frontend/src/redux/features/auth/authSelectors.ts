@@ -7,8 +7,8 @@ interface PartialAuthState {
 
 const AuthStateSelector = (state: PartialAuthState) => state.auth;
 
-export const TaskSelectors = {
+export const AuthSelectors = {
     getUser: () => createSelector(AuthStateSelector, ({ user }) => user),
 
-    getStatus: () => createSelector(AuthStateSelector, ({ loading, isSignedInFail, isSignedInSuccess }) => ({ loading, isSignedInFail, isSignedInSuccess })),
+    getStatus: () => createSelector(AuthStateSelector, ({ loading, isSignedInSuccess }) => ({ loading, isSignedInSuccess })),
 }

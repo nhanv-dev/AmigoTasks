@@ -14,7 +14,6 @@ export class TopicRepository extends BaseRepositoryAbstract<Topic> implements To
     super(topicModel);
   }
 
-
   async findDetailTopic(id: string) {
     return this.topicModel
       .findOne({ _id: id, deletedAt: null })

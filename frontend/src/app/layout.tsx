@@ -23,13 +23,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
       <body className={`${inter.className}`} style={{ position: 'relative' }}>
-        <SessionProvider>
-          <Providers>
+        <Providers>
+          <SessionProvider>
             <NextUIProvider>
               {children}
             </NextUIProvider>
-          </Providers>
-        </SessionProvider>
+          </SessionProvider>
+        </Providers>
       </body>
     </html>
   )

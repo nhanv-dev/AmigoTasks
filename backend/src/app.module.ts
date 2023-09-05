@@ -6,14 +6,16 @@ import { TopicModule } from './topic/topic.module';
 import { WorkspaceModule } from './workspace/workspace.module';
 import { CommentModule } from './comment/comment.module';
 import { TaskModule } from './task/task.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
     DatabaseModule,
+    UserModule,
     TopicModule,
     WorkspaceModule,
     TaskModule,
-    CommentModule
+    CommentModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -22,11 +22,12 @@ const DarkMode = () => {
         <>
             <Button
                 onClick={() => { changeMode(!selected) }}
-                className="min-w-[46px] min-h-[44px] max-w-[46px] max-h-[44px] rounded-md text-[1.4rem] hover:shadow-sm
-                hover:bg-background bg-[transparent]
-                dark:hover:bg-primary/20"
+                className="min-w-[40px] min-h-[40px] max-w-[40px] max-h-[40px] rounded-full hover:shadow-sm
+                hover:bg-background bg-[transparent] dark:hover:bg-primary/20"
             >
-                {selected ? <BsMoon /> : <BsSun />}
+                <span className="text-[1.2rem]">
+                    {selected ? <BsMoon /> : <BsSun />}
+                </span>
             </Button>
             <Switch
                 tabIndex={-1}

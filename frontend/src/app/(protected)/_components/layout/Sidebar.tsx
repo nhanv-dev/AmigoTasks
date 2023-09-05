@@ -6,14 +6,15 @@ import { useLayoutContext } from '@provider/LayoutProvider';
 import { WorkspaceSelectors } from '@redux/features/workspace/workspaceSelectors';
 import { WorkspaceThunks } from '@redux/features/workspace/workspaceThunks';
 import { useAppDispatch, useAppSelector } from '@redux/hook';
+import { signOut } from "next-auth/react";
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { BiLogOut } from 'react-icons/bi';
 import { BsFillCaretRightFill } from 'react-icons/bs';
+import { MdUnfoldMore } from 'react-icons/md';
 import tw from "tailwind-styled-components";
 import UserAvatar from '../user/UserAvatar';
-import { MdOutlineExpandMore, MdUnfoldMore } from 'react-icons/md';
 
 const handleActive = (pathname: string | null) => {
   if (!pathname) return -1;
@@ -21,6 +22,7 @@ const handleActive = (pathname: string | null) => {
 }
 
 const Sidebar = () => {
+
   const dispatch = useAppDispatch();
   const { isOpenSidebar, setLayout } = useLayoutContext();
   const { workspaces } = useAppSelector(WorkspaceSelectors.getWorkspaces());
@@ -31,8 +33,7 @@ const Sidebar = () => {
     setActive(handleActive(pathname));
     dispatch(WorkspaceThunks.getAll());
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname])
-
+  }, [pathname]) 
   return (
     <div className={`${isOpenSidebar ? 'w-[220px]' : 'w-[80px]'} border-r border-border dark:border-dark-border z-[100] h-[100vh] fixed top-0 left-0 bottom-0 transition-all`}>
       <div className='w-full h-full bg-background-50 dark:bg-dark-background transition-theme'>
@@ -97,7 +98,7 @@ const Sidebar = () => {
                 <div className='absolute bottom-0 left-[50%] translate-x-[-50%] translate-y-[50%]'>
                   <button className='bg-primary text-md font-semibold p-1 rounded-full'>
                     <p className='relative top-[1px]'>
-                      <MdUnfoldMore className='text-[1.2rem]'/>
+                      <MdUnfoldMore className='text-[1.2rem]' />
                     </p>
                   </button>
                 </div>
@@ -113,6 +114,7 @@ const Sidebar = () => {
             </div>
             <Button
               tabIndex={-1}
+              onClick={() => signOut({ callbackUrl: '/sign-in' })}
               type='button'
               className='rounded-md w-full flex items-center justify-center gap-2 min-w-full max-w-full'
             >

@@ -1,6 +1,5 @@
+import { Chip, Tab, Tabs } from "@nextui-org/react";
 import React from 'react';
-import tw from "tailwind-styled-components";
-import { Tabs, Tab, Chip } from "@nextui-org/react";
 
 interface TabProps {
     label: string;

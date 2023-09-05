@@ -1,12 +1,19 @@
-import { Base } from "@services/_common/type"
-
-export type User = Base & {
-    username: string,
-    password: string,
-    fullName: string,
-}
+import { User } from "@services/user/types"
 
 export type SignInType = {
     username: string,
-    password: string,
+    password: string | null,
+}
+
+export type SignInResponse = {
+    user: User,
+    accessToken: string,
+}
+
+export type SignUpType = {
+    username: string,
+    name: string,
+    password: string | null,
+    provider: string | null
+    avatar: string | null,
 }

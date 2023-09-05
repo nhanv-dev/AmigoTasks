@@ -37,7 +37,7 @@ const Home = () => {
     }, [])
 
     return (
-        <Helmet title='Home | AmigoTasks'>
+        <Helmet title='Home - AmigoTasks'>
             <main className='h-full'>
                 <div className='mx-4 pt-4 mb-4'>
                     <div className='flex items-start gap-4 flex-wrap'>
@@ -76,14 +76,14 @@ const Home = () => {
                                 </div>
                             </div>
                             <div className='dark:bsg-dark-background relative w-full rounded-b-lg'>
-                                <div className='mt-4 grid grid-cols-3 items-start gap-4'>
+                                <div className='mt-4 grid grid-cols-4 items-start gap-4'>
                                     {topics.map(topic => (
                                         <TopicCard key={topic.id} topic={topic} />
                                     ))}
                                 </div>
                             </div>
                         </div>
-                        <div className='w-[300px]'>
+                        <div className='w-[00px]'>
 
                         </div>
                     </div>

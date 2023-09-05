@@ -1,9 +1,10 @@
 "use client"
 
 import { useLayoutContext } from '@/provider/LayoutProvider';
+import { Button } from '@nextui-org/react';
 import { BiSearch } from 'react-icons/bi';
+import { SiOpenai } from 'react-icons/si';
 import DarkMode from '../dark-mode';
-import UserAvatar from '../user/UserAvatar';
 
 const Header = () => {
   const { isOpenSidebar, contentSidebar, setLayout } = useLayoutContext();
@@ -18,8 +19,18 @@ const Header = () => {
             <SearchInput onChange={onSearch} />
           </div>
           <div className='flex items-center justify-end gap-5'>
+            <Button
+              // onClick={() => { changeMode(!selected) }}
+              className="text-sm font-bold bg-primary/20 text-primary max-h-[36px] rounded-md hover:shadow-sm
+                hover:bg-background 
+                dark:hover:bg-primary/20"
+            >
+              <span className='text-[1rem]'>
+                <SiOpenai />
+              </span>
+              Chat GPT
+            </Button>
             <DarkMode />
-            <UserAvatar />
           </div>
         </div>
       </div>

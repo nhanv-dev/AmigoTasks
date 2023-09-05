@@ -1,12 +1,18 @@
+
+import { useState } from 'react';
 import { Button } from '@nextui-org/react';
-// import { signIn } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import Image from 'next/image';
+import { Loading } from '../page';
 
 const SignInWithGithub = () => {
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const handleClick = (e: any) => {
+  const handleClick = async (e: any) => {
+    setLoading(true);
     e.preventDefault();
-    // signIn("google")
+    await signIn("github", { callbackUrl: '/' })
+    setLoading(false);
   }
 
   return (
@@ -16,13 +22,16 @@ const SignInWithGithub = () => {
       tabIndex={-1}
       className='w-full mb-3 bg-black rounded-full flex items-center justify-center gap-4 '
     >
-      <Image
-        width={20}
-        height={20}
-        alt='github'
-        src='/static/icons/github-mark-white.png'
-        className='w-[20px] h-[20xp] bg-[transparent]'
-      />
+      {loading ?
+        <Loading /> :
+        <Image
+          width={20}
+          height={20}
+          alt='github'
+          src='/static/icons/github-mark-white.png'
+          className='w-[20px] h-[20xp] bg-[transparent]'
+        />
+      }
       <p className='font-bold text-md text-white'>
         Sign in with Github
       </p>
@@ -30,4 +39,4 @@ const SignInWithGithub = () => {
   )
 }
 
-export default SignInWithGithub
+export default SignInWithGithub;

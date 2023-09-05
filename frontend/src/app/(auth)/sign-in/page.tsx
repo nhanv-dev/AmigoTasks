@@ -1,22 +1,25 @@
 "use client";
 
 import Helmet from '@app/(protected)/_components/helmet';
-import { useState } from 'react'
-import SignInWithGoogle from './_components/SignInWithGoogle';
-import SignInWithGithub from './_components/SignInWithGithub';
 import { Button } from '@nextui-org/react';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import SignInWithGithub from './_components/SignInWithGithub';
+import SignInWithGoogle from './_components/SignInWithGoogle';
+import { signIn } from 'next-auth/react';
 
 const Login = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     setLoading(true);
     e.preventDefault();
-    router.push("/home");
+    const username = e.target.username.value;
+    const password = e.target.password.value;
+    await signIn('credentials', { callbackUrl: '/home', username, password })
+    setLoading(false);
   }
 
   return (
@@ -60,20 +63,24 @@ const Login = () => {
             </div>
             <form onSubmit={handleSubmit} className='mb-3'>
               <div className='mb-3 flex flex-col gap-2'>
-                <label className='text-dark-text-50 font-bold text-md'>
+                <label htmlFor='username' className='text-dark-text-50 font-bold text-md'>
                   Username
                 </label>
                 <input
                   type='text'
+                  id='username'
+                  name='username'
                   className='rounded-md text-dark-text font-semibold text-md bg-dark-background-50 border-none outline-none py-2.5 px-3 shadow-sm border'
                 />
               </div>
               <div className='mb-6 flex flex-col gap-2'>
-                <label className='text-dark-text-50 font-bold text-md'>
+                <label htmlFor='password' className='text-dark-text-50 font-bold text-md'>
                   Password
                 </label>
                 <input
                   type='password'
+                  id='password'
+                  name='password'
                   className='rounded-md text-dark-text font-semibold text-md bg-dark-background-50 border-none outline-none py-2.5 px-3 shadow-sm border'
                 />
               </div>
@@ -81,28 +88,7 @@ const Login = () => {
                 type='submit'
                 isLoading={loading}
                 className='font-bold text-[0.9rem] w-full rounded-full bg-primary text-dark-text'
-                spinner={
-                  <svg
-                    className="animate-spin h-5 w-5 text-current"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <circle
-                      className="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      strokeWidth="4"
-                    />
-                    <path
-                      className="opacity-75"
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                      fill="currentColor"
-                    />
-                  </svg>
-                }
+                spinner={<Loading />}
               >
                 Sign In
               </Button>
@@ -136,4 +122,30 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Login;
+
+
+export const Loading = () => {
+  return (
+    <svg
+      className="animate-spin h-5 w-5 text-current"
+      fill="none"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle
+        className="opacity-25"
+        cx="12"
+        cy="12"
+        r="10"
+        stroke="currentColor"
+        strokeWidth="4"
+      />
+      <path
+        className="opacity-75"
+        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+        fill="currentColor"
+      />
+    </svg>
+  )
+}
