@@ -1,7 +1,6 @@
 import axios from "axios";
 import { NextApiRequest, NextApiResponse } from "next";
 
-
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (!process.env.URL_SERVER_API) throw Error("URL_SERVER_API environment variable is empty");
     req.url = process.env.URL_SERVER_API + req.url;

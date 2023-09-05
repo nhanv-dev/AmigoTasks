@@ -48,9 +48,6 @@ const TopicPath = () => {
                     ))}
                 </div>
                 <div className='flex items-center gap-2'>
-                    <div className='font-semibold text-md'>
-                        Workspace
-                    </div>
                     <button className='flex items-center gap-2 bg-dark-background text-dark-text py-1.5 px-4 rounded-md'>
                         <p className=' '>
                             {topic?.isFeatured ? <AiOutlineStar /> : <AiOutlineStar />}

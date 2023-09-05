@@ -16,6 +16,11 @@ interface Props {
 
 const TopicCard = ({ topic }: Props) => {
 
+    // return (
+    //     <Link href={`/topic/${topic.id}`} className='block mb-10'>
+    //         {topic.title}
+    //     </Link>
+    // )
 
     return (
         <div className=' border rounded-md dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7] transition-all'>
@@ -36,9 +41,9 @@ const TopicCard = ({ topic }: Props) => {
             >
                 {topic?.parent?.title &&
                     <div className='absolute left-1.5 top-1.5'>
-                        <Link href={`/topic/${topic.parent.id}`}
-                            className='max-w-full line-clamp-1 text-ellipsis bg-primary-50 px-3 py-1 text-sm font- text-text-50 dark:text-dark-text-50 transition-theme shadow-md rounded-full'>
-                            {topic.parent.title}
+                        <Link href={`/topic/${topic.parent?.id}`}
+                            className='max-w-full line-clamp-1 text-ellipsis bg-primary-50 px-3 py-1 text-[0.75rem] font-semibold text-text-50 dark:text-dark-text-50 transition-theme shadow-md rounded-full'>
+                            {topic.parent?.title}
                         </Link>
                     </div>
                 }
@@ -63,7 +68,7 @@ const TopicCard = ({ topic }: Props) => {
                         </p>
                         <div className='flex items-center justify-end gap-2'>
                             <Link href={`/topic/${topic.id}/items`}
-                                className='hover:bg-background text-sm font-semibold rounded-full text-dark-text dark:text-dark-text flex items-center gap-1 z-[1]'
+                                className='hover:bg-background text-sm font-semibold bg-primary-50 px-3 py-1 rounded-full text-dark-text dark:text-dark-text flex items-center gap-1 z-[1]'
                             >
                                 <span className='text-[1rem]'>
                                     <BiFolder />
@@ -73,7 +78,7 @@ const TopicCard = ({ topic }: Props) => {
                                 </span>
                             </Link>
                             <Link href={`/topic/${topic.id}/items`}
-                                className='hover:bg-background text-sm font-semibold rounded-full text-dark-text dark:text-dark-text flex items-center gap-1 z-[1]'
+                                className='hover:bg-background text-sm font-semibold bg-primary-50 px-3 py-1 rounded-full text-dark-text dark:text-dark-text flex items-center gap-1 z-[1]'
                             >
                                 <span className='text-[1rem]'>
                                     <MdOutlineModeComment />
@@ -94,9 +99,8 @@ const TopicCard = ({ topic }: Props) => {
                             <p className='text-[0.75rem] font-semibold text-dark-text dark:text-dark-text transition-theme'>
                                 {DataFormatter.formatDateToDaysAgo(topic.createdAt)}
                             </p>
-
                         </div>
-                        <p className="group-hover:mt-3 group-hover:mb-2 my-0 group-hover:max-h-[40px] max-h-[0px] overflow-hidden flex-1 text-ellipsis line-clamp-2 transition-all text-[0.825rem] font-semibold text-dark-text dark:text-dark-text">
+                        <p className="group-hover:mt-1 group-hover:mb-2 my-0 group-hover:max-h-[40px] max-h-[0px] overflow-hidden flex-1 text-ellipsis line-clamp-2 transition-all text-[0.8rem] font-semibold text-dark-text dark:text-dark-text">
                             {topic.description}
                         </p>
                     </div>

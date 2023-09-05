@@ -14,7 +14,7 @@ export default function WorkSpaceLayout({ children }: { children: React.ReactNod
         const fetch = async () => {
             Promise.all([
                 dispatch(TopicThunks.getByRoot()),
-                setLayout({ isOpenSidebar: true, contentSidebar: <TopicFolders /> })
+                // setLayout({ isOpenSidebar: true, contentSidebar: <TopicFolders /> })
             ])
         }
         fetch()
@@ -23,7 +23,14 @@ export default function WorkSpaceLayout({ children }: { children: React.ReactNod
 
     return (
         <main>
-            {children}
+            <div className='flex relative'>
+                <div className='h-[calc(100vh-58px-32px)] min-w-[280px] w-[280px] sticky top-0'>
+                    <TopicFolders />
+                </div>
+                <div className='flex-1'>
+                    {children}
+                </div>
+            </div>
         </main>
     )
 }

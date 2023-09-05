@@ -20,7 +20,7 @@ const Login = () => {
   }
 
   return (
-    <Helmet title='Sign In | DM'>
+    <Helmet title='Sign in - AmigoTasks'>
       <div className='overflow-hidden w-[100vw] h-[100vh] relative'>
         <video
           autoPlay muted loop
@@ -32,19 +32,19 @@ const Login = () => {
         <div className='absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] bg-dark-background shadow-md flex items-start gap-3 rounded-lg min-w-[850px] max-w-[100vh]'>
           <div className='h-full w-[400px] p-4'>
             <div className='w-[400px] h-full relative'>
-              <Image
+              <img
                 alt='sign in'
                 src='https://images.unsplash.com/photo-1493839523149-2864fca44919?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1965&q=80'
                 className='w-full object-cover rounded-lg'
               />
               <div className='absolute flex gap-2 items-center justify-start top-3 left-3 text-md font-bold'>
                 <p className='bg-background text-text rounded-full py-1 px-4'>
-                  Design Me
+                  AmigoTasks
                 </p>
               </div>
               <div className='absolute flex gap-2 items-center justify-start bottom-3 left-3 text-xs font-bold'>
                 <p className='bg-background text-text rounded-full py-1 px-4 cursor-default'>
-                  #DM
+                  #AmigoTasks
                 </p>
                 <p className='bg-background text-text rounded-full py-1 px-4 cursor-default'>
                   #Best practices of me

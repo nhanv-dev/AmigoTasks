@@ -11,8 +11,8 @@ const Header = () => {
   const onSearch = () => { }
 
   return (
-    <div className={`${isOpenSidebar ? 'left-[230px]' : 'left-[73px]'} z-50 fixed top-0 right-0 pb-0 bg-background-50 dark:bg-dark-background-50 transition-all`}>
-      <div className='h-[58px] flex items-center py-3 px-5 bg-background border-b  dark:bg-dark-background dark:border-gray-700  text-text dark:text-dark-text w-full min-w-full shadow-sm transition-all'>
+    <div className={`${isOpenSidebar ? 'left-[220px]' : 'left-[73px]'} z-50 fixed top-0 right-0 pb-0 bg-background-50 dark:bg-dark-background-50 transition-all`}>
+      <div className='h-[58px] flex items-center py-3 px-4 bg-background border-b  dark:bg-dark-background dark:border-gray-700  text-text dark:text-dark-text w-full min-w-full shadow-sm transition-all'>
         <div className='flex-1 flex items-center justify-between'>
           <div className='flex-1 flex items-center gap-4'>
             <SearchInput onChange={onSearch} />

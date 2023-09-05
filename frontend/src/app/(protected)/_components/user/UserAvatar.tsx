@@ -1,6 +1,7 @@
 import { Avatar, Popover, PopoverContent, PopoverTrigger, User } from '@nextui-org/react'
 import React, { useState } from 'react'
 import UserCard from './UserCard';
+import { useLayoutContext } from '@provider/LayoutProvider';
 
 type User = {
     fullName: string;
@@ -9,6 +10,8 @@ type User = {
 }
 
 const UserAvatar = () => {
+    const { isOpenSidebar, setLayout, contentSidebar } = useLayoutContext();
+
     const [user] = useState<User & any>({
         fullName: 'Thanh Nhân',
         userName: 'nhanv-dev',
@@ -24,8 +27,9 @@ const UserAvatar = () => {
                     description={user.userName}
                     className="transition-transform"
                     classNames={{
-                        name: 'font-bold',
-                        description: 'font-semibold'
+                        base: 'h-[40px] px-2',
+                        name: `${isOpenSidebar ? 'visible min-w-[120px]' : 'hidden min-w-[120px]'} text-start overflow-hidden font-bold`,
+                        description: `${isOpenSidebar ? 'visible min-w-[120px]' : 'hidden min-w-[120px]'} text-start overflow-hidden font-semibold`,
                     }}
                     avatarProps={{ isBordered: true, color: "primary", size: 'sm', src: user.avatar }}
                 />

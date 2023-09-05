@@ -3,6 +3,7 @@
 import { NextUIProvider } from "@nextui-org/react";
 import { Providers } from '@redux/provider';
 import type { Metadata } from 'next';
+import { SessionProvider } from "next-auth/react";
 import { Inter } from 'next/font/google';
 import '../styles/global.css';
 
@@ -22,11 +23,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
       <body className={`${inter.className}`} style={{ position: 'relative' }}>
-        <Providers>
-          <NextUIProvider>
-            {children}
-          </NextUIProvider>
-        </Providers>
+        <SessionProvider>
+          <Providers>
+            <NextUIProvider>
+              {children}
+            </NextUIProvider>
+          </Providers>
+        </SessionProvider>
       </body>
     </html>
   )

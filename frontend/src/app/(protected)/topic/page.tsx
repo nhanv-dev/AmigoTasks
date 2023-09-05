@@ -8,7 +8,7 @@ import TopicList from './_components/topic/TopicList'
 const Topic = () => {
 
     return (
-        <Helmet title='Topic | AmigoTasks'>
+        <Helmet title='Topic - AmigoTasks'>
             <div className='px-4 pt-4'>
                 <CustomTabs
                     tabs={[

@@ -1,43 +1,16 @@
 
-import { NextAuthOptions } from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
+import { NextAuthOptions } from "next-auth";
+import NextAuth from "next-auth/next";
 import GoogleProvider from "next-auth/providers/google";
-import React, { ReactNode, createContext, useContext, useState } from 'react';
+import CredentialsProvider from 'next-auth/providers/credentials';
 
-interface AuthProviderType {
-    user: any,
-}
-
-export const AuthContext = createContext<AuthProviderType | undefined>(undefined);
-
-export const useAuthContext = () => {
-    const context = useContext(AuthContext);
-    if (!context) {
-        throw new Error('useAuthProvider must be used within a AuthProvider');
-    }
-    return context;
-};
-
-const AuthContextProvider: React.FC<{ children: ReactNode, pageProps: any }> = ({ children }) => {
-    const [user, setUser] = useState();
-
-    const contextValue: AuthProviderType = {
-        user
-    };
-
-    return (
-        <AuthContext.Provider value={contextValue}>
-            {children}
-        </AuthContext.Provider>
-    )
-};
-
-export default AuthContextProvider;
+// const handler = NextAuth(authConfig)
+// export { handler as GET, handler as POST }
 
 export const authConfig: NextAuthOptions = {
 
     providers: [
-        
+
         CredentialsProvider({
             name: "Sign in",
             credentials: {
@@ -71,5 +44,14 @@ export const authConfig: NextAuthOptions = {
             clientId: '3388544933-seaart9vib50m9eoj3ijpbhkh61hm2eg.apps.googleusercontent.com',
             clientSecret: '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',
         })
-    ]
+    ],
+    pages: {
+        signIn: "/sign-in",
+    },
+    secret: process.env.NEXTAUTH_SECRET as string,
 }
+
+export default NextAuth({
+    session: { strategy: 'jwt' },
+    ...authConfig
+})

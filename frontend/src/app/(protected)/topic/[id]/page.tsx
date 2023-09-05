@@ -28,8 +28,6 @@ interface Props {
 const Page = ({ params }: Props) => {
   const dispatch = useAppDispatch();
   const [topic, setTopic] = useState<DetailTopic | null>(null);
-  const [topics, setTopics] = useState<Topic[]>([]);
-  const { topicLoading } = useAppSelector(TopicSelectors.getLoading());
   const router = useRouter();
 
   useEffect(() => {
@@ -37,8 +35,6 @@ const Page = ({ params }: Props) => {
     const fetch = async () => {
       const action: any = await dispatch(TopicThunks.getById(params.id));
       setTopic(action.payload)
-      const relatedTopics: any = await dispatch(TopicThunks.getByParent(params.id));
-      setTopics(relatedTopics.payload)
       if (action.payload?.id) return;
       router.push('/topic');
     }
@@ -62,19 +58,16 @@ const Page = ({ params }: Props) => {
 
 
   return (
-    <Helmet title={`${topic?.title || 'Untitled'}`}>
+    <Helmet title={topic?.title ? `${topic.title} - AmigoTasks` : 'Untitled - AmigoTasks'}>
       <div className='relative z-[1]'>
         <div
           style={{ backgroundImage: `url(${topic?.background || backgroundImages[0]})` }}
-          className='z-0 absolute w-full h-[450px] bg-fixed bg-cover bg-center bg-no-repeat'
+          className='z-0 absolute left-0 right-0 w-full h-[450px] bg-fixed bg-cover bg-center bg-no-repeat'
         >
           <div className='z-0 absolute top-0 left-0 bottom-0 right-0 bg-[rgba(0,0,0,0.4)]' />
           <div className='z-0 absolute top-4 left-4 right-4 flex gap-4 justify-between'>
-            <div className='flex-1 text-dark-text p-4 bg-[rgba(0,0,0,0.5)] backdrop-blur-sm rounded-md'>
-              Workspace
-              <div>
-
-              </div>
+            <div className='flex-1 '>
+              <TopicPath />
             </div>
             <div className='min-w-[320px] max-w-[320px] flex justify-end'>
               <Button
@@ -88,11 +81,9 @@ const Page = ({ params }: Props) => {
             </div>
           </div>
         </div>
-        <div className='px-4 pt-[300px]'>
-          <div className='flex flex-wrap items-start gap-4 justify-between h-full'>
-           
-            <div className='relative flex-1 min-w-[650px]'>
-              <TopicPath />
+        <div className='w-full px-4 pt-[300px]'>
+          <div className='w-full flex flex-wrap items-start gap-4 justify-between h-full'>
+            <div className='relative flex-1 w-full min-w-[650px]'>
               <ContainerCard>
                 <div className='max-w-[650px] mx-auto'>
                   <AutoSaveInput
@@ -112,15 +103,15 @@ const Page = ({ params }: Props) => {
                 onSave={(value: any) => { handleSave('content', value) }}
               />
             </div>
-            <div className='sticky top-4 min-w-[320px] max-w-[320px]'>
+            {/* <div className='sticky top-4 min-w-[320px] max-w-[320px]'>
               <ContainerCard classNames='h-full'>
                 <ScrollShadow className='h-[calc(100vh-58px-32px-32px)]' hideScrollBar={true}>
                   <TopicDetail />
                 </ScrollShadow>
               </ContainerCard>
-            </div>
+            </div> */}
           </div>
-          {topics.length > 0 &&
+          {/* {topics.length > 0 &&
             <div className='mt-4'>
               <div className='mb-4 flex items-center justify-between gap-4'>
                 <h5 className=' font-bold text-xl'>
@@ -139,7 +130,7 @@ const Page = ({ params }: Props) => {
                 ))}
               </div>
             </div>
-          }
+          } */}
         </div>
       </div>
     </Helmet >

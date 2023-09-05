@@ -35,11 +35,11 @@ const TreeItem = ({ item }: Props) => {
     return (
         <div className={`relative`}>
             <div className='flex items-center'>
-                <div className={`${topic?.id === item.root.id ? 'bg-primary-50' : ''} group flex-1 mb-1 flex items-center justify-between gap-2 px-2 hover:bg-primary-50 rounded-sm outline-none transition-all`}>
+                <div className={`${topic?.id === item.root.id ? 'bg-primary/20 text-primary dark:text-primary' : 'text-text-50 dark:text-dark-text-50'} group flex-1 mb-1 flex items-center justify-between gap-2 px-2 hover:bg-primary/20 rounded-md outline-none transition-all`}>
                     <Link
                         href={`/topic/${item.root.id}`}
                         onClick={handleOpen}
-                        className={`flex items-center gap-0.5 w-full text-md text-text dark:text-dark-text font-semibold py-1.5 outline-none  border-none`}
+                        className={`flex items-center gap-0.5 w-full text-md font-semibold py-1.5 outline-none border-none`}
                     >
                         <p className={`${item.open ? 'rotate-[90deg]' : 'rotate-0'} w-[18px] text-[1rem] transition-all text-text-50`}>
                             {item.root.numberOfChildren > 0 && <GoTriangleRight />}
@@ -80,29 +80,18 @@ export default TreeItem;
 const LabelTopic = ({ item }) => {
     return (
         <div className='flex items-center gap-2'>
-            {/* <div className='min-w-[45px] w-[45px] h-[36px] min-h-[36px] rounded-sm bg-center bg-cover'
-                style={{ backgroundImage: `url(${item.root.background || backgroundImages[0]})` }}>
-            </div> */}
             <div className='flex flex-col justify-center'>
                 <div className='flex items-center '>
                     <p className='text-[0.825rem] flex-1 whitespace-nowrap text-ellipsis max-w-[160px] overflow-hidden transition-theme'>
                         {item.root.title}
                     </p>
                     {item.root.numberOfChildren > 0 &&
-                        <p className='ml-1.5 flex items-center justify-center rounded-full text-xs font-bold px-2 h-[15px] bg-slate-300'>
+                        <p className='ml-1.5 flex items-center justify-center rounded-full text-xs font-bold px-2 h-[15px] bg-default-200 transition-theme'>
                             <span className='relative top-[-0.35px] left-[-0.5px]'>
                                 {item.root.numberOfChildren}
                             </span>
                         </p>
                     }
-                </div>
-                <div className='flex items-center gap-3'>
-                    {/* <p className='text-xs px-2 bg-primary-50 rounded-full'>
-                        {item.root.status}
-                    </p> */}
-                    {/* <p className='text-[0.675rem] flex-1 whitespace-nowrap overflow-hidden'>
-                        {DataFormatter.formatDateToDaysAgo(item.root.updatedAt)}
-                    </p> */}
                 </div>
             </div>
         </div>

@@ -1,6 +1,9 @@
-import { Avatar, Card, CardBody, CardFooter, CardHeader } from '@nextui-org/react'
+import { Avatar, Card, CardBody, CardFooter, CardHeader } from '@nextui-org/react';
+import { useLayoutContext } from '@provider/LayoutProvider';
 
 const UserCard = ({ user }) => {
+    const { isOpenSidebar, setLayout, contentSidebar } = useLayoutContext();
+
     return (
         <Card shadow="none" className="max-w-[200px] border-none bg-transparent">
             <CardHeader className="justify-between">

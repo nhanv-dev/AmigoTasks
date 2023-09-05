@@ -38,7 +38,7 @@ const TopicList = ({ id, status }: Props) => {
                 </div>
             }
             <Message visible={topics.length <= 0} message={' No topics available. Create a new topic.'} />
-            <div className={`${isOpenSidebar ? 'xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-2' : 'xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 grid-cols-2'} grid gap-4 mb-5 pt-1.5 px-0 transition-all`}>
+            <div className={`${isOpenSidebar ? 'xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-2' : 'xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 grid-cols-2'} grid gap-4 mb-5 pt-1.5 px-0 transition-all`}>
                 {topics.map(topic => (
                     <div key={topic.id} className='transition-all'>
                         <TopicCard topic={topic} />

@@ -11,7 +11,7 @@ const CustomDropdown = ({ icon, children }) => {
         }}>
             <DropdownTrigger>
                 <button tabIndex={-1}
-                    className='w-[24px] h-[24px] flex items-center justify-center text-[0.95rem] outline-none border-none hover:bg-[#f5f5f5] hover:text-text p-1 rounded-sm text-text-50 dark:text-dark-text-50 transition-theme'>
+                    className='w-[24px] h-[24px] flex items-center justify-center text-[0.95rem] outline-none border-none hover:text-text p-1 rounded-sm text-text-50 dark:text-dark-text-50 transition-theme'>
                     {icon}
                 </button>
             </DropdownTrigger>
