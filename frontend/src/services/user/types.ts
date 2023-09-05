@@ -5,5 +5,6 @@ export type User = Base & {
     username: string,
     password: string,
     avatar: string,
+    background: string,
     provider: string,
 }

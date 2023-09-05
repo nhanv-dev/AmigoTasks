@@ -1,6 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { AuthState } from "./types";
 import { AuthThunks } from "./authThunks";
+import { User } from "@services/user/types";
 
 const initialState: AuthState = {
     user: null,
@@ -12,10 +13,11 @@ export const auth = createSlice({
     name: 'auth',
     initialState: initialState,
     reducers: {
-
+        setUser(state, action: PayloadAction<User | null>) {
+            state.user = action.payload;
+        }
     },
     extraReducers: (builder) => {
-
         builder
             .addCase(AuthThunks.signIn.fulfilled, (state, action) => {
                 state.user = action.payload.user;

@@ -9,18 +9,16 @@ import Helmet from '../_components/helmet';
 import topicService from '@services/topic/topic.service';
 import workspaceService from '@services/workspace/workspace.service';
 import TopicCard from '../topic/_components/topic/TopicCard';
+import { AuthSelectors } from '@redux/features/auth/authSelectors';
+import { useAppSelector } from '@redux/hook';
+import { DEFAULT_IMAGE } from '../_components/user/UserAvatar';
+
+const background = 'https://images.unsplash.com/photo-1680631757284-617846a5ef29?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1902&q=80'
 
 const Home = () => {
+    const user = useAppSelector(AuthSelectors.getUser());
     const [topics, setTopics] = useState<Topic[]>([]);
     const [workspaces, setWorkspaces] = useState<Workspace[]>([]);
-
-    const [user] = useState({
-        fullName: 'Trần Thanh Nhân',
-        username: 'nhanv-dev',
-        avatar: 'https://th.bing.com/th/id/R.375da4f8d9fe63041f579c84dbe960ea?rik=a8Q0ZaYDmDOKlw&pid=ImgRaw&r=0',
-        background: 'https://images.unsplash.com/photo-1680631757284-617846a5ef29?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1902&q=80',
-        tags: ['Developer',]
-    })
 
     useEffect(() => {
         const fetch = async () => {
@@ -45,7 +43,7 @@ const Home = () => {
                             <div
                                 className='relative w-full h-[250px] mb-[120px] bg-cover bg-center rounded-t-lg'
                                 style={{
-                                    backgroundImage: `url(${user.background})`
+                                    backgroundImage: `url(${user?.background || background})`
                                 }}
                             >
                                 <div className='absolute right-4 top-4'>
@@ -64,13 +62,13 @@ const Home = () => {
                                             isBordered
                                             size='lg'
                                             color='primary'
-                                            src={user.avatar}
+                                            src={user?.avatar || DEFAULT_IMAGE}
                                             classNames={{
                                                 base: 'ring-offset-0 w-[66px] h-[66px]'
                                             }}
                                         />
                                         <h5 className='font-bold text-lg'>
-                                            {user.fullName}
+                                            {user?.name}
                                         </h5>
                                     </div>
                                 </div>

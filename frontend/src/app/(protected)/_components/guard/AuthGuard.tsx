@@ -9,6 +9,7 @@ import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import PageLoading from '../loading/PageLoading';
+import { AuthActions } from '@redux/features/auth/authSlice';
 
 const AuthGuard = ({ children }) => {
     const dispatch = useAppDispatch();
@@ -16,11 +17,18 @@ const AuthGuard = ({ children }) => {
     const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
-        const _data: any = { ...data }
+        setLoading(true)
+        const _data: any = { ...data };
+        if (!_data.username) {
+            setLoading(false);
+            return;
+        }
+        if (_data.provider === "credentials") {
+            dispatch(AuthActions.setUser(_data));
+            setLoading(false)
+            return;
+        }
         const validate = async () => {
-            console.log('authguard', _data)
-            if (!_data.username) return;
-            setLoading(true);
             try {
                 const existUser = await userService.getByUsername(_data.username);
                 if (!existUser) {
@@ -29,7 +37,7 @@ const AuthGuard = ({ children }) => {
                         password: _data.password,
                         name: _data.name,
                         avatar: _data.avatar || '',
-                        provider: _data.provider || 'basic',
+                        provider: _data.provider,
                     };
                     await authService.signUp(payload);
                 }
@@ -39,9 +47,9 @@ const AuthGuard = ({ children }) => {
             } finally {
                 setLoading(false);
             }
-        }
-        validate();
+        };
 
+        validate();
     }, [status])
 
     if (status === 'loading' || loading) return <PageLoading />

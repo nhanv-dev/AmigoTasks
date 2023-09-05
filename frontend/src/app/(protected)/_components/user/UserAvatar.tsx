@@ -10,7 +10,7 @@ type User = {
     userName: string;
     password?: string;
 }
-const DEFAULT_IMAGE = 'https://th.bing.com/th/id/OIP.Ojdx8R7IOIu8KGUad8YcfgHaHa?pid=ImgDet&rs=1';
+export const DEFAULT_IMAGE = 'https://th.bing.com/th/id/OIP.Ojdx8R7IOIu8KGUad8YcfgHaHa?pid=ImgDet&rs=1';
 
 const UserAvatar = () => {
     const user = useAppSelector(AuthSelectors.getUser());
@@ -19,7 +19,7 @@ const UserAvatar = () => {
 
 
     return (
-        <Popover showArrow placement="bottom">
+        <Popover showArrow placement="left-end">
             <PopoverTrigger>
                 <User
                     as="button"
@@ -35,7 +35,7 @@ const UserAvatar = () => {
                 />
             </PopoverTrigger>
             <PopoverContent className="p-1">
-                <UserCard user={session.data?.user} />
+                <UserCard />
             </PopoverContent>
         </Popover>
     )
