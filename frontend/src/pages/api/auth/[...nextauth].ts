@@ -1,6 +1,5 @@
-import { Cookies } from 'cookies';
-
 import axios from "axios";
+import Cookies from "cookies";
 import { NextApiRequest, NextApiResponse } from "next";
 import { NextAuthOptions } from "next-auth";
 import NextAuth from "next-auth/next";
@@ -9,7 +8,7 @@ import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 
 
-const authConfig = (req, res): NextAuthOptions => {
+const authConfig = (req: NextApiRequest, res: NextApiResponse): NextAuthOptions => {
     return {
         session: { strategy: 'jwt' },
         jwt: { secret: 'secret' },
@@ -62,17 +61,17 @@ const authConfig = (req, res): NextAuthOptions => {
                 async authorize(credentials) {
                     if (!credentials || !credentials.username || !credentials.password) return null;
                     const { username, password } = credentials;
-                    const action: any = await axios.post('http://localhost:3001/api/auth/sign-in', { username, password })
-
-                    if (!action) return null;
+                    const response: any = await axios.post('http://localhost:3001/api/auth/sign-in', { username, password })
+                    if (!response) return null;
                     const cookies = new Cookies(req, res);
-                    cookies.set("accessToken", action.data.accessToken, {
+                    await cookies.set("accessToken", response.data.accessToken, {
                         httpOnly: true,
                         secure: false,
                         sameSite: "lax",
                         maxAge: 60000 * 60 * 24 * 365,
                     });
-                    return action.data;
+                    console.log(cookies.get('accessToken'))
+                    return response.data;
                 },
             }),
         ],

@@ -8,4 +8,12 @@ export class TaskService extends BaseServiceAbstract<Task> {
   constructor(private readonly taskRepository: TaskRepository) {
     super(taskRepository);
   }
+
+  async findOneByOwner(id: string, userId: string) {
+    return this.taskRepository.findOneByCondition({
+      id: id,
+      owner: userId,
+      deletedAt: null
+    })
+  }
 }

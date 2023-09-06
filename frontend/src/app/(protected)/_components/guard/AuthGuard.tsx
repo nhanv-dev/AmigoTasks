@@ -20,12 +20,25 @@ const AuthGuard = ({ children }) => {
         const validate = async () => {
             setLoading(true)
             const _data: any = { ...data };
-            console.log(_data)
+            if (!_data?.username) {
+                setLoading(false);
+                return;
+            }
             try {
                 if (_data.provider === "credentials") {
                     await dispatch(AuthActions.setUser(_data))
                 } else {
-                    await signUp(_data);
+                    const existUser = await userService.getByUsername(_data.username, _data.provider);
+                    if (!existUser) {
+                        const payload: SignUpType = {
+                            username: _data.username,
+                            password: _data.password,
+                            name: _data.name,
+                            avatar: _data.avatar || '',
+                            provider: _data.provider,
+                        };
+                        await authService.signUp(payload);
+                    }
                     await dispatch(AuthThunks.signIn({ username: _data.username, password: null, provider: _data.provider }))
                 }
             } catch (error) {
@@ -45,17 +58,3 @@ const AuthGuard = ({ children }) => {
 }
 
 export default AuthGuard;
-
-const signUp = async (_data: any) => {
-    const existUser = await userService.getByUsername(_data.username);
-    if (!existUser) {
-        const payload: SignUpType = {
-            username: _data.username,
-            password: _data.password,
-            name: _data.name,
-            avatar: _data.avatar || '',
-            provider: _data.provider,
-        };
-        return await authService.signUp(payload);
-    }
-}

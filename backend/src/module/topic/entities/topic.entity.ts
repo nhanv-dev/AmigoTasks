@@ -34,9 +34,7 @@ export class Topic extends BaseEntity {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Topic', default: null })
   parent: mongoose.Schema.Types.ObjectId;
 
-  @Prop({
-    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Topic', default: [] }],
-  })
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Topic', default: [] }] })
   path: mongoose.Schema.Types.ObjectId[];
 
   @Prop({ default: [] })
@@ -48,17 +46,13 @@ export class Topic extends BaseEntity {
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }] })
   comments: mongoose.Schema.Types.ObjectId[];
 
-  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] })
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   author: mongoose.Schema.Types.ObjectId;
 
   @Prop({ required: false, default: [] })
   externalLinks: ExternalLink[];
 
-  @Prop({
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Workspace',
-    default: null,
-  })
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Workspace', default: null })
   workspace: mongoose.Schema.Types.ObjectId;
 
   @Prop({ required: false, default: null })

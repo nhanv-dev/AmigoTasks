@@ -9,11 +9,11 @@ export class WorkspaceService extends BaseServiceAbstract<Workspace> {
     super(workspaceRepository);
   }
 
-  async findAllWithTaskCounts(): Promise<Workspace[]> {
-    return this.workspaceRepository.findAllWithTaskCounts();
+  async findAllWithTaskCounts(userId: string): Promise<Workspace[]> {
+    return this.workspaceRepository.findAllWithTaskCounts(userId);
   }
 
-  async findOneWithTaskCounts(id: string): Promise<Workspace> {
-    return this.workspaceRepository.findOneWithTaskCounts(id);
+  async findOneWithTaskCounts(id: string, userId: string): Promise<Workspace> {
+    return this.workspaceRepository.findOneWithTaskCounts(id, userId);
   }
 }

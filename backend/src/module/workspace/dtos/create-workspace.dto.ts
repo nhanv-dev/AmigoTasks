@@ -23,4 +23,8 @@ export class CreateWorkspace {
   @IsOptional()
   @IsBoolean()
   isPriority: boolean;
+
+  @IsOptional()
+  @IsString()
+  owner: string;
 }

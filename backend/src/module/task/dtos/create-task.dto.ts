@@ -28,4 +28,8 @@ export class CreateTaskDto {
   @IsNotEmpty()
   @IsMongoId()
   workspace: string;
+
+  @IsOptional()
+  @IsString()
+  owner: string;
 }

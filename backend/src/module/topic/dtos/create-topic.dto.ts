@@ -25,4 +25,8 @@ export class CreateTopicDto {
   @IsString()
   @IsOptional()
   background: string = null;
+
+  @IsString()
+  @IsOptional()
+  author: string;
 }

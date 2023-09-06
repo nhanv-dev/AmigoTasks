@@ -14,13 +14,8 @@ export abstract class BaseRepositoryAbstract<T extends BaseEntity>
     return created_data.save() as any;
   }
 
-  async countItem(
-    condition: FilterQuery<T> = {},
-    options: QueryOptions<T> = {},
-  ): Promise<number> {
-    const countResult = await this.model
-      .countDocuments({ ...condition, deletedAt: null }, options)
-      .exec();
+  async countItem(condition: FilterQuery<T> = {}, options: QueryOptions<T> = {}): Promise<number> {
+    const countResult = await this.model.countDocuments({ ...condition, deletedAt: null }, options).exec();
     return countResult;
   }
 
@@ -33,27 +28,18 @@ export abstract class BaseRepositoryAbstract<T extends BaseEntity>
     return this.model.findOne({ ...condition, deletedAt: null }).exec() as any;
   }
 
-  async findAll(
-    condition?: FilterQuery<T>,
-    options?: QueryOptions<T>,
-  ): Promise<T[]> {
-    return this.model
-      .find({ ...condition, deletedAt: null }, options?.projection, options)
-      .exec();
+  async findAll(condition?: FilterQuery<T>, options?: QueryOptions<T>): Promise<T[]> {
+    return this.model.find({ ...condition, deletedAt: null }, options?.projection, options).exec();
   }
 
   async update(id: string, dto: Partial<T>): Promise<T> {
-    return this.model.findOneAndUpdate({ _id: id, deletedAt: null }, dto, {
-      new: true,
-    }) as any;
+    return this.model.findOneAndUpdate({ _id: id, deletedAt: null }, dto, { new: true }) as any;
   }
 
   async softDelete(id: string): Promise<boolean> {
     const delete_item = await this.model.findById(id);
     if (!delete_item) return false;
-    return !!(await this.model
-      .findByIdAndUpdate<T>(id, { deletedAt: new Date() })
-      .exec());
+    return !!(await this.model.findByIdAndUpdate<T>(id, { deletedAt: new Date() }).exec());
   }
 
   async permanentlyDelete(id: string): Promise<boolean> {

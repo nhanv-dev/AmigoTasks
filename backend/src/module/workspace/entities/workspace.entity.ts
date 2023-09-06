@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument, Types } from 'mongoose';
+import mongoose, { HydratedDocument } from 'mongoose';
 import { BaseEntity, baseSchemaOptions } from 'src/module/common/entities/base.entity';
 
 enum TaskStatus {
@@ -44,8 +44,8 @@ export class Workspace extends BaseEntity {
   @Prop({ type: [{ type: String, ref: 'Topic' }], default: [] })
   topics: string[];
 
-  @Prop({ type: [{ type: Types.ObjectId, ref: 'User' }], require: false })
-  author: string;
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', require: false })
+  owner: mongoose.Schema.Types.ObjectId;
 }
 
 export const WorkspaceSchema = SchemaFactory.createForClass(Workspace);

@@ -13,7 +13,7 @@ export class TopicService extends BaseServiceAbstract<Topic> {
 
   async createTopic(createTopicDto: CreateTopicDto) {
     const topic = await this.topicRepository.create(createTopicDto);
-    return this.topicRepository.findDetailTopic(topic.id);
+    return this.topicRepository.findDetailTopic(topic.id, createTopicDto.author);
   }
 
   async updateTopic(id: string, updateTopicDto: UpdateTopicDto) {
@@ -21,7 +21,7 @@ export class TopicService extends BaseServiceAbstract<Topic> {
     if (topic && topic.parent && topic.parent !== updateTopicDto.parent) {
     }
     const savedTopic = await this.update(id, updateTopicDto);
-    return this.topicRepository.findDetailTopic(savedTopic.id);
+    return this.topicRepository.findDetailTopic(savedTopic.id, savedTopic.author.toString());
   }
 
   async deleteTopic(id: string) {
@@ -32,15 +32,15 @@ export class TopicService extends BaseServiceAbstract<Topic> {
     return this.remove(id);
   }
 
-  async findDetailTopic(id: string) {
-    return this.topicRepository.findDetailTopic(id);
+  async findDetailTopic(id: string, authorId: string) {
+    return this.topicRepository.findDetailTopic(id, authorId);
   }
 
   async findAllWithoutContent(queryParams: any) {
     return this.topicRepository.findAllWithoutContent(queryParams);
   }
 
-  async findByParent(parent: string) {
-    return this.topicRepository.findByParent(parent);
+  async findByParent(parent: string, authorId: string) {
+    return this.topicRepository.findByParent(parent, authorId);
   }
 }

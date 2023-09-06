@@ -8,8 +8,7 @@ import { WorkspaceRepositoryInterface } from '../interfaces/workspace.interface'
 @Injectable()
 export class WorkspaceRepository
   extends BaseRepositoryAbstract<Workspace>
-  implements WorkspaceRepositoryInterface
-{
+  implements WorkspaceRepositoryInterface {
   constructor(
     @InjectModel(Workspace.name)
     private readonly workspaceModel: Model<Workspace>,
@@ -17,18 +16,22 @@ export class WorkspaceRepository
     super(workspaceModel);
   }
 
-  async findAllWithTaskCounts() {
-    return this.workspaceModel
-      .find({ deletedAt: null })
-      .populate('pendingTaskCount')
-      .populate('inProgressTaskCount')
-      .populate('completedTaskCount')
-      .exec();
+  async findAllWithTaskCounts(userId: string) {
+    try {
+      return this.workspaceModel
+        .find({ owner: userId, deletedAt: null })
+        .populate('pendingTaskCount')
+        .populate('inProgressTaskCount')
+        .populate('completedTaskCount')
+        .exec();
+    } catch (error) {
+      return null;
+    }
   }
 
-  async findOneWithTaskCounts(id: string) {
+  async findOneWithTaskCounts(id: string, userId: string) {
     return this.workspaceModel
-      .findOne({ _id: id, deletedAt: null })
+      .findOne({ _id: id, owner: userId, deletedAt: null })
       .populate('pendingTaskCount')
       .populate('inProgressTaskCount')
       .populate('completedTaskCount')

@@ -11,8 +11,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     req.url = process.env.NEXT_PUBLIC_URL_SERVER_API + req.url;
 
-    console.log('login', req.body);
-
     try {
         response = await axios.post(req.url, req.body);
         const { accessToken } = response.data;

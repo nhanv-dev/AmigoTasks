@@ -26,18 +26,10 @@ export class Task extends BaseEntity {
   @Prop({ required: false })
   description: string;
 
-  @Prop({
-    enum: Object.values(TaskStatus),
-    required: false,
-    default: TaskStatus.PENDING,
-  })
+  @Prop({ enum: Object.values(TaskStatus), required: false, default: TaskStatus.PENDING })
   status: string;
 
-  @Prop({
-    enum: Object.values(TaskPriority),
-    required: false,
-    default: TaskPriority.LOW,
-  })
+  @Prop({ enum: Object.values(TaskPriority), default: TaskPriority.LOW, required: false })
   priority: TaskPriority;
 
   @Prop({ default: [] })
@@ -46,12 +38,11 @@ export class Task extends BaseEntity {
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }] })
   comments: Comment[];
 
-  @Prop({
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Workspace',
-    default: null,
-  })
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Workspace', required: true })
   workspace: Workspace;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
+  owner: mongoose.Schema.Types.ObjectId;
 }
 
 export const TaskSchema = SchemaFactory.createForClass(Task);
