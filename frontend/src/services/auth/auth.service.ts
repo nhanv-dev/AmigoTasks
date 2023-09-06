@@ -1,5 +1,6 @@
 import { HttpRequest } from "@util/HttpRequest";
 import { SignInResponse, SignInType } from "./types";
+import { User } from "@services/user/types";
 
 
 class AuthService {
@@ -12,8 +13,12 @@ class AuthService {
         return HttpRequest.post<any>(`/auth/sign-up`, signUpType);
     }
 
-    public async signOut(id: string) {
-        return HttpRequest.post<void>(`/auth/${id}`, {});
+    public async signOut() {
+        return HttpRequest.post<void>(`/auth/sign-out`, {});
+    }
+
+    public async getUser() {
+        return HttpRequest.get<User>(`/auth/user`);
     }
 }
 

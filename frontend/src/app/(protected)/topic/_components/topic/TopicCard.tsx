@@ -8,7 +8,6 @@ import { BiFolder } from 'react-icons/bi';
 import { FaStar } from 'react-icons/fa';
 import { MdOutlineModeComment } from 'react-icons/md';
 import { backgroundImages } from './TopicImages';
-import { Image } from "@nextui-org/react";
 
 interface Props {
     topic: Topic;
@@ -24,17 +23,6 @@ const TopicCard = ({ topic }: Props) => {
 
     return (
         <div className=' border rounded-md dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7] transition-all'>
-            {/* <Image
-                isZoomed
-                src={topic.background || backgroundImages[0]}
-                alt='topic'
-                fallbackSrc="https://via.placeholder.com/300x200"
-                height={260}
-                classNames={{
-                    wrapper: 'rounded-md',
-                    img: 'rounded-md'
-                }}
-            /> */}
             <Link href={`/topic/${topic.id}`}
                 style={{ backgroundImage: `url(${topic.background || backgroundImages[0]})` }}
                 className="h-[260px] rounded-md w-full bg-cover bg-center overflow-hidden block group relative "
@@ -66,28 +54,6 @@ const TopicCard = ({ topic }: Props) => {
                                 <TopicTag key={index} index={index} tag={tag} />
                             ))}
                         </p>
-                        <div className='flex items-center justify-end gap-2'>
-                            <Link href={`/topic/${topic.id}/items`}
-                                className='hover:bg-background text-sm font-semibold bg-primary-50 px-3 py-1 rounded-full text-dark-text dark:text-dark-text flex items-center gap-1 z-[1]'
-                            >
-                                <span className='text-[1rem]'>
-                                    <BiFolder />
-                                </span>
-                                <span>
-                                    {topic.numberOfChildren}
-                                </span>
-                            </Link>
-                            <Link href={`/topic/${topic.id}/items`}
-                                className='hover:bg-background text-sm font-semibold bg-primary-50 px-3 py-1 rounded-full text-dark-text dark:text-dark-text flex items-center gap-1 z-[1]'
-                            >
-                                <span className='text-[1rem]'>
-                                    <MdOutlineModeComment />
-                                </span>
-                                <span>
-                                    1
-                                </span>
-                            </Link>
-                        </div>
                     </div>
                     <div className="px-3 pt-5 pb-3 flex flex-col">
                         <Link href={`/topic/${topic.id}`}
@@ -99,6 +65,16 @@ const TopicCard = ({ topic }: Props) => {
                             <p className='text-[0.75rem] font-semibold text-dark-text dark:text-dark-text transition-theme'>
                                 {DataFormatter.formatDateToDaysAgo(topic.createdAt)}
                             </p>
+                            <Link href={`/topic/${topic.id}/items`}
+                                className='relative top-[0.5px] hover:bg-background font-semibold text-dark-text dark:text-dark-text flex items-center gap-1'
+                            >
+                                <span className='text-[0.85rem]'>
+                                    <BiFolder />
+                                </span>
+                                <span className='relative top-[1.15px] text-[0.75rem]'>
+                                    {topic.numberOfChildren}
+                                </span>
+                            </Link>
                         </div>
                         <p className="group-hover:mt-1 group-hover:mb-2 my-0 group-hover:max-h-[40px] max-h-[0px] overflow-hidden flex-1 text-ellipsis line-clamp-2 transition-all text-[0.8rem] font-semibold text-dark-text dark:text-dark-text">
                             {topic.description}

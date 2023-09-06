@@ -2,23 +2,21 @@
 
 import Helmet from '@app/(protected)/_components/helmet';
 import { Button } from '@nextui-org/react';
+import { signIn } from 'next-auth/react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import SignInWithGithub from './_components/SignInWithGithub';
 import SignInWithGoogle from './_components/SignInWithGoogle';
-import { signIn } from 'next-auth/react';
 
 const Login = () => {
   const [loading, setLoading] = useState<boolean>(false);
-  const router = useRouter();
 
   const handleSubmit = async (e: any) => {
     setLoading(true);
     e.preventDefault();
     const username = e.target.username.value;
     const password = e.target.password.value;
-    await signIn('credentials', { callbackUrl: '/home', username, password })
+    await signIn('credentials', { callbackUrl: '/home', username, password, provider: 'credentials' })
     setLoading(false);
   }
 

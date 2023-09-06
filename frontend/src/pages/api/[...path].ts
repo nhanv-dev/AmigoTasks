@@ -11,13 +11,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     req.url = process.env.NEXT_PUBLIC_URL_SERVER_API + req.url;
 
     let response: any | null = null;
-    console.log(req.method, req.url, req.body);
 
+    console.log(req.method, req.url, req.body);
+ 
     const config = {
         headers: {
             Authorization: accessToken ? `Bearer ${accessToken}` : undefined,
         },
     };
+
     try {
         switch (req.method) {
             case "GET":

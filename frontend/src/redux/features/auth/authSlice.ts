@@ -15,10 +15,14 @@ export const auth = createSlice({
     reducers: {
         setUser(state, action: PayloadAction<User | null>) {
             state.user = action.payload;
+            state.isSignedInSuccess = true;
         }
     },
     extraReducers: (builder) => {
         builder
+            .addCase(AuthThunks.signIn.pending, (state, action) => {
+                state.isSignedInSuccess = false;
+            })
             .addCase(AuthThunks.signIn.fulfilled, (state, action) => {
                 state.user = action.payload.user;
                 state.isSignedInSuccess = true;

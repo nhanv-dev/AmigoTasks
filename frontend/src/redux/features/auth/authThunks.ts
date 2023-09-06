@@ -12,7 +12,11 @@ export const AuthThunks = {
     return await authService.signUp(signUp);
   }),
 
-  signOut: createAsyncThunk<void, string>("auth/sign-out", async (id) => {
-    return await authService.signOut(id);
+  signOut: createAsyncThunk<void, void>("auth/sign-out", async () => {
+    return await authService.signOut();
+  }),
+
+  getUser: createAsyncThunk<void, void>("auth/sign-out", async () => {
+    return await authService.signOut();
   }),
 }
