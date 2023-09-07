@@ -1,6 +1,9 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument, Model } from 'mongoose';
-import { BaseEntity, baseSchemaOptions } from 'src/module/common/entities/base.entity';
+import {
+  BaseEntity,
+  baseSchemaOptions,
+} from 'src/module/common/entities/base.entity';
 import { Task } from 'src/module/task/entities/task.entity';
 import { ExternalLink } from './external-link.entity';
 
@@ -34,7 +37,9 @@ export class Topic extends BaseEntity {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Topic', default: null })
   parent: mongoose.Schema.Types.ObjectId;
 
-  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Topic', default: [] }] })
+  @Prop({
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Topic', default: [] }],
+  })
   path: mongoose.Schema.Types.ObjectId[];
 
   @Prop({ default: [] })
@@ -52,7 +57,11 @@ export class Topic extends BaseEntity {
   @Prop({ required: false, default: [] })
   externalLinks: ExternalLink[];
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Workspace', default: null })
+  @Prop({
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Workspace',
+    default: null,
+  })
   workspace: mongoose.Schema.Types.ObjectId;
 
   @Prop({ required: false, default: null })

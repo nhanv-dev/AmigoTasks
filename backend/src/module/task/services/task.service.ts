@@ -13,7 +13,7 @@ export class TaskService extends BaseServiceAbstract<Task> {
     return this.taskRepository.findOneByCondition({
       id: id,
       owner: userId,
-      deletedAt: null
-    })
+      deletedAt: null,
+    });
   }
 }

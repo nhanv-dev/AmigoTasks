@@ -1,7 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
 import { Comment } from 'src/module/comment/entities/comment.entity';
-import { BaseEntity, baseSchemaOptions } from 'src/module/common/entities/base.entity';
+import {
+  BaseEntity,
+  baseSchemaOptions,
+} from 'src/module/common/entities/base.entity';
 import { Workspace } from 'src/module/workspace/entities/workspace.entity';
 
 export enum TaskStatus {
@@ -26,10 +29,18 @@ export class Task extends BaseEntity {
   @Prop({ required: false })
   description: string;
 
-  @Prop({ enum: Object.values(TaskStatus), required: false, default: TaskStatus.PENDING })
+  @Prop({
+    enum: Object.values(TaskStatus),
+    required: false,
+    default: TaskStatus.PENDING,
+  })
   status: string;
 
-  @Prop({ enum: Object.values(TaskPriority), default: TaskPriority.LOW, required: false })
+  @Prop({
+    enum: Object.values(TaskPriority),
+    default: TaskPriority.LOW,
+    required: false,
+  })
   priority: TaskPriority;
 
   @Prop({ default: [] })
@@ -38,7 +49,11 @@ export class Task extends BaseEntity {
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }] })
   comments: Comment[];
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Workspace', required: true })
+  @Prop({
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Workspace',
+    required: true,
+  })
   workspace: Workspace;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })

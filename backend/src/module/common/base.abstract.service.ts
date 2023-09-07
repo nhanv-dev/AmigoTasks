@@ -2,8 +2,10 @@ import { BaseEntity } from './entities/base.entity';
 import { BaseRepositoryInterface } from './interfaces/base.interface.repository';
 import { BaseServiceInterface } from './interfaces/base.interface.service';
 
-export abstract class BaseServiceAbstract<T extends BaseEntity> implements BaseServiceInterface<T>{
-  constructor(private readonly repository: BaseRepositoryInterface<T>) { }
+export abstract class BaseServiceAbstract<T extends BaseEntity>
+  implements BaseServiceInterface<T>
+{
+  constructor(private readonly repository: BaseRepositoryInterface<T>) {}
 
   async create(createDto: T | any): Promise<T> {
     return await this.repository.create(createDto);

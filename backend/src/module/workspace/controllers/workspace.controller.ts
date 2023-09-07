@@ -7,7 +7,8 @@ import {
   Param,
   Post,
   Put,
-  Request, UseGuards,
+  Request,
+  UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { CreateWorkspace } from '../dtos/create-workspace.dto';
@@ -18,19 +19,27 @@ import { WorkspaceService } from '../services/workspace.service';
 @UseGuards(AuthGuard('jwt'))
 @Controller('workspaces')
 export class WorkspaceController {
-  constructor(private readonly workspaceService: WorkspaceService) { }
+  constructor(private readonly workspaceService: WorkspaceService) {}
 
   @Post()
-  async create(@Request() req: any, @Body() createWorkspace: CreateWorkspace): Promise<Workspace> {
+  async create(
+    @Request() req: any,
+    @Body() createWorkspace: CreateWorkspace,
+  ): Promise<Workspace> {
     createWorkspace.owner = req.user.id;
     return this.workspaceService.create(createWorkspace);
   }
 
   @Put(':id')
-  async update(@Request() req: any, @Param('id') id: string, @Body() updateWorkspace: UpdateWorkspace) {
+  async update(
+    @Request() req: any,
+    @Param('id') id: string,
+    @Body() updateWorkspace: UpdateWorkspace,
+  ) {
     const workspace = await this.workspaceService.findOne(id);
     if (!workspace) throw new BadRequestException('Workspace is not exist');
-    if (workspace.owner.toString() !== req.user.id) throw new BadRequestException('Do not have permission');
+    if (workspace.owner.toString() !== req.user.id)
+      throw new BadRequestException('Do not have permission');
     return this.workspaceService.update(id, updateWorkspace);
   }
 
@@ -38,7 +47,8 @@ export class WorkspaceController {
   async remove(@Request() req: any, @Param('id') id: string) {
     const workspace = await this.workspaceService.findOne(id);
     if (!workspace) throw new BadRequestException('Workspace is not exist');
-    if (workspace.owner.toString() !== req.user.id) throw new BadRequestException('Do not have permission');
+    if (workspace.owner.toString() !== req.user.id)
+      throw new BadRequestException('Do not have permission');
     this.workspaceService.remove(id);
   }
 

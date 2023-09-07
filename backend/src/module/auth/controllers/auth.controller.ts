@@ -12,7 +12,7 @@ export class AuthController {
     private readonly authService: AuthService,
     private readonly userService: UserService,
     private readonly jwtService: JwtService,
-  ) { }
+  ) {}
 
   @Post('/sign-in')
   async signIn(@Body() signInDto: SignInDto) {
@@ -21,7 +21,10 @@ export class AuthController {
       signInDto.password,
       signInDto.provider,
     );
-    const accessToken = await this.jwtService.signAsync({ id: user.id }, { secret: '123' });
+    const accessToken = await this.jwtService.signAsync(
+      { id: user.id },
+      { secret: '123' },
+    );
     delete user.password;
     console.log(`Signed in with ${user.provider}:`, user.username);
     return { user, accessToken };
@@ -39,5 +42,5 @@ export class AuthController {
   }
 
   @Post('/sign-out')
-  async signOut(@Body() signUpDto: SignUpDto) { }
+  async signOut(@Body() signUpDto: SignUpDto) {}
 }

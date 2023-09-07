@@ -6,7 +6,10 @@ import { User } from '../entities/user.entity';
 import { UserRepositoryInterface } from '../interfaces/user.interface';
 
 @Injectable()
-export class UserRepository extends BaseRepositoryAbstract<User> implements UserRepositoryInterface {
+export class UserRepository
+  extends BaseRepositoryAbstract<User>
+  implements UserRepositoryInterface
+{
   constructor(
     @InjectModel(User.name)
     private readonly userModel: Model<User>,

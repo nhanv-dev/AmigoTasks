@@ -8,7 +8,8 @@ import { WorkspaceRepositoryInterface } from '../interfaces/workspace.interface'
 @Injectable()
 export class WorkspaceRepository
   extends BaseRepositoryAbstract<Workspace>
-  implements WorkspaceRepositoryInterface {
+  implements WorkspaceRepositoryInterface
+{
   constructor(
     @InjectModel(Workspace.name)
     private readonly workspaceModel: Model<Workspace>,

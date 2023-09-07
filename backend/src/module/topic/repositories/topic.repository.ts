@@ -6,7 +6,10 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
 @Injectable()
-export class TopicRepository extends BaseRepositoryAbstract<Topic> implements TopicRepositoryInterface {
+export class TopicRepository
+  extends BaseRepositoryAbstract<Topic>
+  implements TopicRepositoryInterface
+{
   constructor(
     @InjectModel(Topic.name)
     private readonly topicModel: Model<Topic>,

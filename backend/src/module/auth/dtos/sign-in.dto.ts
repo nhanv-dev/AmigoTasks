@@ -1,6 +1,6 @@
 import { IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { AccountProvider } from 'src/module/user/entities/user.entity';
- 
+
 export class SignInDto {
   @IsString()
   @IsNotEmpty()

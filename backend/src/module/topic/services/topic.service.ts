@@ -13,7 +13,10 @@ export class TopicService extends BaseServiceAbstract<Topic> {
 
   async createTopic(createTopicDto: CreateTopicDto) {
     const topic = await this.topicRepository.create(createTopicDto);
-    return this.topicRepository.findDetailTopic(topic.id, createTopicDto.author);
+    return this.topicRepository.findDetailTopic(
+      topic.id,
+      createTopicDto.author,
+    );
   }
 
   async updateTopic(id: string, updateTopicDto: UpdateTopicDto) {
@@ -21,7 +24,10 @@ export class TopicService extends BaseServiceAbstract<Topic> {
     if (topic && topic.parent && topic.parent !== updateTopicDto.parent) {
     }
     const savedTopic = await this.update(id, updateTopicDto);
-    return this.topicRepository.findDetailTopic(savedTopic.id, savedTopic.author.toString());
+    return this.topicRepository.findDetailTopic(
+      savedTopic.id,
+      savedTopic.author.toString(),
+    );
   }
 
   async deleteTopic(id: string) {

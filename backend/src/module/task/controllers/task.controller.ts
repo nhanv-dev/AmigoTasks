@@ -7,7 +7,7 @@ import {
   Post,
   Put,
   Request,
-  UseGuards
+  UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { NoPermissionException } from 'src/exception/NoPermissionException.exception';
@@ -19,7 +19,7 @@ import { TaskService } from '../services/task.service';
 @UseGuards(AuthGuard('jwt'))
 @Controller('tasks')
 export class TaskController {
-  constructor(private readonly taskService: TaskService) { }
+  constructor(private readonly taskService: TaskService) {}
 
   @Post()
   async create(@Request() req: any, @Body() createTaskDto: CreateTaskDto) {
@@ -28,10 +28,15 @@ export class TaskController {
   }
 
   @Put(':id')
-  async update(@Request() req: any, @Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
+  async update(
+    @Request() req: any,
+    @Param('id') id: string,
+    @Body() updateTaskDto: UpdateTaskDto,
+  ) {
     const task = await this.taskService.findOne(id);
     if (!task) throw new NotFoundDataException();
-    if (task.owner.toString() !== req.user.id) throw new NoPermissionException();
+    if (task.owner.toString() !== req.user.id)
+      throw new NoPermissionException();
     return this.taskService.update(id, updateTaskDto);
   }
 
@@ -39,7 +44,8 @@ export class TaskController {
   async delete(@Request() req: any, @Param('id') id: string) {
     const task = await this.taskService.findOne(id);
     if (!task) throw new NotFoundDataException();
-    if (task.owner.toString() !== req.user.id) throw new NoPermissionException();
+    if (task.owner.toString() !== req.user.id)
+      throw new NoPermissionException();
     return this.taskService.remove(id);
   }
 

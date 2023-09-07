@@ -1,6 +1,9 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
-import { BaseEntity, baseSchemaOptions } from 'src/module/common/entities/base.entity';
+import {
+  BaseEntity,
+  baseSchemaOptions,
+} from 'src/module/common/entities/base.entity';
 
 enum TaskStatus {
   PENDING = 'pending',

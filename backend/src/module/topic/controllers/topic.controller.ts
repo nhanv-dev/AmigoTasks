@@ -8,7 +8,7 @@ import {
   Put,
   Query,
   Request,
-  UseGuards
+  UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { NoPermissionException } from 'src/exception/NoPermissionException.exception';
@@ -20,7 +20,7 @@ import { TopicService } from '../services/topic.service';
 @UseGuards(AuthGuard('jwt'))
 @Controller('topics')
 export class TopicController {
-  constructor(private readonly topicService: TopicService) { }
+  constructor(private readonly topicService: TopicService) {}
 
   @Post()
   async create(@Request() req: any, @Body() createTopicDto: CreateTopicDto) {
@@ -29,10 +29,15 @@ export class TopicController {
   }
 
   @Put(':id')
-  async update(@Request() req: any, @Param('id') id: string, @Body() updateTopicDto: UpdateTopicDto) {
+  async update(
+    @Request() req: any,
+    @Param('id') id: string,
+    @Body() updateTopicDto: UpdateTopicDto,
+  ) {
     const topic = await this.topicService.findOne(id);
     if (!topic) throw new NotFoundDataException();
-    if (topic.author.toString() !== req.user.id) throw new NoPermissionException();
+    if (topic.author.toString() !== req.user.id)
+      throw new NoPermissionException();
     return this.topicService.updateTopic(id, updateTopicDto);
   }
 
@@ -40,7 +45,8 @@ export class TopicController {
   async remove(@Request() req: any, @Param('id') id: string) {
     const topic = await this.topicService.findOne(id);
     if (!topic) throw new NotFoundDataException();
-    if (topic.author.toString() !== req.user.id) throw new NoPermissionException();
+    if (topic.author.toString() !== req.user.id)
+      throw new NoPermissionException();
     return this.topicService.deleteTopic(id);
   }
 

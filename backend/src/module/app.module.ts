@@ -12,8 +12,6 @@ import { TopicModule } from './topic/topic.module';
 import { UserModule } from './user/user.module';
 import { WorkspaceModule } from './workspace/workspace.module';
 
-
-
 @Module({
   imports: [
     DatabaseModule,
@@ -27,12 +25,10 @@ import { WorkspaceModule } from './workspace/workspace.module';
   controllers: [AppController],
   providers: [AppService],
 })
-
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(TokenMiddleware)
-      .forRoutes({ path: '*', method: RequestMethod.ALL })
-      
+      .forRoutes({ path: '*', method: RequestMethod.ALL });
   }
 }

@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { AccountProvider } from 'src/module/user/entities/user.entity';
- 
+
 export class SignUpDto {
   @IsNotEmpty()
   username: string;

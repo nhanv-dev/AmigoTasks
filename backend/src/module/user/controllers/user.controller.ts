@@ -6,7 +6,7 @@ import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
-  
+
   @Get('/:id')
   @UseGuards(AuthGuard('jwt'))
   async getById(@Param('id') id: string) {

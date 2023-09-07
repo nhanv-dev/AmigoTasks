@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import * as cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import { AppModule } from './module/app.module';
+import { AuthGuard } from '@nestjs/passport';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -9,6 +10,7 @@ async function bootstrap() {
 
   app.enableCors();
   app.setGlobalPrefix('api');
+  // app.useGlobalGuards(AuthGuard('jwt'))
   app.use(cookieParser());
   // app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
   // app.useGlobalPipes(new ValidationPipe());

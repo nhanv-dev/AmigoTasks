@@ -14,4 +14,4 @@ import { UserService } from './services/user.service';
   exports: [UserService, UserRepository],
   providers: [UserService, JwtService, UserRepository],
 })
-export class UserModule { }
+export class UserModule {}
