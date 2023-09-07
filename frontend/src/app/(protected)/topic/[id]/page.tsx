@@ -60,11 +60,8 @@ const Page = ({ params }: Props) => {
   return (
     <Helmet title={topic?.title ? `${topic.title} - AmigoTasks` : 'Untitled - AmigoTasks'}>
       <div className='relative z-[1]'>
-        <div
-          style={{ backgroundImage: `url(${topic?.background || backgroundImages[0]})` }}
-          className='z-0 absolute left-0 right-0 w-full h-[450px] bg-fixed bg-cover bg-center bg-no-repeat'
-        >
-          <div className='z-0 absolute top-0 left-0 bottom-0 right-0 bg-[rgba(0,0,0,0.4)]' />
+        <div className='z-0 absolute left-0 right-0 w-full h-[450px] bg-fixed bg-cover bg-center bg-no-repeat'>
+
           <div className='z-0 absolute top-4 left-4 right-4 flex gap-4 justify-between'>
             <div className='flex-1 '>
               <TopicPath />
@@ -81,7 +78,7 @@ const Page = ({ params }: Props) => {
             </div>
           </div>
         </div>
-        <div className='w-full px-4 pt-[300px]'>
+        <div className='w-full px-4 pt-[80px]'>
           <div className='w-full flex flex-wrap items-start gap-4 justify-between h-full'>
             <div className='relative flex-1 w-full min-w-[650px]'>
               <ContainerCard>

@@ -17,15 +17,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         cookies.set("accessToken", accessToken, {
             httpOnly: true,
             secure: false,
-            sameSite: "lax",
             maxAge: 60000 * 60 * 24 * 365,
         });
+        console.log('signin', !!cookies.get('accessToken'))
         if (response) res.status(response?.status || 200).json(response?.data);
     } catch (err) {
         cookies.set("accessToken", "", {
             httpOnly: true,
             secure: false,
-            sameSite: "lax",
             maxAge: 1,
         });
         res.status(err?.response?.status || 500).json(err?.response?.data);

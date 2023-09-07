@@ -13,7 +13,7 @@ const Helmet = ({ title, children }: Props) => {
         document.title = title;
 
         return () => {
-            document.title = 'DM - Design Me';
+            document.title = 'AmigoTasks';
         }
     }, [title])
 

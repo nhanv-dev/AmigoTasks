@@ -9,9 +9,7 @@ const nextConfig = {
             transform: 'react-icons/{{member}}',
         }, 
     },
-    env: {
-        // OPENAI_API_KEY: process.env.OPENAI_API_KEY,
-        // URL_SERVER_API: process.env.URL_SERVER_API,
+    env: { 
     },
 }
 

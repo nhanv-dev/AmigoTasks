@@ -6,7 +6,6 @@ import { PiAppWindowLight } from "react-icons/pi";
 
 export const dashboardRoutes = [
     { title: 'Home', icon: <BiHomeAlt />, href: '/home' },
-    { title: 'Workspace', icon: <PiAppWindowLight />, href: '/workspace' },
     { title: 'Task', icon: <CgGoogleTasks />, href: '/workspace' },
     { title: 'Topic', icon: <MdOutlineTopic />, href: '/topic' },
     { title: 'Roadmap', icon: <FaRegMap />, href: '/roadmaps' },

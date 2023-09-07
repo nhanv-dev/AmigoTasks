@@ -1,5 +1,6 @@
 "use client";
 
+import { AuthActions } from '@redux/features/auth/authSlice';
 import { AuthThunks } from '@redux/features/auth/authThunks';
 import { useAppDispatch } from '@redux/hook';
 import authService from '@services/auth/auth.service';
@@ -9,24 +10,21 @@ import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import PageLoading from '../loading/PageLoading';
-import { AuthActions } from '@redux/features/auth/authSlice';
 
-const AuthGuard = ({ children }) => {
+const AuthGuard = ({ authenticated, setAnthenticated, children }) => {
     const dispatch = useAppDispatch();
     const { data, status } = useSession();
     const [loading, setLoading] = useState<boolean>(false);
-
     useEffect(() => {
-        const validate = async () => {
+        const validateWithCredentials = async () => {
             setLoading(true)
             const _data: any = { ...data };
             if (!_data?.username) {
-                setLoading(false);
                 return;
             }
             try {
                 if (_data.provider === "credentials") {
-                    await dispatch(AuthActions.setUser(_data))
+                    dispatch(AuthActions.setUser(_data)) 
                 } else {
                     const existUser = await userService.getByUsername(_data.username, _data.provider);
                     if (!existUser) {
@@ -41,20 +39,24 @@ const AuthGuard = ({ children }) => {
                     }
                     await dispatch(AuthThunks.signIn({ username: _data.username, password: null, provider: _data.provider }))
                 }
+                setAnthenticated(true)
             } catch (error) {
+                setAnthenticated(false)
                 console.log(error)
-            } finally {
-                setLoading(false);
+            } finally { 
+                setLoading(false)
             }
         };
-        validate();
+
+        if (status === 'authenticated')
+            validateWithCredentials();
     }, [status])
 
-    if (status === 'loading' || loading) return <PageLoading />
+    if (status === 'loading') return <PageLoading />
+    
+    if (authenticated) return <>{children}</>
 
-    if (status === 'authenticated' && !loading) return <>{children}</>
-
-    redirect('/sign-in')
+    if (status === 'unauthenticated' && !authenticated && !loading) redirect('/sign-in')
 }
 
 export default AuthGuard;

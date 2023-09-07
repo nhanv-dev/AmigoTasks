@@ -81,7 +81,7 @@ const Sidebar = () => {
               <p className='mb-1 px-2 uppercase text-[0.675rem] font-bold text-text-50 dark:text-dark-text-50 transition-theme'>
                 Workspace
               </p>
-              <div className='relative shadow-sm w-full rounded-md p-2 pb-4 mb-3 bg-white dark:bg-[#212225] transition-theme'>
+              <div className='relative shadow-sm w-full rounded-md p-2 pb-6 mb-3 bg-white dark:bg-[#212225] transition-theme'>
                 {workspaces.map(workspace => (
                   <div key={workspace.id}>
                     <LinkWrapper $active={false} >
@@ -121,7 +121,7 @@ const Sidebar = () => {
                 signOut({ callbackUrl: '/sign-in' })
               }}
               type='button'
-              className='rounded-md w-full flex items-center justify-center gap-2 min-w-full max-w-full'
+              className='rounded-md w-full flex items-center justify-start min-w-full max-w-full'
             >
               <BiLogOut className='text-[1.15rem]' />
               <p className={`${isOpenSidebar ? 'visible' : 'hidden'} font-semibold text-md`}>

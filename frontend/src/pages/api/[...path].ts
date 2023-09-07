@@ -8,12 +8,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const cookies = new Cookies(req, res);
     const accessToken = cookies.get("accessToken");
 
+    // if (!accessToken) return;
+
     req.url = process.env.NEXT_PUBLIC_URL_SERVER_API + req.url;
 
     let response: any | null = null;
 
-    console.log(req.method, req.url, req.body);
- 
+    console.log(req.method, req.url, req.body, !!accessToken);
+
     const config = {
         headers: {
             Authorization: accessToken ? `Bearer ${accessToken}` : undefined,

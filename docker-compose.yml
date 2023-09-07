@@ -1,0 +1,14 @@
+version: '3'
+services:
+  todo-frontend:
+    build:
+      context: ./frontend # Path to your Nest.js app directory
+    ports:
+      - "3000:3000" # Map the Nest.js app port to host machine
+
+  todo-backend:
+    build:
+      context: ./backend # Path to your Next.js app directory
+    ports:
+      - "3001:3001" # Map the Next.js app port to host machine
+
