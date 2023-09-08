@@ -4,22 +4,19 @@ import ContainerCard from '@app/(protected)/_components/card/ContainerCard';
 import Helmet from '@app/(protected)/_components/helmet';
 import AutoSaveInput from '@app/(protected)/topic/_components/editor/AutoSaveInput';
 import { Button, ScrollShadow } from '@nextui-org/react';
-import { TopicSelectors } from '@redux/features/topic/topicSelectors';
 import { TopicActions } from '@redux/features/topic/topicSlice';
 import { TopicThunks } from '@redux/features/topic/topicThunks';
-import { useAppDispatch, useAppSelector } from '@redux/hook';
-import { DetailTopic, Topic } from '@services/topic/types';
+import { useAppDispatch } from '@redux/hook';
+import { DetailTopic } from '@services/topic/types';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { AiTwotoneEdit } from 'react-icons/ai';
 import AutoSaveTextarea from '../_components/editor/AutoSaveTextarea';
 import Editor from '../_components/editor/Editor';
+import TopicFolders from '../_components/sidebar/TopicFolders';
 import TopicDetail from '../_components/topic/TopicDetail';
 import { backgroundImages } from '../_components/topic/TopicImages';
 import TopicPath from '../_components/topic/TopicPath';
-import TopicCard from '../_components/topic/TopicCard';
-import Link from 'next/link';
-import TopicFolders from '../_components/sidebar/TopicFolders';
 
 
 interface Props {
@@ -66,16 +63,6 @@ const Page = ({ params }: Props) => {
           className='z-0 absolute left-0 right-0 w-full h-[450px] bg-fixed bg-cover bg-center bg-no-repeat'
         >
           <div className='z-0 absolute top-0 left-0 bottom-0 right-0 sbg-[rgba(0,0,0,0.4)]' />
-        </div>
-        <div className=' h-[calc(100vh-58px)] min-w-[310px] w-[310px] sticky top-0 bottom-0 p-4 pr-0'>
-          <ScrollShadow className='h-full' hideScrollBar isEnabled={false}>
-            <TopicFolders />
-            <ContainerCard classNames='mt-4 mb-[0px]'>
-              {/* <ScrollShadow className='h-[calc(100vh-58px-32px-32px)]' hideScrollBar={true}> */}
-              <TopicDetail />
-              {/* </ScrollShadow> */}
-            </ContainerCard>
-          </ScrollShadow>
         </div>
         <div className='relative z-[1] flex-1'>
           <div className='z-0 pt-4 px-4 flex gap-4 items-center justify-between'>

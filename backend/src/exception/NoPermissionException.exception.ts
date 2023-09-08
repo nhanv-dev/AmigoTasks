@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus } from '@nestjs/common';
 
 export class NoPermissionException extends HttpException {
-  constructor() {
-    super('Do not have permission', HttpStatus.BAD_REQUEST);
+  constructor(message?: string) {
+    super(message || 'Do not have permission', HttpStatus.BAD_REQUEST);
   }
 }

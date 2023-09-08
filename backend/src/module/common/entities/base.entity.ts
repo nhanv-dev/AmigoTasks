@@ -14,7 +14,7 @@ export const baseSchemaOptions = {
 @Schema({ ...baseSchemaOptions })
 export class BaseEntity {
   @Prop({ type: mongoose.Schema.Types.ObjectId, auto: true })
-  _id: mongoose.Types.ObjectId;
+  _id: mongoose.Schema.Types.ObjectId;
 
   id?: string;
 

@@ -1,7 +1,9 @@
 
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import commentService from "@services/comment/comment.service";
+import { Comment } from "@services/comment/types";
 import topicService from "@services/topic/topic.service";
-import { CreateTopic, DetailTopic, Topic, TopicFolder, TopicStatus, UpdateTopic } from "@services/topic/types";
+import { CreateTopic, CreateTopicComment, DeleteTopicComment, DetailTopic, Topic, TopicFolder, TopicStatus, UpdateTopic, UpdateTopicComment } from "@services/topic/types";
 
 
 export const TopicThunks = {
@@ -39,5 +41,19 @@ export const TopicThunks = {
 
     getById: createAsyncThunk<DetailTopic, string>("topic/get-by-id", async (id) => {
         return await topicService.getById(id);
+    }),
+
+    // ─── Topic Comment ─────────────────────────────────────────────────────────────
+
+    addComment: createAsyncThunk<Comment, CreateTopicComment>("topic/comment/create", async (createTopicComment) => {
+        return await commentService.addCommentTopic(createTopicComment.topicId, createTopicComment);
+    }),
+
+    editComment: createAsyncThunk<Comment, UpdateTopicComment>("topic/comment/update", async (updateTopicComment) => {
+        return await commentService.editCommentTopic(updateTopicComment.topicId, updateTopicComment.id, updateTopicComment);
+    }),
+
+    deleteComment: createAsyncThunk<void, DeleteTopicComment>("topic/comment/delete", async (deleteTopicComment) => {
+        return await commentService.removeCommentTopic(deleteTopicComment.topicId, deleteTopicComment.id);
     }),
 }

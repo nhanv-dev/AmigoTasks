@@ -4,8 +4,6 @@ import {
   BaseEntity,
   baseSchemaOptions,
 } from 'src/module/common/entities/base.entity';
-import { Task } from 'src/module/task/entities/task.entity';
-import { ExternalLink } from './external-link.entity';
 
 export enum TopicStatus {
   DRAFT = 'draft',
@@ -19,13 +17,13 @@ export type TopicDocument = HydratedDocument<Topic>;
 
 @Schema({ ...baseSchemaOptions, collection: 'topics' })
 export class Topic extends BaseEntity {
-  @Prop({ required: true })
+  @Prop({ type: String, required: true })
   title: string;
 
-  @Prop({ required: false })
+  @Prop({ type: String, required: false })
   description: string;
 
-  @Prop({ required: false, default: null })
+  @Prop({ type: String, required: false, default: null })
   content: string;
 
   @Prop({ enum: Object.values(TopicStatus), default: TopicStatus.NEW })
@@ -37,31 +35,19 @@ export class Topic extends BaseEntity {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Topic', default: null })
   parent: mongoose.Schema.Types.ObjectId;
 
-  @Prop({
-    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Topic', default: [] }],
-  })
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Topic', default: [] }] })
   path: mongoose.Schema.Types.ObjectId[];
 
   @Prop({ default: [] })
   tags: string[];
 
-  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Task' }] })
-  tasks: Task[];
-
-  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }] })
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment', default: [] }] })
   comments: mongoose.Schema.Types.ObjectId[];
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
   author: mongoose.Schema.Types.ObjectId;
 
-  @Prop({ required: false, default: [] })
-  externalLinks: ExternalLink[];
-
-  @Prop({
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Workspace',
-    default: null,
-  })
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Workspace', default: null })
   workspace: mongoose.Schema.Types.ObjectId;
 
   @Prop({ required: false, default: null })

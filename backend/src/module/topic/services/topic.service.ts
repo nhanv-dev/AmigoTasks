@@ -1,13 +1,19 @@
 import { Injectable } from '@nestjs/common';
+import { CreateCommentDto } from 'src/module/comment/dtos/create-comment.dto';
+import { UpdateCommentDto } from 'src/module/comment/dtos/update-comment.dto';
+import { CommentRepository } from 'src/module/comment/repositories/comment.repository';
 import { BaseServiceAbstract } from 'src/module/common/base.abstract.service';
 import { CreateTopicDto } from '../dtos/create-topic.dto';
+import { UpdateTopicDto } from '../dtos/update-topic.dto';
 import { Topic } from '../entities/topic.entity';
 import { TopicRepository } from '../repositories/topic.repository';
-import { UpdateTopicDto } from '../dtos/update-topic.dto';
 
 @Injectable()
 export class TopicService extends BaseServiceAbstract<Topic> {
-  constructor(private readonly topicRepository: TopicRepository) {
+  constructor(
+    private readonly commentRepository: CommentRepository,
+    private readonly topicRepository: TopicRepository,
+  ) {
     super(topicRepository);
   }
 
@@ -24,10 +30,7 @@ export class TopicService extends BaseServiceAbstract<Topic> {
     if (topic && topic.parent && topic.parent !== updateTopicDto.parent) {
     }
     const savedTopic = await this.update(id, updateTopicDto);
-    return this.topicRepository.findDetailTopic(
-      savedTopic.id,
-      savedTopic.author.toString(),
-    );
+    return this.topicRepository.findDetailTopic(savedTopic.id, savedTopic.author.toString());
   }
 
   async deleteTopic(id: string) {
@@ -48,5 +51,26 @@ export class TopicService extends BaseServiceAbstract<Topic> {
 
   async findByParent(parent: string, authorId: string) {
     return this.topicRepository.findByParent(parent, authorId);
+  }
+
+  async addComment(id: string, comment: CreateCommentDto) {
+    const savedComment = await this.commentRepository.create(comment);
+    const topic = await this.findOne(id);
+    topic.comments = [...topic.comments, savedComment._id];
+    this.updateTopic(id, topic);
+    return this.commentRepository.findDetail(savedComment.id);
+  }
+
+  async editComment(id: string, commentId: string, comment: UpdateCommentDto) {
+    const savedComment = await this.commentRepository.update(commentId, comment);
+    return this.commentRepository.findDetail(savedComment.id);
+
+  }
+
+  async removeComment(id: string, commentId: string) {
+    this.commentRepository.permanentlyDelete(commentId);
+    const topic = await this.findOne(id);
+    topic.comments = topic.comments.filter(comment => comment.toString() !== commentId);
+    return this.updateTopic(id, topic);
   }
 }

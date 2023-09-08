@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import mongoose, { HydratedDocument } from 'mongoose';
 import {
   BaseEntity,
   baseSchemaOptions,
@@ -9,8 +9,11 @@ export type CommentDocument = HydratedDocument<Comment>;
 
 @Schema({ ...baseSchemaOptions, collection: 'comments' })
 export class Comment extends BaseEntity {
-  @Prop({ required: true })
+  @Prop({ type: String, required: true })
   content: string;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
+  author: mongoose.Schema.Types.ObjectId;
 }
 
 export const CommentSchema = SchemaFactory.createForClass(Comment);

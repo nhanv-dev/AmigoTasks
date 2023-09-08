@@ -16,11 +16,17 @@ import { NotFoundDataException } from 'src/exception/NotFoundDataException.excep
 import { CreateTopicDto } from '../dtos/create-topic.dto';
 import { UpdateTopicDto } from '../dtos/update-topic.dto';
 import { TopicService } from '../services/topic.service';
+import { CommentService } from 'src/module/comment/services/comment.service';
+import { UpdateCommentDto } from 'src/module/comment/dtos/update-comment.dto';
+import { CreateCommentDto } from 'src/module/comment/dtos/create-comment.dto';
 
 @UseGuards(AuthGuard('jwt'))
 @Controller('topics')
 export class TopicController {
-  constructor(private readonly topicService: TopicService) {}
+  constructor(
+    private readonly topicService: TopicService,
+    private readonly commentService: CommentService,
+  ) { }
 
   @Post()
   async create(@Request() req: any, @Body() createTopicDto: CreateTopicDto) {
@@ -70,4 +76,51 @@ export class TopicController {
   async findOne(@Request() req: any, @Param('id') id: string) {
     return this.topicService.findDetailTopic(id, req.user.id);
   }
+
+  // ─── Start Comment ────────────────────────────────────────────────────────────────────
+
+  @Post(':id/comments')
+  async addComment(
+    @Request() req: any,
+    @Param('id') id: string,
+    @Body() createCommentDto: CreateCommentDto,
+  ) {
+    const topic = await this.topicService.findOne(id);
+    if (!topic) throw new NotFoundDataException();
+    if (topic.author.toString() !== req.user.id) throw new NoPermissionException();
+    createCommentDto.author = req.user.id;
+    return this.topicService.addComment(id, createCommentDto);
+  }
+
+  @Put(':id/comments/:commentId')
+  async editComment(
+    @Request() req: any,
+    @Param('id') id: string,
+    @Param('commentId') commentId: string,
+    @Body() updateCommentDto: UpdateCommentDto,
+  ) {
+    const topic = await this.topicService.findOne(id);
+    if (!topic) throw new NotFoundDataException('Topic invalid');
+    if (topic.author.toString() !== req.user.id) throw new NoPermissionException();
+    const comment = await this.commentService.findOne(commentId);
+    if (!comment) throw new NotFoundDataException('Comment invalid');
+    return this.topicService.editComment(id, commentId, updateCommentDto);
+  }
+
+  @Delete(':id/comments/:commentId')
+  async removeComment(
+    @Request() req: any,
+    @Param('id') id: string,
+    @Param('commentId') commentId: string,
+  ) {
+    const topic = await this.topicService.findOne(id);
+    if (!topic) throw new NotFoundDataException();
+    if (topic.author.toString() !== req.user.id) throw new NoPermissionException();
+    const comment = await this.commentService.findOne(commentId);
+    if (!comment) throw new NotFoundDataException();
+    return this.topicService.removeComment(id, commentId);
+  }
+
+  // ─── End Comment ────────────────────────────────────────────────────────────────────
+
 }

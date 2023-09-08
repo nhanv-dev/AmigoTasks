@@ -1,5 +1,6 @@
 import { Workspace } from "@services/workspace/types";
 import { Base } from "../_common/type";
+import { Comment, CreateComment, DeleteComment, UpdateComment } from "@services/comment/types";
 
 export type Topic = Base & {
     title: string;
@@ -12,6 +13,7 @@ export type Topic = Base & {
     tags: string[];
     numberOfChildren: number;
     background?: string;
+    comments?: string[];
 }
 
 export type TopicFolder = Base & {
@@ -24,6 +26,7 @@ export type TopicFolder = Base & {
     path: string[];
     tags: string[];
     numberOfChildren: number;
+    comments?: string[];
 }
 
 export type DetailTopic = Base & {
@@ -38,6 +41,7 @@ export type DetailTopic = Base & {
     tags: string[];
     numberOfChildren: number;
     background?: string;
+    comments: Comment[];
 }
 
 export type CreateTopic = {
@@ -72,4 +76,16 @@ export const enum TopicStatus {
     IN_PROGRESS = 'in progress',
     COMPLETED = 'completed',
     ARCHIVED = 'archived',
+}
+
+export type CreateTopicComment = CreateComment & {
+    topicId: string;
+}
+
+export type UpdateTopicComment = UpdateComment & {
+    topicId: string;
+}
+
+export type DeleteTopicComment = DeleteComment & {
+    topicId: string;
 }

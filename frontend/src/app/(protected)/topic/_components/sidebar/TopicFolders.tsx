@@ -15,7 +15,7 @@ const TopicFolders = () => {
     const { tree } = useAppSelector(TopicSelectors.getTree());
 
     return (
-        <div className='dark:bg-dark-background rounded-md p-4'>
+        <div className='bg-background dark:bg-dark-background transition-theme rounded-md p-4'>
             <div className='flex items-center justify-between gap-3'>
                 <div className='text-[1.1rem] font-bold text-text dark:text-dark-text transition-theme'>
                     <Link href={'/topic'}>

@@ -114,6 +114,21 @@ export const topic = createSlice({
                 state.topicLoading = false;
             });
 
+        builder
+            .addCase(TopicThunks.addComment.fulfilled, (state, action) => {
+                if (!state.topic?.comments) return;
+                state.topic.comments.push(action.payload)
+            })
+            .addCase(TopicThunks.editComment.fulfilled, (state, action) => {
+                if (!state.topic?.comments) return;
+                const index = state.topic.comments.findIndex(comment => comment.id === action.payload.id)
+                state.topic.comments[index] = action.payload
+            })
+            .addCase(TopicThunks.deleteComment.fulfilled, (state, action) => {
+                if (!state.topic?.comments) return;
+                state.topic.comments = state.topic.comments.filter(comment => comment.id !== action.meta.arg.id)
+
+            });
     }
 })
 
