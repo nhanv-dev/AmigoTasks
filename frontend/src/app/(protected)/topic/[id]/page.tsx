@@ -19,6 +19,7 @@ import { backgroundImages } from '../_components/topic/TopicImages';
 import TopicPath from '../_components/topic/TopicPath';
 import TopicCard from '../_components/topic/TopicCard';
 import Link from 'next/link';
+import TopicFolders from '../_components/sidebar/TopicFolders';
 
 
 interface Props {
@@ -59,14 +60,29 @@ const Page = ({ params }: Props) => {
 
   return (
     <Helmet title={topic?.title ? `${topic.title} - AmigoTasks` : 'Untitled - AmigoTasks'}>
-      <div className='relative z-[1]'>
-        <div className='z-0 absolute left-0 right-0 w-full h-[450px] bg-fixed bg-cover bg-center bg-no-repeat'>
-
-          <div className='z-0 absolute top-4 left-4 right-4 flex gap-4 justify-between'>
-            <div className='flex-1 '>
+      <div className='flex relative'>
+        <div
+          style={{ backgroundImage: `url(${backgroundImages[0]})` }}
+          className='z-0 absolute left-0 right-0 w-full h-[450px] bg-fixed bg-cover bg-center bg-no-repeat'
+        >
+          <div className='z-0 absolute top-0 left-0 bottom-0 right-0 sbg-[rgba(0,0,0,0.4)]' />
+        </div>
+        <div className=' h-[calc(100vh-58px)] min-w-[310px] w-[310px] sticky top-0 bottom-0 p-4 pr-0'>
+          <ScrollShadow className='h-full' hideScrollBar isEnabled={false}>
+            <TopicFolders />
+            <ContainerCard classNames='mt-4 mb-[0px]'>
+              {/* <ScrollShadow className='h-[calc(100vh-58px-32px-32px)]' hideScrollBar={true}> */}
+              <TopicDetail />
+              {/* </ScrollShadow> */}
+            </ContainerCard>
+          </ScrollShadow>
+        </div>
+        <div className='relative z-[1] flex-1'>
+          <div className='z-0 pt-4 px-4 flex gap-4 items-center justify-between'>
+            <div className='flex-1'>
               <TopicPath />
             </div>
-            <div className='min-w-[320px] max-w-[320px] flex justify-end'>
+            <div className='min-w-max flex justify-end items-center'>
               <Button
                 isIconOnly
                 color="default"
@@ -77,57 +93,37 @@ const Page = ({ params }: Props) => {
               </Button>
             </div>
           </div>
-        </div>
-        <div className='w-full px-4 pt-[80px]'>
-          <div className='w-full flex flex-wrap items-start gap-4 justify-between h-full'>
-            <div className='relative flex-1 w-full min-w-[650px]'>
-              <ContainerCard>
-                <div className='max-w-[650px] mx-auto'>
-                  <AutoSaveInput
-                    initialValue={topic?.title}
-                    onSave={(value: any) => { handleSave('title', value) }}
-                  />
-                  <AutoSaveTextarea
-                    initialValue={topic?.description}
-                    onSave={(value: any) => { handleSave('description', value) }}
-                  />
-                </div>
-              </ContainerCard>
-              <Editor
-                id={params.id}
-                topic={topic}
-                initialValue={topic?.content}
-                onSave={(value: any) => { handleSave('content', value) }}
-              />
+          <div className='w-full px-4 pt-4'>
+            <div className='w-full flex flex-wrap items-start gap-4 justify-between h-full'>
+              <div className='relative flex-1 w-full min-w-[650px]'>
+                <ContainerCard>
+                  <div className='max-w-[650px] mx-auto mt-1'>
+                    <AutoSaveInput
+                      initialValue={topic?.title}
+                      onSave={(value: any) => { handleSave('title', value) }}
+                    />
+                    <AutoSaveTextarea
+                      initialValue={topic?.description}
+                      onSave={(value: any) => { handleSave('description', value) }}
+                    />
+                  </div>
+                </ContainerCard>
+                <Editor
+                  id={params.id}
+                  topic={topic}
+                  initialValue={topic?.content}
+                  onSave={(value: any) => { handleSave('content', value) }}
+                />
+              </div>
+              {/* <div className='sticky top-4 min-w-[320px] max-w-[320px]'>
+                <ContainerCard classNames='h-full'>
+                  <ScrollShadow className='h-[calc(100vh-58px-32px-32px)]' hideScrollBar={true}>
+                    <TopicDetail />
+                  </ScrollShadow>
+                </ContainerCard>
+              </div> */}
             </div>
-            {/* <div className='sticky top-4 min-w-[320px] max-w-[320px]'>
-              <ContainerCard classNames='h-full'>
-                <ScrollShadow className='h-[calc(100vh-58px-32px-32px)]' hideScrollBar={true}>
-                  <TopicDetail />
-                </ScrollShadow>
-              </ContainerCard>
-            </div> */}
           </div>
-          {/* {topics.length > 0 &&
-            <div className='mt-4'>
-              <div className='mb-4 flex items-center justify-between gap-4'>
-                <h5 className=' font-bold text-xl'>
-                  Related Topics
-                </h5>
-                <Link
-                  href={`/topic/${params.id}/items`}
-                  className='font-semibold text-md text-text-50 dark:text-dark-text-50'
-                >
-                  View
-                </Link>
-              </div>
-              <div className={`xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-2 grid gap-4 mb-5 pt-1.5 px-0 transition-all`}>
-                {topics.map(topic => (
-                  <TopicCard key={topic.id} topic={topic} />
-                ))}
-              </div>
-            </div>
-          } */}
         </div>
       </div>
     </Helmet >

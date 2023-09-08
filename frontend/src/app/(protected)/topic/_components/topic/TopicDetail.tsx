@@ -3,12 +3,11 @@ import { TopicSelectors } from '@redux/features/topic/topicSelectors';
 import { useAppDispatch, useAppSelector } from '@redux/hook';
 import DataFormatter from '@util/DataFormatter';
 import Link from 'next/link';
-import { AiFillTags, AiOutlineArrowRight, AiOutlineStar } from 'react-icons/ai';
-import { FiArrowRight, FiClock } from 'react-icons/fi';
+import { AiFillTags } from 'react-icons/ai';
+import { FiClock } from 'react-icons/fi';
 import { MdOutlineStyle } from 'react-icons/md';
 import { TbCategory } from 'react-icons/tb';
 import TopicComments from './TopicComments';
-import { Divider, ScrollShadow } from '@nextui-org/react';
 import TopicStatus from './TopicStatus';
 import TopicTags from './TopicTags';
 
@@ -26,8 +25,8 @@ const TopicDetail = () => {
 
     return (
         <div className=''>
-            <div className='flex justify-between mb-5'>
-                <div className='flex items-center gap-2 min-w-[150px]'>
+            <div className='flex justify-between items-center mb-5'>
+                <div className='flex items-center gap-2 min-w-[140px]'>
                     <p>
                         <MdOutlineStyle />
                     </p>
@@ -39,8 +38,8 @@ const TopicDetail = () => {
                     <TopicStatus />
                 </div>
             </div>
-            <div className='flex justify-between mb-5'>
-                <div className='flex items-center gap-2 min-w-[150px]'>
+            <div className='flex justify-between items-center mb-5'>
+                <div className='flex items-center gap-2 min-w-[140px]'>
                     <p>
                         <FiClock />
                     </p>
@@ -52,8 +51,8 @@ const TopicDetail = () => {
                     {DataFormatter.formatDate(topic.createdAt)}
                 </div>
             </div>
-            <div className='flex justify-between mb-5'>
-                <div className='flex items-center gap-2 min-w-[150px]'>
+            <div className='flex justify-between items-center mb-5'>
+                <div className='flex items-center gap-2 min-w-[140px]'>
                     <p>
                         <FiClock />
                     </p>
@@ -66,7 +65,7 @@ const TopicDetail = () => {
                 </div>
             </div>
             <div className='flex justify-between items-start mb-5'>
-                <div className='flex items-center gap-2 min-w-[150px]'>
+                <div className='flex items-center gap-2 min-w-[140px]'>
                     <p>
                         <AiFillTags />
                     </p>
@@ -79,8 +78,8 @@ const TopicDetail = () => {
                 </div>
             </div>
 
-            <div className='flex justify-between pb-5 mb-3 border-b'>
-                <div className='flex items-center gap-2 min-w-[150px]'>
+            <div className='flex justify-between pb-5 mb-3 border-b border-border dark:border-dark-border transition-theme'>
+                <div className='flex items-center gap-2 min-w-[140px]'>
                     <p>
                         <TbCategory />
                     </p>
@@ -90,10 +89,9 @@ const TopicDetail = () => {
                 </div>
                 <div className='flex-1 flex items-center gap-1 justify-start'>
                     <Link
-                        href={`/topic/${topic.id}/items`} className='w-max px-3 h-[24px] flex items-center justify-center rounded-full bg-primary-50 text-sm font-semibold text-text-50 dark:text-dark-text-50 transition-theme'>
+                        href={`/topic/${topic.id}/items`} className='w-max px-3 h-[24px] flex items-center justify-center rounded-full bg-primary/20 text-sm font-semibold text-primary dark:text-primary transition-theme'>
                         {topic.numberOfChildren} topics
                     </Link>
-
                 </div>
             </div>
             <TopicComments />

@@ -43,7 +43,7 @@ const AutoSaveTextarea = ({ initialValue, onSave }) => {
                     handleInputChange(e);
                     adjustTextareaHeight();
                 }}
-                className="bg-[transparent] w-full border-none outline-none resize-none font-semibold text-base overflow-auto"
+                className="bg-[transparent] w-full border-none outline-none resize-none font-semibold text-md overflow-auto"
             />
         </div>
     )

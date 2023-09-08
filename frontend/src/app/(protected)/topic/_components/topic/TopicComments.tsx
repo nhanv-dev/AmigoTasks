@@ -21,7 +21,7 @@ const TopicComments = () => {
                     <BsThreeDots />
                 </button>
             </div>
-            <div className='mb-6'>
+            <div className=''>
                 <div className='mb-3'>
                     <form className='rounded-md bg-default-100 hover:bg-default-200 transition-theme'>
                         <Textarea
@@ -73,7 +73,7 @@ const TopicComment = ({ comment }) => {
                     </p>
                 </div>
             </div>
-            <p className='text-sm font-semibold bg-slate-200 p-2 rounded-md'>
+            <p className='text-sm font-semibold bg-slate-800 p-2 rounded-md'>
                 {comment.content}
             </p>
         </div>

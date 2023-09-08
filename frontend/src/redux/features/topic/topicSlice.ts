@@ -48,6 +48,9 @@ export const topic = createSlice({
                     ...state.tree[index],
                     root: TopicHelper.convertDetailTopicToFolder({ ...state.tree[index]?.root, ...action.payload }),
                 }
+                const indexTopic = state.topics.findIndex(topic => topic.id === action.payload.id);
+                state.topics[indexTopic] = { ...topic, ...TopicHelper.convertDetailTopicToTopic(action.payload) }
+
                 state.topic = {
                     ...state.topic,
                     ...action.payload,

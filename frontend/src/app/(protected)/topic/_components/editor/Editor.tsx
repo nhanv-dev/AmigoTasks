@@ -81,7 +81,7 @@ const Editor = ({ id, topic, initialValue, onSave }) => {
     }
     return (
         <div
-            className='min-h-[400px] editor-container p-4 bg-cover bg-center rounded-md mb-4 bg-background dark:bg-dark-background transition-theme'
+            className='min-h-[400px] editor-container px-4 py-10 bg-cover bg-center rounded-md mb-4 bg-background dark:bg-dark-background transition-theme'
             style={{
                 // backgroundImage: 'url(https://images.unsplash.com/photo-1692023350707-33d901c2c4fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1771&q=80)'
             }}

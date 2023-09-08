@@ -8,6 +8,8 @@ import { BiFolder } from 'react-icons/bi';
 import { FaStar } from 'react-icons/fa';
 import { MdOutlineModeComment } from 'react-icons/md';
 import { backgroundImages } from './TopicImages';
+import { useAppDispatch } from '@redux/hook';
+import { TopicThunks } from '@redux/features/topic/topicThunks';
 
 interface Props {
     topic: Topic;
@@ -15,11 +17,7 @@ interface Props {
 
 const TopicCard = ({ topic }: Props) => {
 
-    // return (
-    //     <Link href={`/topic/${topic.id}`} className='block mb-10'>
-    //         {topic.title}
-    //     </Link>
-    // )
+    const dispatch = useAppDispatch();
 
     return (
         <div className=' border rounded-md dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7] transition-all'>
@@ -35,21 +33,23 @@ const TopicCard = ({ topic }: Props) => {
                         </Link>
                     </div>
                 }
-                <div className='absolute right-1.5 top-1.5'>
+                <div className='absolute z-[3] right-1.5 top-1.5'>
                     <Button
                         onClick={(e) => {
                             e.preventDefault();
                             e.stopPropagation();
+                            if (!topic) return;
+                            dispatch(TopicThunks.update({ id: topic.id, isFeatured: !topic.isFeatured }))
                         }}
                         isIconOnly color="danger" aria-label="Like"
-                        className={`${topic.isFeatured ? 'bg-danger' : 'bg-zinc-400/20 text-zinc-100/20'} min-w-[26px] min-h-[26px] max-w-[26px] max-h-[26px] p-0 text-[0.9rem] transition-theme shadow-md rounded-full`}
+                        className={`${topic.isFeatured ? 'bg-warning/40 text-warning' : 'bg-zinc-400 text-zinc-600'} min-w-[24px] min-h-[24px] max-w-[24px] max-h-[24px] p-0 text-[0.9rem] transition-theme shadow-md rounded-full`}
                     >
                         <FaStar />
                     </Button>
                 </div>
-                <div className='absolute bottom-0 left-0 right-0 sgroup-hover:bg-[rgba(0,0,0)] bg-[rgba(0,0,0,0.5)] backdrop-blur-sm transition-all'>
-                    <div className='absolute top-[-1.5rem] left-1.5 flex items-center justify-end gap-2'>
-                        <p className='flex overflow-hidden items-center justify-start gap-2 mt-2'>
+                <div className='absolute bottom-0 left-0 right-0 bg-[rgba(0,0,0,0.6)] backdrop-blur-sm transition-all'>
+                    <div className='absolute top-[0] translate-y-[-50%] left-3 flex items-center justify-end gap-2'>
+                        <p className='flex overflow-hidden items-center justify-start gap-2'>
                             {topic.tags.slice(0, 3).map((tag, index) => (
                                 <TopicTag key={index} index={index} tag={tag} />
                             ))}
@@ -71,12 +71,12 @@ const TopicCard = ({ topic }: Props) => {
                                 <span className='text-[0.85rem]'>
                                     <BiFolder />
                                 </span>
-                                <span className='relative top-[1.15px] text-[0.75rem]'>
+                                <span className='text-[0.8rem]'>
                                     {topic.numberOfChildren}
                                 </span>
                             </Link>
                         </div>
-                        <p className="group-hover:mt-1 group-hover:mb-2 my-0 group-hover:max-h-[40px] max-h-[0px] overflow-hidden flex-1 text-ellipsis line-clamp-2 transition-all text-[0.8rem] font-semibold text-dark-text dark:text-dark-text">
+                        <p className="group-hover:mt-1 group-hover:mb-2 my-0 group-hover:max-h-[40px] max-h-[0px] overflow-hidden flex-1 text-ellipsis line-clamp-2 transition-all text-[0.8rem] font-semibold text-dark-text-50 dark:text-dark-text-50">
                             {topic.description}
                         </p>
                     </div>
@@ -91,13 +91,13 @@ export default TopicCard;
 const TopicTag = ({ index, tag }: { index: number, tag: string }) => {
     if (index % 3 === 0)
         return (
-            <Link href={`/topic/tag/${tag}`} className="inline-flex items-center gap-1 rounded-sm bg-blue-50 px-2 py-1 text-xs font-bold text-blue-600"> {tag} </Link>
+            <Link href={`/topic/tag/${tag}`} className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-1.5 y-0.5 text-xs font-bold text-blue-600"> {tag} </Link>
         )
     if (index % 2 === 0)
         return (
-            <Link href={`/topic/tag/${tag}`} className="inline-flex items-center gap-1 rounded-sm bg-indigo-50 px-2 py-1 text-xs font-bold text-indigo-600"> {tag} </Link>
+            <Link href={`/topic/tag/${tag}`} className="inline-flex items-center gap-1 rounded-full bg-indigo-50 p1.5  py-0.5 text-xs font-bold text-indigo-600"> {tag} </Link>
         )
     return (
-        <Link href={`/topic/tag/${tag}`} className="inline-flex items-center gap-1 rounded-sm bg-orange-50 px-2 py-1 text-xs font-bold text-orange-600"> {tag} </Link>
+        <Link href={`/topic/tag/${tag}`} className="inline-flex items-center gap-1 rounded-full bg-orange-50 p1.5  py-0.5 text-xs font-bold text-orange-600"> {tag} </Link>
     )
 }

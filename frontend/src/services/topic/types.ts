@@ -58,6 +58,8 @@ export type UpdateTopic = {
     tags?: string[];
     content?: string;
     background?: string;
+    isFeatured?: boolean;
+
 };
 
 export type DeleteTopic = {

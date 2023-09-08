@@ -1,16 +1,24 @@
 import ContainerCard from '@app/(protected)/_components/card/ContainerCard';
+import { Button } from '@nextui-org/react';
 import { TopicSelectors } from '@redux/features/topic/topicSelectors';
-import { useAppSelector } from '@redux/hook';
+import { TopicThunks } from '@redux/features/topic/topicThunks';
+import { useAppDispatch, useAppSelector } from '@redux/hook';
 import Link from 'next/link';
-import { AiOutlineStar } from 'react-icons/ai';
-import { FiHome } from 'react-icons/fi';
+import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import { BiChevronRight } from 'react-icons/bi';
+import { FiHome } from 'react-icons/fi';
 
 const TopicPath = () => {
     const { topic } = useAppSelector(TopicSelectors.getTopic());
+    const dispatch = useAppDispatch();
+
+    const handleChangeIsFeatured = async () => {
+        if (!topic?.id) return;
+        dispatch(TopicThunks.update({ id: topic.id, isFeatured: !topic.isFeatured }))
+    }
 
     return (
-        <ContainerCard classNames='py-2 \'>
+        <ContainerCard classNames='py-2 mb-[0px]'>
             <div className='flex items-center gap-4 justify-between'>
                 <div className='flex items-center gap-2'>
                     <div className='flex items-center gap-2 h-[36px]'>
@@ -48,14 +56,15 @@ const TopicPath = () => {
                     ))}
                 </div>
                 <div className='flex items-center gap-2'>
-                    <button className='flex items-center gap-2 bg-dark-background text-dark-text py-1.5 px-4 rounded-md'>
-                        <p className=' '>
-                            {topic?.isFeatured ? <AiOutlineStar /> : <AiOutlineStar />}
+                    <Button
+                        type='button'
+                        tabIndex={-1}
+                        onClick={handleChangeIsFeatured}
+                        className={`${topic?.isFeatured ? 'bg-warning/20' : 'dark:bg-primary/20'} transition-theme rounded-full max-h-[32px] max-w-[60px] min-w-[60px]`}>
+                        <p className='text-[1.15rem]'>
+                            <AiFillStar className={`${topic?.isFeatured ? 'text-warning' : 'dark:text-dark-text-50'} transition-theme`} />
                         </p>
-                        <p className='font-bold text-md'>
-                            Star
-                        </p>
-                    </button>
+                    </Button>
                 </div>
             </div>
         </ContainerCard>
