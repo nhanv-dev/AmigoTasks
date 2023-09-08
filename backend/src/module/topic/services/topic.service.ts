@@ -30,7 +30,10 @@ export class TopicService extends BaseServiceAbstract<Topic> {
     if (topic && topic.parent && topic.parent !== updateTopicDto.parent) {
     }
     const savedTopic = await this.update(id, updateTopicDto);
-    return this.topicRepository.findDetailTopic(savedTopic.id, savedTopic.author.toString());
+    return this.topicRepository.findDetailTopic(
+      savedTopic.id,
+      savedTopic.author.toString(),
+    );
   }
 
   async deleteTopic(id: string) {
@@ -62,15 +65,19 @@ export class TopicService extends BaseServiceAbstract<Topic> {
   }
 
   async editComment(id: string, commentId: string, comment: UpdateCommentDto) {
-    const savedComment = await this.commentRepository.update(commentId, comment);
+    const savedComment = await this.commentRepository.update(
+      commentId,
+      comment,
+    );
     return this.commentRepository.findDetail(savedComment.id);
-
   }
 
   async removeComment(id: string, commentId: string) {
     this.commentRepository.permanentlyDelete(commentId);
     const topic = await this.findOne(id);
-    topic.comments = topic.comments.filter(comment => comment.toString() !== commentId);
+    topic.comments = topic.comments.filter(
+      (comment) => comment.toString() !== commentId,
+    );
     return this.updateTopic(id, topic);
   }
 }

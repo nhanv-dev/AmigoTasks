@@ -53,10 +53,11 @@ export default class TopicHelper {
     }
 
     static convertDetailTopicToFolder(detailTopic: DetailTopic): TopicFolder {
-        const root = {
+        const root: TopicFolder = {
             ...detailTopic,
             parent: !!detailTopic.parent ? detailTopic.parent.id : null,
-            path: detailTopic.path.map(p => p.id)
+            path: detailTopic.path.map(p => p.id),
+            comments: detailTopic.comments.map(c => c.id)
         }
         return root;
     }
@@ -64,7 +65,8 @@ export default class TopicHelper {
         const root = {
             ...detailTopic,
             parent: !!detailTopic.parent ? detailTopic.parent.id : null,
-            path: detailTopic.path.map(p => p.id)
+            path: detailTopic.path.map(p => p.id),
+            comments: detailTopic.comments.map(p => p.id),
         }
         return { root, children: [], open: false };
     }
@@ -74,7 +76,8 @@ export default class TopicHelper {
         return {
             ...detailTopic,
             parent: !!detailTopic.parent ? detailTopic.parent : null,
-            path: detailTopic.path.map(p => p.id)
+            path: detailTopic.path.map(p => p.id),
+            comments: detailTopic.comments.map(p => p.id),
         }
     }
 }

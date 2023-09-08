@@ -26,7 +26,7 @@ export class TopicController {
   constructor(
     private readonly topicService: TopicService,
     private readonly commentService: CommentService,
-  ) { }
+  ) {}
 
   @Post()
   async create(@Request() req: any, @Body() createTopicDto: CreateTopicDto) {
@@ -87,7 +87,8 @@ export class TopicController {
   ) {
     const topic = await this.topicService.findOne(id);
     if (!topic) throw new NotFoundDataException();
-    if (topic.author.toString() !== req.user.id) throw new NoPermissionException();
+    if (topic.author.toString() !== req.user.id)
+      throw new NoPermissionException();
     createCommentDto.author = req.user.id;
     return this.topicService.addComment(id, createCommentDto);
   }
@@ -101,7 +102,8 @@ export class TopicController {
   ) {
     const topic = await this.topicService.findOne(id);
     if (!topic) throw new NotFoundDataException('Topic invalid');
-    if (topic.author.toString() !== req.user.id) throw new NoPermissionException();
+    if (topic.author.toString() !== req.user.id)
+      throw new NoPermissionException();
     const comment = await this.commentService.findOne(commentId);
     if (!comment) throw new NotFoundDataException('Comment invalid');
     return this.topicService.editComment(id, commentId, updateCommentDto);
@@ -115,12 +117,12 @@ export class TopicController {
   ) {
     const topic = await this.topicService.findOne(id);
     if (!topic) throw new NotFoundDataException();
-    if (topic.author.toString() !== req.user.id) throw new NoPermissionException();
+    if (topic.author.toString() !== req.user.id)
+      throw new NoPermissionException();
     const comment = await this.commentService.findOne(commentId);
     if (!comment) throw new NotFoundDataException();
     return this.topicService.removeComment(id, commentId);
   }
 
   // ─── End Comment ────────────────────────────────────────────────────────────────────
-
 }

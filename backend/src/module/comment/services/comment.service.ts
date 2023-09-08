@@ -5,8 +5,7 @@ import { Comment } from '../entities/comment.entity';
 
 @Injectable()
 export class CommentService extends BaseServiceAbstract<Comment> {
-    constructor(private readonly commentRepository: CommentRepository) {
-        super(commentRepository)
-    }
-
+  constructor(private readonly commentRepository: CommentRepository) {
+    super(commentRepository);
+  }
 }

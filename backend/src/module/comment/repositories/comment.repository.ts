@@ -7,7 +7,10 @@ import { CommentRepositoryInterface } from '../interfaces/comment.interface';
 import { Comment } from '../entities/comment.entity';
 
 @Injectable()
-export class CommentRepository extends BaseRepositoryAbstract<Comment> implements CommentRepositoryInterface {
+export class CommentRepository
+  extends BaseRepositoryAbstract<Comment>
+  implements CommentRepositoryInterface
+{
   constructor(
     @InjectModel(Comment.name)
     private readonly commentModel: Model<Comment>,
@@ -16,11 +19,9 @@ export class CommentRepository extends BaseRepositoryAbstract<Comment> implement
   }
 
   async findDetail(id: string) {
-    return this.commentModel
-      .findOne({ _id: id, deletedAt: null })
-      .populate({
-        path: 'author',
-        select: 'id name username avatar'
-      });
+    return this.commentModel.findOne({ _id: id, deletedAt: null }).populate({
+      path: 'author',
+      select: 'id name username avatar',
+    });
   }
 }

@@ -13,4 +13,4 @@ import { CommentRepository } from './repositories/comment.repository';
   exports: [CommentService, CommentRepository],
   providers: [CommentService, CommentRepository],
 })
-export class CommentModule { }
+export class CommentModule {}

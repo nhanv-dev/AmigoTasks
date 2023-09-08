@@ -8,7 +8,8 @@ import { Model } from 'mongoose';
 @Injectable()
 export class TopicRepository
   extends BaseRepositoryAbstract<Topic>
-  implements TopicRepositoryInterface {
+  implements TopicRepositoryInterface
+{
   constructor(
     @InjectModel(Topic.name)
     private readonly topicModel: Model<Topic>,
@@ -26,12 +27,12 @@ export class TopicRepository
         path: 'comments',
         populate: {
           path: 'author',
-          select: 'id name username avatar'
-        }
+          select: 'id name username avatar',
+        },
       })
       .populate({
         path: 'author',
-        select: 'id name username avatar'
+        select: 'id name username avatar',
       })
       .populate('path');
   }

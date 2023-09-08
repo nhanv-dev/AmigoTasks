@@ -16,12 +16,7 @@ import { CommentRepository } from '../comment/repositories/comment.repository';
     ]),
   ],
   controllers: [TopicController],
-  providers: [
-    TopicService,
-    TopicRepository,
-    CommentService,
-    CommentRepository
-  ],
+  providers: [TopicService, TopicRepository, CommentService, CommentRepository],
   exports: [TopicService, TopicRepository],
 })
-export class TopicModule { }
+export class TopicModule {}
