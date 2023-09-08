@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import TopicHelper from "./topicHelper";
 import { TopicThunks } from "./topicThunks";
-import { TopicState } from "./types";
+import { TopicState, TreeItem } from "./types";
 import { DetailTopic } from "@services/topic/types";
 
 
@@ -27,6 +27,17 @@ export const topic = createSlice({
         },
         setTopic(state, action: PayloadAction<DetailTopic | null>) {
             state.topic = action.payload
+        },
+
+        dragItem(state, action: PayloadAction<{ id: string, transfer: string }>) {
+            const a = state.tree.findIndex(item => item.root.id === action.payload.id);
+            const b = state.tree.findIndex(item => item.root.id === action.payload.transfer);
+            state.tree[b].root.parent = state.tree[a].root.id
+            state.tree[a] = {
+                ...state.tree[a],
+                open: true,
+                children: [action.payload.transfer]
+            }
         }
     },
     extraReducers: (builder) => {

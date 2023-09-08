@@ -10,6 +10,7 @@ import { GoTriangleRight } from 'react-icons/go';
 import TopicFolderDropdown from './TopicFolderDropdown';
 import DataFormatter from '@util/DataFormatter';
 import { backgroundImages } from '../topic/TopicImages';
+import React from 'react';
 
 interface Props {
     item: ITreeItem;
@@ -27,13 +28,34 @@ const TreeItem = ({ item }: Props) => {
             await Promise.all([
                 dispatch(TopicThunks.getByParent(item.root.id)),
                 dispatch(TopicActions.setOpenTree({ open: true, id: item.root.id })),
-                // dispatch(TopicThunks.getById(item.root.id)),
             ])
         }
     }
 
+    const handleOnDrag = (e: React.DragEvent, item: ITreeItem) => {
+        // e.preventDefault();
+        e.stopPropagation();
+        e.dataTransfer.setData('transfer', item.root.id);
+    }
+    
+    const hanldeOnDrop = (e: React.DragEvent) => {
+        e.stopPropagation();
+        const transfer = e.dataTransfer.getData('transfer') as string;
+        dispatch(TopicActions.dragItem({ id: item.root.id, transfer }))
+    }
+    
+    const handleDragOver = (e: React.DragEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
     return (
-        <div className={`relative`}>
+        <div className={`relative`}
+            draggable
+            onDragStart={(e) => handleOnDrag(e, item)}
+            onDrop={hanldeOnDrop}
+            onDragOver={handleDragOver}
+        >
             <div className='flex items-center'>
                 <div className={`${topic?.id === item.root.id ? 'bg-primary/20 text-primary dark:text-primary' : 'text-text-50 dark:text-dark-text-50'} group flex-1 mb-1 flex items-center justify-between gap-2 px-2 hover:bg-primary/20 rounded-md outline-none transition-all`}>
                     <Link

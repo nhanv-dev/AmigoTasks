@@ -1,14 +1,13 @@
 "use client";
 
-import { Accordion, AccordionItem, Button } from '@nextui-org/react';
+import { Button } from '@nextui-org/react';
 import { TopicSelectors } from '@redux/features/topic/topicSelectors';
 import { useAppSelector } from '@redux/hook';
 import Link from 'next/link';
 import { useState } from 'react';
-import { BsFillCaretDownFill } from 'react-icons/bs';
+import { BiSolidChevronDown } from 'react-icons/bi';
 import TopicDropdown from './TopicDropdown';
 import TreeItem from './TopicFolder';
-import { BiSolidChevronDown } from 'react-icons/bi';
 
 const TopicFolders = () => {
     const [expand, setExpand] = useState<boolean>(true);
