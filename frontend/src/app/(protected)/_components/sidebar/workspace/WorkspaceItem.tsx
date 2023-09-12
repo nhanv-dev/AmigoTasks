@@ -43,7 +43,7 @@ const WorkspaceItem = ({ workspace }: Props) => {
   }
 
   return (
-    <div className='w-full mb-1 group'>
+    <div className='w-full group'>
       <div
         className={` ${selectedWorkspace?.id === workspace.id ? 'bg-primary/20 text-primary' : 'dark:text-dark-text-50 text-text-50'} max-w-full overflow-hidden flex items-center gap-4 font-semibold px-3 py-1 hover:bg-primary/20 rounded-md transition-theme`}>
         <Link

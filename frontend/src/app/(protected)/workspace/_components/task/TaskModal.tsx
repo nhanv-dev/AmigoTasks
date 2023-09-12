@@ -51,7 +51,7 @@ const TaskModal = () => {
             description,
             tags: [],
         }
-        await dispatch(TaskThunks.update({ ...data }))
+        await dispatch(TaskThunks.updateTask({ ...data }))
         dispatch(TaskActions.setForm({ selectedTask: null, isOpen: false }))
     }
     return (

@@ -28,7 +28,7 @@ const TaskDropdown = ({ task }) => {
                 onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    dispatch(TaskThunks.delete(task.id))
+                    dispatch(TaskThunks.deleteTask(task.id))
                 }}
             />
         </CustomDropdown>

@@ -45,7 +45,7 @@ const TaskStatusComponent = () => {
                     selectedKeys={new Set(selectedKeys)}
                     onSelectionChange={(keys: any) => {
                         for (const value of keys) {
-                            dispatch(TaskThunks.update({ ...selectedTask, status: value }))
+                            dispatch(TaskThunks.updateTask({ ...selectedTask, status: value }))
                             setSelectedKeys(value)
                         }
                     }}

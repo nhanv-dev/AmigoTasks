@@ -53,10 +53,38 @@ const Sidebar = () => {
                 <BsFillCaretRightFill className='relative top-[0.-15px]' />
               </button>
             </div>
+            <div className='mb-3 pb-3 border-b border-border dark:border-dark-border'>
+              <div className='mb-1 flex items-center justify-between gap-2'>
+                <p className='flex items gap-2 uppercase text-[0.65rem] px-2 font-extrabold text-text-50 dark:text-dark-text-50 transition-theme'>
+                  Menu
+                </p>
+              </div>
+              <div className='flex flex-col gap-1'>
+                {dashboardRoutes.map((route, index) => (
+                  <LinkWrapper $active={active === index} key={route.href}>
+                    <Link
+                      href={route.href}
+                      tabIndex={-1}
+                      className={`py-2.5 w-full flex items-center justify-start`}
+                    >
+                      <p className='text-[1.2rem] min-w-[47px] flex items-center justify-center'>
+                        {route.icon}
+                      </p>
+                      <p className={`${isOpenSidebar ? 'visible' : 'invisible w-0'} transition-all transition-theme overflow-hidden text-[0.8rem] font-semibold`}>
+                        {route.title}
+                      </p>
+                    </Link>
+                  </LinkWrapper>
+                ))}
+              </div>
+            </div>
             <ScrollShadow hideScrollBar className='bg-background-50 dark:bg-dark-background transition-theme flex-1'>
-              <WorkspaceList />
-              {/* <TaskLists /> */}
-              <TopicList />
+              <div className='pb-3 mb-3 border-b border-border dark:border-dark-border'>
+                <WorkspaceList />
+              </div>
+              <div className='mb-4'>
+                <TopicList />
+              </div>
             </ScrollShadow>
           </div>
         </div>
@@ -72,14 +100,14 @@ interface LinkWrapperProps {
 }
 
 const LinkWrapper = tw.div<LinkWrapperProps>`
-  w-full 
+  w-full  
   flex
   items-center
   justify-start
   rounded-md
   transition-all
-  h-[40px]
-  max-h-[40px]
+  h-[36px]
+  max-h-[36px] 
 
   relative
   before:absolute

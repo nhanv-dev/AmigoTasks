@@ -45,7 +45,7 @@ const TaskPriorityComponent = () => {
                     selectedKeys={new Set(selectedKeys)}
                     onSelectionChange={(keys: any) => {
                         for (const value of keys) {
-                            dispatch(TaskThunks.update({ ...selectedTask, priority: value }))
+                            dispatch(TaskThunks.updateTask({ ...selectedTask, priority: value }))
                             setSelectedKeys(value)
                         }
                     }}

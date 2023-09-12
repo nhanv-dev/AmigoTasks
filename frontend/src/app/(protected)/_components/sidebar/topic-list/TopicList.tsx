@@ -19,7 +19,8 @@ const TopicList = () => {
     return (
         <div className=''>
             <div className='flex items-center justify-between gap-3'>
-                <Link href={'/topic'} className='gap-2 flex items-center capitalize text-[0.85rem] font-bold text-text dark:text-dark-text transition-theme'>
+                <Link href={'/topic'}
+                    className='flex items gap-2 capitalize text-[0.75rem] font-bold text-text-50 dark:text-dark-text-50 transition-theme'>
                     <img
                         className='w-[16px] h-[16px]'
                         src='https://cdn-icons-png.flaticon.com/128/4215/4215246.png' alt='topic' />
@@ -29,7 +30,7 @@ const TopicList = () => {
                     <TopicDropdown />
                 </div>
             </div>
-            <div className={`mt-3 transition-all overflow-hidden`}>
+            <div className={`mt-2 transition-all overflow-hidden`}>
                 {tree.map(item => {
                     if (item.root.parent) return;
                     return <TopicItem key={item.root.id} item={item} />

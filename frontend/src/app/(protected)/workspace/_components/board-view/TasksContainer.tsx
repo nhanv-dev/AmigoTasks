@@ -1,16 +1,14 @@
 import { CreateTask, Task, TaskStatus } from '@/services/task/types';
-import { TaskActions } from '@redux/features/task/taskSlice';
+import { Button } from '@nextui-org/react';
+import { TaskThunks } from '@redux/features/task/taskThunks';
+import { WorkspaceSelectors } from '@redux/features/workspace/workspaceSelectors';
+import { WorkspaceThunks } from '@redux/features/workspace/workspaceThunks';
 import { useAppDispatch, useAppSelector } from '@redux/hook';
+import { motion } from "framer-motion";
 import { useEffect, useState } from 'react';
 import { BsThreeDots } from 'react-icons/bs';
 import { IoIosAdd } from 'react-icons/io';
 import TaskCard from './TaskCard';
-import { motion } from "framer-motion";
-import { Button, Spinner } from '@nextui-org/react';
-import { TaskThunks } from '@redux/features/task/taskThunks';
-import { WorkspaceSelectors } from '@redux/features/workspace/workspaceSelectors';
-import { WorkspaceThunks } from '@redux/features/workspace/workspaceThunks';
-import { TaskSelectors } from '@redux/features/task/taskSelectors';
 
 interface Props {
     title: string;
@@ -93,7 +91,7 @@ const CreateTaskCard = ({ task, setTask }) => {
         e.preventDefault();
         e.stopPropagation();
         const title = e.target.title.value;
-        await dispatch(TaskThunks.create({ ...task, title }));
+        await dispatch(TaskThunks.createTask({ ...task, title }));
         await dispatch(WorkspaceThunks.getById(task.workspace))
         setTask(null)
     }

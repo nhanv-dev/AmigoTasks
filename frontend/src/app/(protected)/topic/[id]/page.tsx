@@ -3,7 +3,7 @@
 import ContainerCard from '@app/(protected)/_components/card/ContainerCard';
 import Helmet from '@app/(protected)/_components/helmet';
 import AutoSaveInput from '@app/(protected)/topic/_components/editor/AutoSaveInput';
-import { Button, ScrollShadow } from '@nextui-org/react';
+import { Button } from '@nextui-org/react';
 import { TopicActions } from '@redux/features/topic/topicSlice';
 import { TopicThunks } from '@redux/features/topic/topicThunks';
 import { useAppDispatch } from '@redux/hook';
@@ -13,9 +13,6 @@ import { useEffect, useState } from 'react';
 import { AiTwotoneEdit } from 'react-icons/ai';
 import AutoSaveTextarea from '../_components/editor/AutoSaveTextarea';
 import Editor from '../_components/editor/Editor';
-import TopicFolders from '../_components/sidebar/TopicFolders';
-import TopicDetail from '../_components/topic/TopicDetail';
-import { backgroundImages } from '../_components/topic/TopicImages';
 import TopicPath from '../_components/topic/TopicPath';
 
 

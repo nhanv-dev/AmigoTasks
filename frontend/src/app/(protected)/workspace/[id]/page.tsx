@@ -16,7 +16,7 @@ import ListView from '../_components/list-view';
 import TableView from '../_components/table-view';
 import TaskModal from '../_components/task/TaskModal';
  import GalleryView from './../_components/gallery-view';
-import TaskListProfile from '../_components/task-list/TaskListProfile';
+import TaskListProfile from './task-list/TaskListProfile';
 
 interface Props {
     params: { id: string };

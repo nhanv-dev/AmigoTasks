@@ -22,8 +22,8 @@ const WorkspaceList = () => {
             <InnerLoading loading={loading && workspaces.length <= 0} />
             <WorkspaceModal onOpenChange={onOpenChange} />
             <div className='relative'>
-                <div className='mb-1 flex items-center justify-between gap-2'>
-                    <p className='flex items gap-2 capitalize text-[0.85rem] font-bold text-text dark:text-dark-text transition-theme'>
+                <div className='flex items-center justify-between gap-2'>
+                    <p className='flex items gap-2 capitalize text-[0.75rem] font-bold text-text-50 dark:text-dark-text-50 transition-theme'>
                         <img
                             className='w-[16p] h-[16px]'
                             src='https://cdn-icons-png.flaticon.com/128/6283/6283621.png' alt='workspace' />
@@ -31,16 +31,18 @@ const WorkspaceList = () => {
                     </p>
                     <WorkspaceDropdown onOpenChange={onOpenChange} />
                 </div>
-                {workspaces.map(workspace => (
-                    <motion.div
-                        key={workspace.id}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.1 }}
-                    >
-                        <WorkspaceItem workspace={workspace} />
-                    </motion.div>
-                ))}
+                <div className='mt-2 flex flex-col gap-1'>
+                    {workspaces.map(workspace => (
+                        <motion.div
+                            key={workspace.id}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.1 }}
+                        >
+                            <WorkspaceItem workspace={workspace} />
+                        </motion.div>
+                    ))}
+                </div>
             </div>
         </div>
     )

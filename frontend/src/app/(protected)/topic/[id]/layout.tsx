@@ -10,7 +10,7 @@ export default function WorkSpaceLayout({ children }: { children: React.ReactNod
 
     return (
         <main>
-            <div className='px-[70px] flex gap-4 relative'>
+            <div className='px-[80px] flex gap-4 relative'>
                 <div
                     style={{ backgroundImage: `url(${backgroundImages[0]})` }}
                     className='z-0 absolute left-0 right-0 w-full h-[450px] bg-fixed bg-cover bg-center bg-no-repeat'>
@@ -19,13 +19,13 @@ export default function WorkSpaceLayout({ children }: { children: React.ReactNod
                 <div className='flex-1'>
                     {children}
                 </div>
-                {/* <div className='h-[calc(100vh-58px)] min-w-[300px] w-[300px] sticky top-4 bottom-4'>
+                <div className='h-[calc(100vh-58px)] min-w-[300px] w-[300px] sticky top-4 bottom-4'>
                     <ContainerCard classNames='mb-[0px]'>
                         <ScrollShadow className='h-[calc(100vh-58px-48px)]' hideScrollBar={true}>
                             <TopicDetail />
                         </ScrollShadow>
                     </ContainerCard>
-                </div> */}
+                </div>
             </div>
         </main>
     )
