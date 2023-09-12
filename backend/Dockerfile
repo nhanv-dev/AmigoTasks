@@ -1,20 +1,46 @@
-# Use an official Node.js runtime as the base image
-FROM node:18
+FROM ubuntu:22.04 as base
 
-# Set the working directory in the container
-WORKDIR /app
+ENV DEBIAN_FRONTEND noninteractive
 
-# Copy the yarn.lock and package.json to the working directory
-COPY package.json yarn.lock ./
+RUN apt-get update -y && apt-get install -y \
+    software-properties-common \
+    apt-transport-https \
+    curl 
+# nodejs 19x LTS Debian
+RUN curl -fsSL https://deb.nodesource.com/setup_19.x | bash -
 
-# Install project dependencies using Yarn
+# yarn
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+
+# install depdencies
+RUN apt-get update -y && apt-get install -y --allow-unauthenticated \
+    nodejs
+
+# Install yarn seperately due to `no-install-recommends` to skip nodejs install 
+RUN apt-get install -y --no-install-recommends yarn
+
+FROM base as build
+
+WORKDIR /www
+COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
 RUN yarn install
-
-# Copy the rest of the application code to the container
 COPY . .
+COPY .env .env
 
-# Expose the port that your NestJS application will run on (change this to your application's port)
-EXPOSE 3001
+RUN yarn build
+RUN rm -rf node_modules && yarn install --production
+RUN yarn cache clean
+RUN yarn autoclean --force
 
-# Define the command to start your NestJS application (adjust this to your application's start script)
-CMD ["yarn", "start"]
+FROM base as final
+
+WORKDIR /www
+COPY --from=build /www/node_modules ./node_modules
+COPY --from=build /www/dist ./dist
+COPY --from=build /www/package.json ./package.json
+
+ENV RUN_MODE="docker"
+ENV NODE_ENV = "production"
+
+CMD [ "yarn", "start:prod" ]

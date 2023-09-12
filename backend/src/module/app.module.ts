@@ -1,12 +1,13 @@
 import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { RequestMethod } from '@nestjs/common/enums';
 import { NestModule } from '@nestjs/common/interfaces/modules';
+import { ConfigModule } from "@nestjs/config";
+import { MongooseModule } from '@nestjs/mongoose';
+import { TokenMiddleware } from '../middlewares/TokenMiddleware';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { CommentModule } from './comment/comment.module';
-import { DatabaseModule } from '../database/database.module';
-import { TokenMiddleware } from '../middlewares/TokenMiddleware';
 import { TaskModule } from './task/task.module';
 import { TopicModule } from './topic/topic.module';
 import { UserModule } from './user/user.module';
@@ -14,7 +15,16 @@ import { WorkspaceModule } from './workspace/workspace.module';
 
 @Module({
   imports: [
-    DatabaseModule,
+    ConfigModule.forRoot({
+      envFilePath: ".env",
+      isGlobal: true,
+      cache: true,
+      expandVariables: true,
+    }),
+    MongooseModule.forRoot((() => {
+      if (!process.env.DATABASE_URI) throw Error("DATABASE_URI environment variable is empty");
+      return process.env.DATABASE_URI;
+    })()),
     UserModule,
     AuthModule,
     TopicModule,

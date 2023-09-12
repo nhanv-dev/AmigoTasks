@@ -13,6 +13,9 @@ RUN yarn install
 # Copy the rest of the application code to the container
 COPY . .
 
+# Copy the environment file of the application code to the container
+COPY .env .env
+
 # Build the Next.js application
 RUN yarn build
 

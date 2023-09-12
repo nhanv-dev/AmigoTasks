@@ -3,14 +3,11 @@ import { NextApiRequest, NextApiResponse } from "next";
 import Cookies from "cookies";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    if (!process.env.NEXT_PUBLIC_URL_SERVER_API) throw Error("NEXT_PUBLIC_URL_SERVER_API environment variable is empty");
-
+    if (!process.env.URL_SERVER_API) throw Error("URL_SERVER_API environment variable is empty");
     const cookies = new Cookies(req, res);
     const accessToken = cookies.get("accessToken");
 
-    // if (!accessToken) return;
-
-    req.url = process.env.NEXT_PUBLIC_URL_SERVER_API + req.url;
+    req.url = process.env.URL_SERVER_API + req.url;
 
     let response: any | null = null;
 

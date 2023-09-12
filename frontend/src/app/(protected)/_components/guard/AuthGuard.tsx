@@ -41,8 +41,8 @@ const AuthGuard = ({ authenticated, setAnthenticated, children }) => {
             }
             setAnthenticated(true)
         } catch (error) {
-            setAnthenticated(false)
             console.log(error)
+            setAnthenticated(false)
         } finally {
             setLoading(false)
         }

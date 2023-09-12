@@ -16,7 +16,7 @@ const Login = () => {
     e.preventDefault();
     const username = e.target.username.value;
     const password = e.target.password.value;
-    await signIn('credentials', { callbackUrl: '/home', username, password, provider: 'credentials' })
+    await signIn('credentials', { callbackUrl: '/', username, password, provider: 'credentials' })
     setLoading(false);
   }
 

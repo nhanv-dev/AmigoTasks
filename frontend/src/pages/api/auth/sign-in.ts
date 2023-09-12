@@ -3,14 +3,13 @@ import { NextApiRequest, NextApiResponse } from "next";
 import Cookies from "cookies";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    if (!process.env.NEXT_PUBLIC_URL_SERVER_API) throw Error("NEXT_PUBLIC_URL_SERVER_API environment variable is empty");
+    if (!process.env.URL_SERVER_API) throw Error("URL_SERVER_API environment variable is empty");
 
     const cookies = new Cookies(req, res);
 
     let response: any | null = null;
 
-    req.url = process.env.NEXT_PUBLIC_URL_SERVER_API + req.url;
-
+    req.url = process.env.URL_SERVER_API + req.url;
     try {
         response = await axios.post(req.url, req.body);
         const { accessToken } = response.data;
@@ -19,7 +18,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             secure: false,
             maxAge: 60000 * 60 * 24 * 365,
         });
-        console.log('signin', !!cookies.get('accessToken'))
         if (response) res.status(response?.status || 200).json(response?.data);
     } catch (err) {
         cookies.set("accessToken", "", {

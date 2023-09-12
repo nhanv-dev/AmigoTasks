@@ -42,7 +42,6 @@ const authConfig = (req: NextApiRequest, res: NextApiResponse): NextAuthOptions 
                 return newSession;
             },
         },
-
         providers: [
             GoogleProvider({
                 clientId: process.env.GOOGLE_CLIENT_ID as string,
@@ -61,7 +60,7 @@ const authConfig = (req: NextApiRequest, res: NextApiResponse): NextAuthOptions 
                 async authorize(credentials) {
                     if (!credentials || !credentials.username || !credentials.password) return null;
                     const { username, password } = credentials;
-                    const response: any = await axios.post('http://127.0.0.1:3001/api/auth/sign-in', { username, password })
+                    const response: any = await axios.post(`${process.env.URL_SERVER_API}/api/auth/sign-in`, { username, password })
                     if (!response) return null;
                     const cookies = new Cookies(req, res);
                     await cookies.set("accessToken", response.data.accessToken, {
@@ -70,7 +69,6 @@ const authConfig = (req: NextApiRequest, res: NextApiResponse): NextAuthOptions 
                         sameSite: "lax",
                         maxAge: 60000 * 60 * 24 * 365,
                     });
-                    console.log(cookies.get('accessToken'))
                     return response.data;
                 },
             }),
@@ -79,7 +77,6 @@ const authConfig = (req: NextApiRequest, res: NextApiResponse): NextAuthOptions 
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-
     return await NextAuth(req, res, authConfig(req, res));
 }
 

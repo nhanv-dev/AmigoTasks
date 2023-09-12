@@ -1,14 +1,37 @@
-version: '3'
 services:
-  todo-frontend:
-    build:
-      context: ./frontend # Path to your Nest.js app directory
+  mongodb:
+    container_name: todo-mongodb
+    image: mongo:latest # Use the latest MongoDB image from Docker Hub
     ports:
-      - "3000:3000" # Map the Nest.js app port to host machine
+      - "27017:27017" # Map the MongoDB port to host
+    volumes:
+      - ./mongodb:/data/db
+      # environment:
+      # - MONGO_INITDB_ROOT_USERNAME=admin
+      # - MONGO_INITDB_ROOT_PASSWORD=admin
 
-  todo-backend:
+  backend:
+    container_name: todo-backend
     build:
-      context: ./backend # Path to your Next.js app directory
+      context: ./backend
     ports:
-      - "3001:3001" # Map the Next.js app port to host machine
+      - "3001:3000"
+    depends_on:
+      - mongodb
+    environment:
+      - PORT=3000
+      - DATABASE_URI=mongodb://mongodb:27017/
+      - SECRET_KEY=nhanv
 
+  frontend:
+    container_name: todo-frontend
+    build:
+      context: ./frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    environment:
+      - URL_SERVER_API=http://backend:3000
+      - NEXTAUTH_URL=http://localhost:3000
+      - NEXTAUTH_SECRET=secret

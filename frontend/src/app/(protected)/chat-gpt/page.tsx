@@ -4,7 +4,6 @@ import ContainerCard from '../_components/card/ContainerCard';
 import ChatApp from '../_components/chat-gpt';
 import Helmet from '../_components/helmet';
 
-
 const ChatGPT = () => {
 
     return (
