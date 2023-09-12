@@ -57,59 +57,42 @@ const Page = ({ params }: Props) => {
 
   return (
     <Helmet title={topic?.title ? `${topic.title} - AmigoTasks` : 'Untitled - AmigoTasks'}>
-      <div className='flex relative'>
-        <div
-          style={{ backgroundImage: `url(${backgroundImages[0]})` }}
-          className='z-0 absolute left-0 right-0 w-full h-[450px] bg-fixed bg-cover bg-center bg-no-repeat'
-        >
-          <div className='z-0 absolute top-0 left-0 bottom-0 right-0 sbg-[rgba(0,0,0,0.4)]' />
+      <div className='relative z-[0] pt-4 flex gap-4 items-center justify-between'>
+        <div className='flex-1'>
+          <TopicPath />
         </div>
-        <div className='relative z-[1] flex-1'>
-          <div className='z-0 pt-4 px-4 flex gap-4 items-center justify-between'>
-            <div className='flex-1'>
-              <TopicPath />
-            </div>
-            <div className='min-w-max flex justify-end items-center'>
-              <Button
-                isIconOnly
-                color="default"
-                aria-label="Edit"
-                className='rounded-full text-[1.1rem] text-dark-text min-w-[32px] min-h-[32px] bg-[rgba(0,0,0,0.7)]'
-              >
-                <AiTwotoneEdit />
-              </Button>
-            </div>
-          </div>
-          <div className='w-full px-4 pt-4'>
-            <div className='w-full flex flex-wrap items-start gap-4 justify-between h-full'>
-              <div className='relative flex-1 w-full min-w-[650px]'>
-                <ContainerCard>
-                  <div className='max-w-[650px] mx-auto mt-1'>
-                    <AutoSaveInput
-                      initialValue={topic?.title}
-                      onSave={(value: any) => { handleSave('title', value) }}
-                    />
-                    <AutoSaveTextarea
-                      initialValue={topic?.description}
-                      onSave={(value: any) => { handleSave('description', value) }}
-                    />
-                  </div>
-                </ContainerCard>
-                <Editor
-                  id={params.id}
-                  topic={topic}
-                  initialValue={topic?.content}
-                  onSave={(value: any) => { handleSave('content', value) }}
+        <div className='min-w-max flex justify-end items-center'>
+          <Button
+            isIconOnly
+            color="default"
+            aria-label="Edit"
+            className='rounded-full text-[1.1rem] text-dark-text min-w-[32px] min-h-[32px] bg-[rgba(0,0,0,0.7)]'
+          >
+            <AiTwotoneEdit />
+          </Button>
+        </div>
+      </div>
+      <div className='w-full pt-4'>
+        <div className='w-full flex flex-wrap items-start gap-4 justify-between h-full'>
+          <div className='relative flex-1 w-full min-w-[650px]'>
+            <ContainerCard>
+              <div className='max-w-[650px] mx-auto mt-1'>
+                <AutoSaveInput
+                  initialValue={topic?.title}
+                  onSave={(value: any) => { handleSave('title', value) }}
+                />
+                <AutoSaveTextarea
+                  initialValue={topic?.description}
+                  onSave={(value: any) => { handleSave('description', value) }}
                 />
               </div>
-              {/* <div className='sticky top-4 min-w-[320px] max-w-[320px]'>
-                <ContainerCard classNames='h-full'>
-                  <ScrollShadow className='h-[calc(100vh-58px-32px-32px)]' hideScrollBar={true}>
-                    <TopicDetail />
-                  </ScrollShadow>
-                </ContainerCard>
-              </div> */}
-            </div>
+            </ContainerCard>
+            <Editor
+              id={params.id}
+              topic={topic}
+              initialValue={topic?.content}
+              onSave={(value: any) => { handleSave('content', value) }}
+            />
           </div>
         </div>
       </div>

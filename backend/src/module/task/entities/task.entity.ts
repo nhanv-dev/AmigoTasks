@@ -1,22 +1,22 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
 import { Comment } from 'src/module/comment/entities/comment.entity';
-import {
-  BaseEntity,
-  baseSchemaOptions,
-} from 'src/module/common/entities/base.entity';
-import { Workspace } from 'src/module/workspace/entities/workspace.entity';
+import { BaseEntity, baseSchemaOptions } from 'src/module/common/entities/base.entity';
+import { TaskList } from './task-list.entity';
 
-export enum TaskStatus {
+export enum DefaultTaskStatus {
   PENDING = 'pending',
   IN_PROGRESS = 'in progress',
   COMPLETED = 'completed',
+  NEED_REVIEW = 'need review',
 }
 
 export enum TaskPriority {
-  LOW = 'LOW',
-  MEDIUM = 'MEDIUM',
-  HIGH = 'HIGH',
+  URGENT = 'urgent',
+  HIGH = 'hight',
+  MEDIUM = 'medium',
+  LOW = 'low',
+  NONE = 'none',
 }
 
 export type TaskDocument = HydratedDocument<Task>;
@@ -29,32 +29,20 @@ export class Task extends BaseEntity {
   @Prop({ required: false })
   description: string;
 
-  @Prop({
-    enum: Object.values(TaskStatus),
-    required: false,
-    default: TaskStatus.PENDING,
-  })
-  status: string;
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'TaskStatus', required: true })
+  status: mongoose.Schema.Types.ObjectId;
 
-  @Prop({
-    enum: Object.values(TaskPriority),
-    default: TaskPriority.LOW,
-    required: false,
-  })
+  @Prop({ enum: Object.values(TaskPriority), default: TaskPriority.LOW, required: false })
   priority: TaskPriority;
 
-  @Prop({ default: [] })
+  @Prop({ required: false, default: [] })
   tags: string[];
 
-  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }] })
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment', required: false, default: [] }] })
   comments: Comment[];
 
-  @Prop({
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Workspace',
-    required: true,
-  })
-  workspace: Workspace;
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'TaskList', required: true })
+  taskList: TaskList;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
   owner: mongoose.Schema.Types.ObjectId;

@@ -5,6 +5,7 @@ import workspaceService from "@services/workspace/workspace.service";
 
 export const WorkspaceThunks = {
   create: createAsyncThunk<Workspace, CreateWorkspace>("workspace/create", async (createWorkspace) => {
+    console.log(createWorkspace)
     return await workspaceService.create(createWorkspace);
   }),
 

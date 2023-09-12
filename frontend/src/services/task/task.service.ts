@@ -20,8 +20,8 @@ class TaskService {
         return HttpRequest.get<Task[]>('/tasks');
     }
 
-    public async getByWorkspaceId(id: string) {
-        return HttpRequest.get<Task[]>(`/tasks/workspaces/${id}`);
+    public async getByTaskListId(id: string) {
+        return HttpRequest.get<Task[]>(`/tasks/task-lists/${id}`);
     }
 
     public async getById(id: string) {

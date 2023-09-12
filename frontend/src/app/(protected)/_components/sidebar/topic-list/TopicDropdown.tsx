@@ -8,7 +8,7 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { CreateTopic } from '@services/topic/types';
 import { useRouter } from 'next/navigation';
 import { BsThreeDots } from 'react-icons/bs';
-import { backgroundImages } from '../topic/TopicImages';
+import { backgroundImages } from '../../../topic/_components/topic/TopicImages';
 
 const TopicDropdown = () => {
     const dispatch = useAppDispatch();
@@ -38,15 +38,8 @@ const TopicDropdown = () => {
                 onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    // onOpenChange(true)
                     handleCreateTopic();
                 }}
-            />
-            <DropdownItem
-                key="delete"
-                color="danger"
-                title='Clear topic'
-                className='text-danger'
             />
         </CustomDropdown>
 

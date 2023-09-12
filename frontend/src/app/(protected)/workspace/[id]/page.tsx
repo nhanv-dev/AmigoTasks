@@ -15,8 +15,8 @@ import BoardView from '../_components/board-view';
 import ListView from '../_components/list-view';
 import TableView from '../_components/table-view';
 import TaskModal from '../_components/task/TaskModal';
-import WorkspaceProfile from '../_components/workspace/WorkspaceProfile';
-import GalleryView from './../_components/gallery-view';
+ import GalleryView from './../_components/gallery-view';
+import TaskListProfile from '../_components/task-list/TaskListProfile';
 
 interface Props {
     params: { id: string };
@@ -31,7 +31,7 @@ const WorkSpace = ({ params }: Props) => {
 
     useEffect(() => {
         if (!params?.id) return;
-        dispatch(TaskThunks.getByWorkspaceId(params.id))
+        dispatch(TaskThunks.getTaskListsByWorkspaceId(params.id))
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [params])
 
@@ -45,7 +45,7 @@ const WorkSpace = ({ params }: Props) => {
         <Helmet title={workspace?.title ? ` ${workspace.title} | AmigoTasks` : 'Workspace | AmigoTasks'}>
             <div className='px-4 pt-4'>
                 <TaskModal />
-                <WorkspaceProfile />
+                <TaskListProfile />
                 <CustomTabs
                     tabs={[
                         {

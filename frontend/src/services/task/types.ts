@@ -1,6 +1,5 @@
-import { workspace } from './../../redux/features/workspace/workspaceSlice';
-import { Comment } from "@services/comment/types";
 import { Base } from "@services/_common/type";
+import { Comment } from "@services/comment/types";
 
 export enum TaskStatus {
     PENDING = 'pending',
@@ -12,6 +11,11 @@ export enum TaskPriority {
     LOW = 'LOW',
     MEDIUM = 'MEDIUM',
     HIGH = 'HIGH',
+}
+
+export type TaskList = Base & {
+    title: string;
+    workspace: string;
 }
 
 export type Task = Base & {
@@ -33,4 +37,19 @@ export type CreateTask = {
 
 export type UpdateTask = Partial<Task>
 
-export type DeleteTask = {}
+export type DeleteTask = {
+    id: string
+}
+
+export type CreateTaskList = {
+    title: string;
+    statuses: string[];
+    workspace: string
+}
+
+export type UpdateTaskList = Partial<TaskList>
+
+export type DeleteTaskList = {
+    id: string;
+}
+

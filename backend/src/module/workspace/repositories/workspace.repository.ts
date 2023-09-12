@@ -21,9 +21,9 @@ export class WorkspaceRepository
     try {
       return this.workspaceModel
         .find({ owner: userId, deletedAt: null })
-        .populate('pendingTaskCount')
-        .populate('inProgressTaskCount')
-        .populate('completedTaskCount')
+        // .populate('pendingTaskCount')
+        // .populate('inProgressTaskCount')
+        // .populate('completedTaskCount')
         .exec();
     } catch (error) {
       return null;
@@ -33,9 +33,9 @@ export class WorkspaceRepository
   async findOneWithTaskCounts(id: string, userId: string) {
     return this.workspaceModel
       .findOne({ _id: id, owner: userId, deletedAt: null })
-      .populate('pendingTaskCount')
-      .populate('inProgressTaskCount')
-      .populate('completedTaskCount')
+      // .populate('pendingTaskCount')
+      // .populate('inProgressTaskCount')
+      // .populate('completedTaskCount')
       .exec();
   }
 }

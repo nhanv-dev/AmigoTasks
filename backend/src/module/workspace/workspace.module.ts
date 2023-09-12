@@ -12,7 +12,7 @@ import { Workspace, WorkspaceSchema } from './entities/workspace.entity';
     ]),
   ],
   controllers: [WorkspaceController],
-  exports: [WorkspaceService, WorkspaceRepository],
   providers: [WorkspaceService, WorkspaceRepository],
+  // exports: [WorkspaceService, WorkspaceRepository],
 })
 export class WorkspaceModule {}

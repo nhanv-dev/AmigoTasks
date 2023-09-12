@@ -37,8 +37,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 response = await axios.delete(req.url, config);
                 break;
         }
-        if (response) res.status(response?.status || 200).json(response?.data);
+        if (response) res.status(response.status || 200).json(response.data);
     } catch (err) {
-        res.status(err?.response?.status || 500).json(err?.response?.data);
+        res.status(err.response?.status || 500).json(err.response?.data);
     }
 }

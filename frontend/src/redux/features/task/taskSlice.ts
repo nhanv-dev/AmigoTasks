@@ -5,6 +5,8 @@ import { Form, TaskState } from "./types";
 const initialState: TaskState = {
     tasks: [],
     loading: false,
+    taskLists: [],
+    taskListsLoading: false,
     form: {
         selectedTask: null,
         loading: false,
@@ -22,24 +24,48 @@ export const task = createSlice({
     },
     extraReducers: (builder) => {
 
+        // ─── Task List ──────────────────────────────────────────────────────
+
         builder
-            .addCase(TaskThunks.create.fulfilled, (state, action) => {
-                state.tasks.push(action.payload);
+            .addCase(TaskThunks.createTaskList.fulfilled, (state, action) => {
+
             })
 
         builder
-            .addCase(TaskThunks.update.pending, (state, action) => {
+            .addCase(TaskThunks.updateTaskList.fulfilled, (state, action) => {
+
+            })
+
+        builder
+            .addCase(TaskThunks.deleteTaskList.fulfilled, (state, action) => {
+
+            })
+
+        builder
+            .addCase(TaskThunks.getTaskListsByWorkspaceId.fulfilled, (state, action) => {
+
+            })
+
+        // ─── Task ──────────────────────────────────────────────────────
+
+        builder
+            .addCase(TaskThunks.createTask.fulfilled, (state, action) => {
+                state.tasks.push(action.payload);
+            });
+
+        builder
+            .addCase(TaskThunks.updateTask.pending, (state, action) => {
                 state.form = {
                     ...state.form,
                     loading: true,
                 };
             })
-            .addCase(TaskThunks.update.fulfilled, (state, action) => {
+            .addCase(TaskThunks.updateTask.fulfilled, (state, action) => {
                 const index = state.tasks.findIndex(task => task.id === action.payload.id);
                 state.tasks[index] = action.payload;
                 state.form = { ...state.form, loading: false };
             })
-            .addCase(TaskThunks.update.rejected, (state, action) => {
+            .addCase(TaskThunks.updateTask.rejected, (state, action) => {
                 state.form = {
                     ...state.form,
                     loading: false,
@@ -47,47 +73,47 @@ export const task = createSlice({
             });
 
         builder
-            .addCase(TaskThunks.delete.pending, (state, action) => {
+            .addCase(TaskThunks.deleteTask.pending, (state, action) => {
 
             })
-            .addCase(TaskThunks.delete.fulfilled, (state, action) => {
+            .addCase(TaskThunks.deleteTask.fulfilled, (state, action) => {
                 state.tasks = state.tasks.filter(task => task.id !== action.meta.arg)
             })
-            .addCase(TaskThunks.delete.rejected, (state, action) => {
+            .addCase(TaskThunks.deleteTask.rejected, (state, action) => {
 
             });
 
         builder
-            .addCase(TaskThunks.getAll.pending, (state, action) => {
+            .addCase(TaskThunks.getAllTasks.pending, (state, action) => {
 
             })
-            .addCase(TaskThunks.getAll.fulfilled, (state, action) => {
+            .addCase(TaskThunks.getAllTasks.fulfilled, (state, action) => {
                 console.log(state, action)
             })
-            .addCase(TaskThunks.getAll.rejected, (state, action) => {
-                console.log(state, action)
-            });
-
-        builder
-            .addCase(TaskThunks.getById.pending, (state, action) => {
-
-            })
-            .addCase(TaskThunks.getById.fulfilled, (state, action) => {
-                console.log(state, action)
-            })
-            .addCase(TaskThunks.getById.rejected, (state, action) => {
+            .addCase(TaskThunks.getAllTasks.rejected, (state, action) => {
                 console.log(state, action)
             });
 
         builder
-            .addCase(TaskThunks.getByWorkspaceId.pending, (state, action) => {
+            .addCase(TaskThunks.getTaskById.pending, (state, action) => {
+
+            })
+            .addCase(TaskThunks.getTaskById.fulfilled, (state, action) => {
+                console.log(state, action)
+            })
+            .addCase(TaskThunks.getTaskById.rejected, (state, action) => {
+                console.log(state, action)
+            });
+
+        builder
+            .addCase(TaskThunks.getTasksByTaskListId.pending, (state, action) => {
                 state.loading = true;
             })
-            .addCase(TaskThunks.getByWorkspaceId.fulfilled, (state, action) => {
+            .addCase(TaskThunks.getTasksByTaskListId.fulfilled, (state, action) => {
                 state.tasks = action.payload;
                 state.loading = false;
             })
-            .addCase(TaskThunks.getByWorkspaceId.rejected, (state, action) => {
+            .addCase(TaskThunks.getTasksByTaskListId.rejected, (state, action) => {
                 state.tasks = [];
                 state.loading = false;
             });

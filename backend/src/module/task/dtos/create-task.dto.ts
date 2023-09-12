@@ -1,29 +1,34 @@
 import {
-  IsNotEmpty,
-  IsString,
-  IsBoolean,
-  IsOptional,
-  IsMongoId,
   IsEnum,
+  IsMongoId,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString
 } from 'class-validator';
-import { TaskPriority, TaskStatus } from '../entities/task.entity';
+import { TaskPriority } from '../entities/task.entity';
 
 export class CreateTaskDto {
+
   @IsNotEmpty()
   @IsString()
   title: string;
 
-  @IsString()
   @IsOptional()
+  @IsString()
   description: string;
 
   @IsOptional()
-  @IsEnum(TaskStatus)
+  @IsString()
   status: string;
 
-  @IsEnum(TaskPriority)
   @IsOptional()
+  @IsEnum(TaskPriority)
   priority: TaskPriority = TaskPriority.LOW;
+
+  @IsOptional()
+  @IsNumber()
+  order: number;
 
   @IsNotEmpty()
   @IsMongoId()
@@ -32,4 +37,5 @@ export class CreateTaskDto {
   @IsOptional()
   @IsString()
   owner: string;
+
 }

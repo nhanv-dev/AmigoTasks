@@ -19,7 +19,7 @@ const CustomDropdown = ({ icon, children }) => {
                 aria-labelledby="dropdown-menu-workspace"
                 itemClasses={{
                     base: "rounded-sm",
-                    title: "font-semibold text-[0.85rem]",
+                    title: "font-semibold text-[0.75rem]",
                     description: "font-semibold text-xs",
                 }}
             >

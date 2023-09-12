@@ -13,4 +13,6 @@ export const TaskSelectors = {
     getTasks: () => createSelector(TaskStateSelector, ({ tasks, loading }) => ({ tasks, loading })),
 
     getTask: () => createSelector(TaskStateSelector, ({ tasks, loading }) => ({ tasks, loading })),
+
+    getTaskLists: () => createSelector(TaskStateSelector, ({ taskLists, taskListsLoading }) => ({ taskLists, taskListsLoading })),
 }

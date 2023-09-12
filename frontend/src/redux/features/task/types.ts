@@ -1,4 +1,4 @@
-import { Task } from "@services/task/types";
+import { Task, TaskList } from "@services/task/types";
 
 export type Form = {
     selectedTask: Task | null;
@@ -8,6 +8,8 @@ export type Form = {
 
 export type TaskState = {
     tasks: Task[];
+    taskLists: TaskList[]
+    taskListsLoading: boolean;
     loading: boolean;
     form: Form
 }

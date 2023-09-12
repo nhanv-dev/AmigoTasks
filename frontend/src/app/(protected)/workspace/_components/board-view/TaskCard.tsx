@@ -5,7 +5,7 @@ import { BsCalendar3 } from 'react-icons/bs';
 import { MdOutlineModeComment } from 'react-icons/md';
 import TaskModal from '../task/TaskModal';
 import TaskTag from '../task/TaskTag';
-import DropdownWorkspace from '../workspace/WorkspaceDropdown';
+import DropdownWorkspace from '../../../_components/sidebar/workspace/WorkspaceDropdown';
 import { useAppDispatch } from '@redux/hook';
 import { TaskActions } from '@redux/features/task/taskSlice';
 import TaskDropdown from '../task/TaskDropdown';

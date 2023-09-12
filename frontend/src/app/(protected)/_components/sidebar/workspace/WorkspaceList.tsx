@@ -1,14 +1,12 @@
-import HeaderSidebarCard from '@app/(protected)/_components/card/HeaderSidebarCard';
-import SidebarCard from '@app/(protected)/_components/card/SidebarCard';
+
 import InnerLoading from '@app/(protected)/_components/loading/InnerLoading';
+import WorkspaceDropdown from '@app/(protected)/_components/sidebar/workspace/WorkspaceDropdown';
 import { WorkspaceSelectors } from '@redux/features/workspace/workspaceSelectors';
 import { WorkspaceActions } from '@redux/features/workspace/workspaceSlice';
 import { useAppDispatch, useAppSelector } from '@redux/hook';
 import { motion } from "framer-motion";
-import WorkspaceDropdown from '../workspace/WorkspaceDropdown';
-import WorkspaceItem from '../workspace/WorkspaceItem';
-import WorkspaceModal from '../workspace/WorkspaceModal';
-import WorkspacePriority from '../workspace/WorkspacePriority';
+import WorkspaceItem from './WorkspaceItem';
+import WorkspaceModal from './WorkspaceModal';
 
 const WorkspaceList = () => {
     const { isOpen, selectedWorkspace } = useAppSelector(WorkspaceSelectors.getForm());
@@ -20,15 +18,20 @@ const WorkspaceList = () => {
     }
 
     return (
-        <SidebarCard>
+        <div>
+            <InnerLoading loading={loading && workspaces.length <= 0} />
             <WorkspaceModal onOpenChange={onOpenChange} />
-            <WorkspacePriority onOpenChange={onOpenChange} />
             <div className='relative'>
-                <HeaderSidebarCard title='My workspace'>
+                <div className='mb-1 flex items-center justify-between gap-2'>
+                    <p className='flex items gap-2 capitalize text-[0.85rem] font-bold text-text dark:text-dark-text transition-theme'>
+                        <img
+                            className='w-[16p] h-[16px]'
+                            src='https://cdn-icons-png.flaticon.com/128/6283/6283621.png' alt='workspace' />
+                        Workspace
+                    </p>
                     <WorkspaceDropdown onOpenChange={onOpenChange} />
-                </HeaderSidebarCard>
-                <InnerLoading loading={loading && workspaces.length <= 0} />
-                {workspaces.filter(workspace => !workspace.isPriority).map(workspace => (
+                </div>
+                {workspaces.map(workspace => (
                     <motion.div
                         key={workspace.id}
                         initial={{ opacity: 0 }}
@@ -39,7 +42,7 @@ const WorkspaceList = () => {
                     </motion.div>
                 ))}
             </div>
-        </SidebarCard>
+        </div>
     )
 }
 

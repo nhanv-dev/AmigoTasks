@@ -7,7 +7,6 @@ import Helmet from '../_components/helmet';
 const Workspace = () => {
     const { loading } = useAppSelector(TaskSelectors.getTasks());
 
-
     return (
         <Helmet title='Workspace - AmigoTasks'>
             <div className='flex flex-wrap items-center gap-4 justify-center py-10'>

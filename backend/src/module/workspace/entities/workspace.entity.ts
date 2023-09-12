@@ -5,11 +5,6 @@ import {
   baseSchemaOptions,
 } from 'src/module/common/entities/base.entity';
 
-enum TaskStatus {
-  PENDING = 'pending',
-  IN_PROGRESS = 'in progress',
-  COMPLETED = 'completed',
-}
 
 export enum WorkspaceStatus {
   ACTIVE = 'active',
@@ -31,24 +26,23 @@ export class Workspace extends BaseEntity {
   @Prop({ require: false, default: false })
   isPriority: boolean;
 
-  @Prop({
-    required: false,
-    enum: Object.values(WorkspaceStatus),
-    default: WorkspaceStatus.ACTIVE,
-  })
+  @Prop({ enum: Object.values(WorkspaceStatus), required: false, default: WorkspaceStatus.ACTIVE })
   status: string;
 
   @Prop({ require: false, default: [] })
   tags: string[];
 
-  @Prop({ type: [{ type: String, ref: 'Task' }], default: [] })
-  tasks: string[];
+  @Prop({ type: [{ type: String, ref: 'TaskList' }], default: [] })
+  taskLists: string[];
 
   @Prop({ type: [{ type: String, ref: 'Topic' }], default: [] })
   topics: string[];
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', require: false })
   owner: mongoose.Schema.Types.ObjectId;
+
+  @Prop({ type: String, required: false })
+  background: string;
 }
 
 export const WorkspaceSchema = SchemaFactory.createForClass(Workspace);
@@ -61,29 +55,3 @@ WorkspaceSchema.set('toJSON', {
   },
 });
 
-WorkspaceSchema.virtual('pendingTaskCount', {
-  ref: 'Task',
-  localField: '_id',
-  foreignField: 'workspace',
-  count: true,
-  match: { status: TaskStatus.PENDING, deletedAt: null },
-  defautl: 0,
-});
-
-WorkspaceSchema.virtual('inProgressTaskCount', {
-  ref: 'Task',
-  localField: '_id',
-  foreignField: 'workspace',
-  count: true,
-  match: { status: TaskStatus.IN_PROGRESS, deletedAt: null },
-  default: 0,
-});
-
-WorkspaceSchema.virtual('completedTaskCount', {
-  ref: 'Task',
-  localField: '_id',
-  foreignField: 'workspace',
-  count: true,
-  match: { status: TaskStatus.COMPLETED, deletedAt: null },
-  default: 0,
-});

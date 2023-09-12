@@ -35,9 +35,7 @@ export class Topic extends BaseEntity {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Topic', default: null })
   parent: mongoose.Schema.Types.ObjectId;
 
-  @Prop({
-    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Topic', default: [] }],
-  })
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Topic', default: [] }] })
   path: mongoose.Schema.Types.ObjectId[];
 
   @Prop({ default: [] })

@@ -8,8 +8,7 @@ import { Model } from 'mongoose';
 @Injectable()
 export class TopicRepository
   extends BaseRepositoryAbstract<Topic>
-  implements TopicRepositoryInterface
-{
+  implements TopicRepositoryInterface {
   constructor(
     @InjectModel(Topic.name)
     private readonly topicModel: Model<Topic>,
@@ -47,10 +46,20 @@ export class TopicRepository
       .sort({ createdAt: -1 });
   }
 
-  async findByParent(parent: string, authorId: string) {
+  async findByWorksapce(workspace: string, author: string) {
     return this.topicModel
-      .find({ deletedAt: null, parent, author: authorId })
-      .select('-content -comments -externalLinks')
+      .find({ deletedAt: null, workspace, author })
+      .select('-content -comments')
+      .populate('numberOfChildren')
+      .populate({ path: 'parent', select: 'id title' })
+      .sort({ createdAt: 1 });
+  }
+
+
+  async findByParent(parent: string, author: string) {
+    return this.topicModel
+      .find({ deletedAt: null, parent, author })
+      .select('-content -comments')
       .populate('numberOfChildren')
       .sort({ createdAt: 1 });
   }

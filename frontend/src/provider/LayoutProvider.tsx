@@ -22,7 +22,7 @@ export const useLayoutContext = () => {
 };
 
 const LayoutContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const [isOpenSidebar, setIsOpenSidebar] = useState<boolean>(false);
+    const [isOpenSidebar, setIsOpenSidebar] = useState<boolean>(true);
     const [contentSidebar, setContentSidebar] = useState<ReactNode | null>(null);
 
     const setLayout = ({ isOpenSidebar, contentSidebar }: Layout) => {

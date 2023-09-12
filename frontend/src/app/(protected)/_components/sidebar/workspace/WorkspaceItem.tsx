@@ -2,7 +2,7 @@
 
 import StarButton from '@app/(protected)/_components/buttons/StarButton';
 import CustomDropdown from '@app/(protected)/_components/dropdown/CustomDropdown';
-import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/react';
+import { DropdownItem } from '@nextui-org/react';
 import { WorkspaceSelectors } from '@redux/features/workspace/workspaceSelectors';
 import { WorkspaceActions } from '@redux/features/workspace/workspaceSlice';
 import { WorkspaceThunks } from '@redux/features/workspace/workspaceThunks';
@@ -43,37 +43,39 @@ const WorkspaceItem = ({ workspace }: Props) => {
   }
 
   return (
-    <div className='mb-1 group'>
+    <div className='w-full mb-1 group'>
       <div
-        className={` ${selectedWorkspace?.id === workspace.id ? 'bg-background-50 dark:bg-dark-background-50' : ''} max-w-full overflow-hidden flex items-center gap-4 text-sm font-semibold dark:text-dark-text text-text px-3 py-2 hover:bg-background-50 dark:hover:bg-dark-background-50 rounded-md transition-theme`}>
+        className={` ${selectedWorkspace?.id === workspace.id ? 'bg-primary/20 text-primary' : 'dark:text-dark-text-50 text-text-50'} max-w-full overflow-hidden flex items-center gap-4 font-semibold px-3 py-1 hover:bg-primary/20 rounded-md transition-theme`}>
         <Link
           tabIndex={-1}
           href={`/workspace/${workspace.id}`}
           onContextMenu={handleOpenMenu}
-          className='flex-1 flex items-center gap-2'
+          className='w-[160px] flex-1 flex items-center gap-2'
         >
           <p className='relative top-[1px]'>
             <StarButton checked={workspace.isPriority} onClick={handleSetPriority} />
           </p>
-          <p className='flex-1 max-w-[150px] text-ellipsis overflow-hidden whitespace-nowrap'>
+          <p className='text-ellipsis text-[0.75rem] overflow-hidden whitespace-nowrap'>
             {workspace.title}
           </p>
+          {/* <ProgressItem workspace={workspace} /> */}
         </Link>
-        <ProgressItem workspace={workspace} />
-        <CustomDropdown icon={<BsThreeDots />}>
-          <DropdownItem
-            key="edit"
-            title='Edit'
-            onClick={handleEditWorkspace}
-          />
-          <DropdownItem
-            key="delete"
-            color="danger"
-            title='Delete'
-            className='text-danger'
-            onClick={handleDeleteWorkspace}
-          />
-        </CustomDropdown>
+        <div className='opacity-0 group-hover:opacity-100 transition-all relative w-[24px] h-[24px]'>
+          <CustomDropdown icon={<BsThreeDots />}>
+            <DropdownItem
+              key="edit"
+              title='Edit'
+              onClick={handleEditWorkspace}
+            />
+            <DropdownItem
+              key="delete"
+              color="danger"
+              title='Delete'
+              className='text-danger'
+              onClick={handleDeleteWorkspace}
+            />
+          </CustomDropdown>
+        </div>
       </div>
     </div>
   )
@@ -83,8 +85,10 @@ export default WorkspaceItem;
 
 const ProgressItem = ({ workspace }) => {
   return (
-    <p className='px-2 py-0.5 rounded-full bg-[#E6E6E6] dark:text-text-50 text-xs'>
-      {workspace.completedTaskCount || 0}/{(workspace.completedTaskCount + workspace.pendingTaskCount + workspace.inProgressTaskCount) || 0}
+    <p className='flex items-center gap-[1.5px] px-2 h-[15px] rounded-full bg-default-200 font-bold text-xs'>
+      {workspace.completedTaskCount || 0}
+      <span>/</span>
+      {(workspace.completedTaskCount + workspace.pendingTaskCount + workspace.inProgressTaskCount) || 0}
     </p>
   )
 }

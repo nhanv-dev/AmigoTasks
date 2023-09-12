@@ -1,4 +1,5 @@
 import CustomDropdown from '@app/(protected)/_components/dropdown/CustomDropdown';
+import { backgroundImages } from '@app/(protected)/topic/_components/topic/TopicImages';
 import { DropdownItem } from '@nextui-org/react';
 import { TopicThunks } from '@redux/features/topic/topicThunks';
 import { useAppDispatch } from '@redux/hook';
@@ -7,9 +8,8 @@ import { CreateTopic } from '@services/topic/types';
 import { useRouter } from 'next/navigation';
 import { BsThreeDots } from 'react-icons/bs';
 import { MdDelete, MdOpenInNew } from 'react-icons/md';
-import { backgroundImages } from '../topic/TopicImages';
 
-const TopicFolderDropdown = ({ topic }) => {
+const TopicItemDropdown = ({ topic }) => {
     const dispatch = useAppDispatch();
     const router = useRouter();
 
@@ -20,7 +20,7 @@ const TopicFolderDropdown = ({ topic }) => {
             const randomIndex = Math.floor(Math.random() * backgroundImages.length);
 
             const newTopic: CreateTopic = {
-                title: 'Untitled',
+                title: 'Title',
                 parent: topic.id,
                 content: JSON.stringify(
                     {
@@ -48,7 +48,6 @@ const TopicFolderDropdown = ({ topic }) => {
             <DropdownItem
                 key="new"
                 title='Create a new'
-                content=' '
                 startContent={
                     <span className='text-[1rem]'>
                         <MdOpenInNew />
@@ -76,4 +75,4 @@ const TopicFolderDropdown = ({ topic }) => {
     )
 }
 
-export default TopicFolderDropdown;
+export default TopicItemDropdown;

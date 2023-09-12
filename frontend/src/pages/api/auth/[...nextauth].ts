@@ -61,7 +61,7 @@ const authConfig = (req: NextApiRequest, res: NextApiResponse): NextAuthOptions 
                 async authorize(credentials) {
                     if (!credentials || !credentials.username || !credentials.password) return null;
                     const { username, password } = credentials;
-                    const response: any = await axios.post('http://localhost:3001/api/auth/sign-in', { username, password })
+                    const response: any = await axios.post('http://127.0.0.1:3001/api/auth/sign-in', { username, password })
                     if (!response) return null;
                     const cookies = new Cookies(req, res);
                     await cookies.set("accessToken", response.data.accessToken, {

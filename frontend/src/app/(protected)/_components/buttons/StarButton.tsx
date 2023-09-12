@@ -14,8 +14,8 @@ const StarButton = ({ checked, onClick }: Props) => {
     }, [onClick])
 
     return (
-        <button className='w-[20px] h-[20px]' onClick={handleClick} tabIndex={-1}>
-            <span className={`text-[1.15rem] ${checked ? 'text-[yellow]' : 'text-[#D8D8D8]'}`}>
+        <button className='w-[18px] h-[18px]' onClick={handleClick} tabIndex={-1}>
+            <span className={`text-[1rem] ${checked ? 'text-[yellow]' : 'text-text-50'}`}>
                 <AiFillStar />
             </span>
         </button>

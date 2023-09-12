@@ -52,6 +52,10 @@ export class TopicService extends BaseServiceAbstract<Topic> {
     return this.topicRepository.findAllWithoutContent(queryParams);
   }
 
+  async findByWorkspace(workspaceId: string, authorId: string) {
+    return this.topicRepository.findByWorksapce(workspaceId, authorId);
+  }
+
   async findByParent(parent: string, authorId: string) {
     return this.topicRepository.findByParent(parent, authorId);
   }

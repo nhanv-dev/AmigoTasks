@@ -26,7 +26,7 @@ export class TopicController {
   constructor(
     private readonly topicService: TopicService,
     private readonly commentService: CommentService,
-  ) {}
+  ) { }
 
   @Post()
   async create(@Request() req: any, @Body() createTopicDto: CreateTopicDto) {
@@ -60,6 +60,12 @@ export class TopicController {
   async findAll(@Request() req: any, @Query() queryParams: any) {
     queryParams = { ...queryParams, author: req.user.id };
     return this.topicService.findAllWithoutContent(queryParams);
+  }
+
+
+  @Get('worksapces/:id')
+  async findByWorkspace(@Request() req: any, @Param('id') worksapceId: string) {
+    return this.topicService.findByWorkspace(worksapceId, req.user.id);
   }
 
   @Get(':id/children')

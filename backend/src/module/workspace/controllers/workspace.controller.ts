@@ -54,7 +54,7 @@ export class WorkspaceController {
 
   @Get()
   async findAll(@Request() req: any) {
-    return this.workspaceService.findAllWithTaskCounts(req.user.id);
+     return this.workspaceService.findAllWithTaskCounts(req.user.id);
   }
 
   @Get(':id')
