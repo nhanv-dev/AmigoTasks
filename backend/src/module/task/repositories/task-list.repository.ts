@@ -17,6 +17,6 @@ export class TaskListRepository extends BaseRepositoryAbstract<TaskList> impleme
   async findById(id: string) {
     return this.taskListModel
       .findById(id)
-      .populate('task-status')
+      .populate('statuses')
   }
 }

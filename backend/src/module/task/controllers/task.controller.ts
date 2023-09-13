@@ -45,8 +45,8 @@ export class TaskController {
   }
 
   @Get()
-  async findAll(@Request() req: any) {
-
+  async findAll(@Request() req: any, @Param('taskListId') id: string) {
+    console.log(id)
 
   }
 

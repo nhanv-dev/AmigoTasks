@@ -7,7 +7,6 @@ import { TaskActions } from '@redux/features/task/taskSlice';
 import { TaskThunks } from '@redux/features/task/taskThunks';
 import { WorkspaceSelectors } from '@redux/features/workspace/workspaceSelectors';
 import { useAppDispatch, useAppSelector } from '@redux/hook';
-import { TaskStatus } from '@services/task/types';
 import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 import { IoMdAdd } from 'react-icons/io';
@@ -18,8 +17,8 @@ import TaskStatusComponent from './TaskStatusComponent';
 const TaskModal = () => {
     const dispatch = useAppDispatch();
     const { workspace } = useAppSelector(WorkspaceSelectors.getWorkspace());
-    const { selectedTask, isOpen } = useAppSelector(TaskSelectors.getForm());
-    const [selectedKeys, setSelectedKeys] = useState<TaskStatus | undefined>(selectedTask?.status);
+    const { selectedTask, isOpen } = useAppSelector(TaskSelectors.getFormTask());
+    const [selectedKeys, setSelectedKeys] = useState<string | undefined>(selectedTask?.status);
 
     useEffect(() => {
         if (!selectedTask) return;
@@ -36,7 +35,7 @@ const TaskModal = () => {
     }
 
     const onClose = () => {
-        dispatch(TaskActions.setForm({ isOpen: false, selectedTask: null }))
+        dispatch(TaskActions.setFormTask({ isOpen: false, selectedTask: null }))
     }
 
     const handleSubmit = async (e: any) => {
@@ -52,7 +51,7 @@ const TaskModal = () => {
             tags: [],
         }
         await dispatch(TaskThunks.updateTask({ ...data }))
-        dispatch(TaskActions.setForm({ selectedTask: null, isOpen: false }))
+        dispatch(TaskActions.setFormTask({ selectedTask: null, isOpen: false }))
     }
     return (
         <Modal

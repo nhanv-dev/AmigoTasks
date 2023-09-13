@@ -2,14 +2,14 @@ import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@
 import { TaskSelectors } from "@redux/features/task/taskSelectors";
 import { TaskThunks } from "@redux/features/task/taskThunks";
 import { useAppDispatch, useAppSelector } from "@redux/hook";
-import { TaskStatus } from "@services/task/types";
 import { useEffect, useMemo, useState } from "react";
 import { FaDotCircle } from "react-icons/fa";
 
 const TaskStatusComponent = () => {
     const dispatch = useAppDispatch();
-    const { selectedTask, isOpen } = useAppSelector(TaskSelectors.getForm());
-    const [selectedKeys, setSelectedKeys] = useState<TaskStatus | undefined>(selectedTask?.status);
+    const { selectedTask, isOpen } = useAppSelector(TaskSelectors.getFormTask());
+    const { selectedTaskList } = useAppSelector(TaskSelectors.getFormTaskList());
+    const [selectedKeys, setSelectedKeys] = useState<string | undefined>(selectedTask?.status);
 
     useEffect(() => {
         if (!selectedTask) return;
@@ -17,9 +17,10 @@ const TaskStatusComponent = () => {
     }, [selectedTask])
 
     const selectedValue = useMemo(() => {
-        if (!selectedKeys) return TaskStatus.PENDING;
-        return selectedKeys.toLowerCase()
+        return selectedKeys?.toLowerCase()
     }, [selectedKeys]);
+
+    if (!selectedTaskList) return null;
 
     return (
         <div className='flex items-center gap-3'>
@@ -55,30 +56,17 @@ const TaskStatusComponent = () => {
                         description: "font-semibold text-xs",
                     }}
                 >
-                    <DropdownItem key={TaskStatus.PENDING} className='text-sm font-bold text-primary'>
-                        <p className='flex items-center gap-2'>
-                            <span className='text-primary'>
-                                <FaDotCircle />
-                            </span>
-                            Pending
-                        </p>
-                    </DropdownItem>
-                    <DropdownItem key={TaskStatus.IN_PROGRESS} className='text-sm font-bold text-warning-700'>
-                        <p className='flex items-center gap-2'>
-                            <span className='text-warning-700'>
-                                <FaDotCircle />
-                            </span>
-                            In Progress
-                        </p>
-                    </DropdownItem>
-                    <DropdownItem key={TaskStatus.COMPLETED} className='text-sm font-bold text-success-700'>
-                        <p className='flex items-center gap-2'>
-                            <span className='text-success-700'>
-                                <FaDotCircle />
-                            </span>
-                            Completed
-                        </p>
-                    </DropdownItem>
+                    {selectedTaskList?.statuses?.map(status => (
+                        <DropdownItem key={status} className='text-sm font-bold text-warning-700'>
+                            <p className='flex items-center gap-2'>
+                                <span className='text-warning-700'>
+                                    <FaDotCircle />
+                                </span>
+                                {status}
+                            </p>
+                        </DropdownItem>
+
+                    ))}
                 </DropdownMenu>
             </Dropdown>
         </div>

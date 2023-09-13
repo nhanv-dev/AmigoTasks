@@ -21,7 +21,7 @@ class TaskService {
     }
 
     public async getByTaskListId(id: string) {
-        return HttpRequest.get<Task[]>(`/tasks/task-lists/${id}`);
+        return HttpRequest.get<Task[]>(`/task-lists/${id}/tasks`);
     }
 
     public async getById(id: string) {

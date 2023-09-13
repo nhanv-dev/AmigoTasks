@@ -24,6 +24,7 @@ const AutoSaveTextarea = ({ initialValue, onSave }) => {
 
     const adjustTextareaHeight = () => {
         const textarea: any = textareaRef.current;
+        if (!textarea?.style) return;
         textarea.style.height = 'auto';
         textarea.style.height = `${textarea.scrollHeight}px`;
     };

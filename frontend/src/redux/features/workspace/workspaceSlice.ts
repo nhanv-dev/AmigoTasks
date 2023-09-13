@@ -22,7 +22,7 @@ export const workspace = createSlice({
         setForm(state, action: PayloadAction<Partial<Form>>) {
             state.form = { ...state.form, ...action.payload }
         },
-        setWorkspace(state, action: PayloadAction<Workspace>) {
+        setWorkspace(state, action: PayloadAction<Workspace | null>) {
             state.workspace = action.payload;
         }
     },

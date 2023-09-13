@@ -1,7 +1,13 @@
 import { Task, TaskList } from "@services/task/types";
 
-export type Form = {
+export type FormTask = {
     selectedTask: Task | null;
+    loading: boolean;
+    isOpen: boolean;
+}
+
+export type FormTaskList = {
+    selectedTaskList: TaskList | null;
     loading: boolean;
     isOpen: boolean;
 }
@@ -11,5 +17,6 @@ export type TaskState = {
     taskLists: TaskList[]
     taskListsLoading: boolean;
     loading: boolean;
-    form: Form
+    formTask: FormTask;
+    formTaskList: FormTaskList;
 }

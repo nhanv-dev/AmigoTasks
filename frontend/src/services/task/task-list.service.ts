@@ -18,6 +18,10 @@ class TaskListService {
         return HttpRequest.delete<void>(`/task-lists/${id}`);
     }
 
+    public async getTaskListById(id: string) {
+        return HttpRequest.get<TaskList>(`/task-lists/${id}`);
+    }
+
     public async getTaskListsByWorkspaceId(id: string) {
         return HttpRequest.get<TaskList[]>(`/task-lists/workspaces/${id}`);
     }

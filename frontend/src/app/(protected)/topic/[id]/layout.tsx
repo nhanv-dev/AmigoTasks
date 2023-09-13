@@ -6,7 +6,7 @@ import React from 'react';
 import TopicDetail from '../_components/topic/TopicDetail';
 import { backgroundImages } from '../_components/topic/TopicImages';
 
-export default function WorkSpaceLayout({ children }: { children: React.ReactNode }) {
+export default function TopicLayout({ children }: { children: React.ReactNode }) {
 
     return (
         <main>

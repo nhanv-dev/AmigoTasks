@@ -1,7 +1,7 @@
 "use client"
 
 import { dashboardRoutes } from '@/config/routes';
-import { ScrollShadow } from '@nextui-org/react';
+import { Button, ScrollShadow } from '@nextui-org/react';
 import { useLayoutContext } from '@provider/LayoutProvider';
 import { WorkspaceSelectors } from '@redux/features/workspace/workspaceSelectors';
 import { WorkspaceThunks } from '@redux/features/workspace/workspaceThunks';
@@ -13,6 +13,10 @@ import { BsFillCaretRightFill } from 'react-icons/bs';
 import tw from "tailwind-styled-components";
 import TopicList from '../sidebar/topic-list/TopicList';
 import WorkspaceList from '../sidebar/workspace/WorkspaceList';
+import { AuthThunks } from '@redux/features/auth/authThunks';
+import authService from '@services/auth/auth.service';
+import { signOut } from 'next-auth/react';
+import { BiLogOut } from 'react-icons/bi';
 
 const handleActive = (pathname: string | null) => {
   if (!pathname) return -1;
@@ -23,7 +27,6 @@ const Sidebar = () => {
 
   const dispatch = useAppDispatch();
   const { isOpenSidebar, setLayout } = useLayoutContext();
-  const { workspaces } = useAppSelector(WorkspaceSelectors.getWorkspaces());
   const pathname = usePathname();
   const [active, setActive] = useState(() => handleActive(pathname))
 
@@ -55,7 +58,7 @@ const Sidebar = () => {
             </div>
             <div className='mb-3 pb-3 border-b border-border dark:border-dark-border'>
               <div className='mb-1 flex items-center justify-between gap-2'>
-                <p className='flex items gap-2 uppercase text-[0.65rem] px-2 font-extrabold text-text-50 dark:text-dark-text-50 transition-theme'>
+                <p className='flex items gap-2 capitalize text-[0.675rem] px-2 font-bold text-text-50 dark:text-dark-text-50 transition-theme'>
                   Menu
                 </p>
               </div>
@@ -70,7 +73,7 @@ const Sidebar = () => {
                       <p className='text-[1.2rem] min-w-[47px] flex items-center justify-center'>
                         {route.icon}
                       </p>
-                      <p className={`${isOpenSidebar ? 'visible' : 'invisible w-0'} transition-all transition-theme overflow-hidden text-[0.8rem] font-semibold`}>
+                      <p className={`${isOpenSidebar ? 'visible' : 'invisible w-0'} transition-all transition-theme overflow-hidden text-[0.75rem] font-bold`}>
                         {route.title}
                       </p>
                     </Link>
@@ -86,6 +89,22 @@ const Sidebar = () => {
                 <TopicList />
               </div>
             </ScrollShadow>
+            <div className='py-4'>
+              <Button
+                tabIndex={-1}
+                onClick={async () => {
+                  await authService.signOut();
+                  signOut({ callbackUrl: '/sign-in' })
+                }}
+                type='button'
+                className='rounded-md w-full flex items-center justify-center gap-2 min-w-full max-w-full'
+              >
+                <BiLogOut className='text-[1.2rem]' />
+                <p className={`${isOpenSidebar ? 'visible' : 'hidden'} font-bold text-sm`}>
+                  Sign out
+                </p>
+              </Button>
+            </div>
           </div>
         </div>
       </div>

@@ -33,8 +33,8 @@ const TopicDropdown = () => {
         <CustomDropdown icon={<BsThreeDots />}>
             <DropdownItem
                 key="new"
-                description="Allows you to create a new"
                 title='New topic'
+                
                 onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();

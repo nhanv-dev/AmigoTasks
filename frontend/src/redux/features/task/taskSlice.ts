@@ -1,26 +1,34 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { TaskThunks } from "./taskThunks";
-import { Form, TaskState } from "./types";
+import { FormTask, FormTaskList, TaskState } from "./types";
 
 const initialState: TaskState = {
     tasks: [],
     loading: false,
     taskLists: [],
     taskListsLoading: false,
-    form: {
+    formTask: {
         selectedTask: null,
         loading: false,
         isOpen: false,
-    }
+    },
+    formTaskList: {
+        selectedTaskList: null,
+        loading: false,
+        isOpen: false,
+    },
 }
 
 export const task = createSlice({
     name: 'task',
     initialState: initialState,
     reducers: {
-        setForm(state, action: PayloadAction<Partial<Form>>) {
-            state.form = { ...state.form, ...action.payload }
-        }
+        setFormTask(state, action: PayloadAction<Partial<FormTask>>) {
+            state.formTask = { ...state.formTask, ...action.payload }
+        },
+        setFormTaskList(state, action: PayloadAction<Partial<FormTaskList>>) {
+            state.formTaskList = { ...state.formTaskList, ...action.payload }
+        },
     },
     extraReducers: (builder) => {
 
@@ -28,22 +36,39 @@ export const task = createSlice({
 
         builder
             .addCase(TaskThunks.createTaskList.fulfilled, (state, action) => {
-
-            })
+                state.taskLists.push(action.payload)
+            });
 
         builder
             .addCase(TaskThunks.updateTaskList.fulfilled, (state, action) => {
-
+                const index = state.taskLists.findIndex(list => list.id === action.payload.id);
+                state.taskLists[index] = action.payload;
             })
 
         builder
             .addCase(TaskThunks.deleteTaskList.fulfilled, (state, action) => {
+                state.taskLists = state.taskLists.filter(list => list.id !== action.meta.arg)
+            });
 
+        builder
+            .addCase(TaskThunks.getTaskListById.pending, (state, action) => {
+                state.taskListsLoading = true;
+            })
+            .addCase(TaskThunks.getTaskListById.fulfilled, (state, action) => {
+                state.taskListsLoading = false;
+                state.formTaskList = {
+                    ...state.formTaskList,
+                    selectedTaskList: action.payload,
+                }
             })
 
         builder
+            .addCase(TaskThunks.getTaskListsByWorkspaceId.pending, (state, action) => {
+                state.taskListsLoading = true;
+            })
             .addCase(TaskThunks.getTaskListsByWorkspaceId.fulfilled, (state, action) => {
-
+                state.taskListsLoading = false;
+                state.taskLists = action.payload;
             })
 
         // ─── Task ──────────────────────────────────────────────────────
@@ -55,19 +80,19 @@ export const task = createSlice({
 
         builder
             .addCase(TaskThunks.updateTask.pending, (state, action) => {
-                state.form = {
-                    ...state.form,
+                state.formTask = {
+                    ...state.formTask,
                     loading: true,
                 };
             })
             .addCase(TaskThunks.updateTask.fulfilled, (state, action) => {
                 const index = state.tasks.findIndex(task => task.id === action.payload.id);
                 state.tasks[index] = action.payload;
-                state.form = { ...state.form, loading: false };
+                state.formTask = { ...state.formTask, loading: false };
             })
             .addCase(TaskThunks.updateTask.rejected, (state, action) => {
-                state.form = {
-                    ...state.form,
+                state.formTask = {
+                    ...state.formTask,
                     loading: false,
                 };
             });

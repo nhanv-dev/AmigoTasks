@@ -55,7 +55,7 @@ const WorkspaceItem = ({ workspace }: Props) => {
           <p className='relative top-[1px]'>
             <StarButton checked={workspace.isPriority} onClick={handleSetPriority} />
           </p>
-          <p className='text-ellipsis text-[0.75rem] overflow-hidden whitespace-nowrap'>
+          <p className='text-ellipsis text-[0.775rem] overflow-hidden whitespace-nowrap'>
             {workspace.title}
           </p>
           {/* <ProgressItem workspace={workspace} /> */}

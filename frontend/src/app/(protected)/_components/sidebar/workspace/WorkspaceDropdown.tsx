@@ -9,7 +9,6 @@ const WorkspaceDropdown = ({ onOpenChange }) => {
         <CustomDropdown icon={<BsThreeDots />}>
             <DropdownItem
                 key="new"
-                description="Allows you to create a new"
                 title='New workspace'
                 onClick={(e) => {
                     e.preventDefault();

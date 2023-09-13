@@ -1,14 +1,12 @@
 import { Task } from '@/services/task/types';
 import DataFormatter from '@/util/DataFormatter';
+import { TaskActions } from '@redux/features/task/taskSlice';
+import { useAppDispatch } from '@redux/hook';
 import { useState } from 'react';
 import { BsCalendar3 } from 'react-icons/bs';
 import { MdOutlineModeComment } from 'react-icons/md';
-import TaskModal from '../task/TaskModal';
-import TaskTag from '../task/TaskTag';
-import DropdownWorkspace from '../../../_components/sidebar/workspace/WorkspaceDropdown';
-import { useAppDispatch } from '@redux/hook';
-import { TaskActions } from '@redux/features/task/taskSlice';
 import TaskDropdown from '../task/TaskDropdown';
+import TaskTag from '../task/TaskTag';
 
 interface Props {
     task: Task;
@@ -32,7 +30,7 @@ const TaskCard = ({ task }: Props) => {
     };
 
     const handleOpen = () => {
-        dispatch(TaskActions.setForm({ selectedTask: task, isOpen: true }))
+        dispatch(TaskActions.setFormTask({ selectedTask: task, isOpen: true }))
     }
 
     return (

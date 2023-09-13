@@ -98,7 +98,7 @@ const LabelTopic = ({ item }) => {
     return (
         <div className='w-full flex flex-col justify-center'>
             <div className='flex-1 flex items-center'>
-                <p className='text-[0.75rem] whitespace-nowrap text-ellipsis overflow-hidden transition-theme'>
+                <p className='text-[0.775rem] whitespace-nowrap text-ellipsis overflow-hidden transition-theme'>
                     {item.root.title}
                 </p>
                 {item.root.numberOfChildren > 0 &&

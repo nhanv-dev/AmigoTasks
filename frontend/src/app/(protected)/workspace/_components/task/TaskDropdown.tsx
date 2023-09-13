@@ -14,7 +14,6 @@ const TaskDropdown = ({ task }) => {
         <CustomDropdown icon={<BsThreeDots />}>
             <DropdownItem
                 key="new"
-                description="Allows you to create a new"
                 title='View task'
                 onClick={(e) => {
 

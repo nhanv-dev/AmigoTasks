@@ -19,6 +19,10 @@ export const TaskThunks = {
     return await taskListService.deleteTaskList(id)
   }),
 
+  getTaskListById: createAsyncThunk<TaskList, string>("task-list/get-by-id", async (id) => {
+    return await taskListService.getTaskListById(id)
+  }),
+
   getTaskListsByWorkspaceId: createAsyncThunk<TaskList[], string>("task-list/workspace", async (id) => {
     return await taskListService.getTaskListsByWorkspaceId(id)
   }),
@@ -38,14 +42,14 @@ export const TaskThunks = {
   }),
 
   getAllTasks: createAsyncThunk<Task[], void>("task/get-all", async () => {
-    return taskService.getAll();
+    return await taskService.getAll();
   }),
 
   getTaskById: createAsyncThunk<Task, string>("task/get-by-id", async (id) => {
     return await taskService.getById(id);
   }),
 
-  getTasksByTaskListId: createAsyncThunk<Task[], string>("task/get-by-workspace", async (id) => {
-    return taskService.getByTaskListId(id);
+  getTasksByTaskListId: createAsyncThunk<Task[], string>("task/get-by-tasklist", async (id) => {
+    return await taskService.getByTaskListId(id);
   }),
 }

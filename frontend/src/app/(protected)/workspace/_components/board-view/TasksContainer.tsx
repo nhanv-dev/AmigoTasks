@@ -1,4 +1,4 @@
-import { CreateTask, Task, TaskStatus } from '@/services/task/types';
+import { CreateTask, Task } from '@/services/task/types';
 import { Button } from '@nextui-org/react';
 import { TaskThunks } from '@redux/features/task/taskThunks';
 import { WorkspaceSelectors } from '@redux/features/workspace/workspaceSelectors';
@@ -9,18 +9,19 @@ import { useEffect, useState } from 'react';
 import { BsThreeDots } from 'react-icons/bs';
 import { IoIosAdd } from 'react-icons/io';
 import TaskCard from './TaskCard';
+import { TaskSelectors } from '@redux/features/task/taskSelectors';
 
 interface Props {
     title: string;
-    color?: string;
-    type: TaskStatus;
+    type: string;
     tasks: Task[];
 }
 
-const TasksContainer = ({ title, type, tasks, color }: Props) => {
+const TasksContainer = ({ title, type, tasks }: Props) => {
     const [data, setData] = useState(tasks.filter(task => task.status === type));
     const [task, setTask] = useState<CreateTask | null>(null);
     const { workspace } = useAppSelector(WorkspaceSelectors.getWorkspace());
+    const { selectedTaskList } = useAppSelector(TaskSelectors.getFormTaskList());
 
     useEffect(() => {
         setData(tasks.filter(task => task.status === type))
@@ -29,19 +30,20 @@ const TasksContainer = ({ title, type, tasks, color }: Props) => {
     const handleAddTask = (e: any) => {
         e.preventDefault();
         e.stopPropagation();
-        if (!workspace) return;
+        if (!workspace || !selectedTaskList) return;
         setTask({
             title: '',
             description: '',
             status: type,
-            workspace: workspace?.id
+            workspace: workspace.id,
+            taskList: selectedTaskList.id
         })
     }
 
     return (
         <div className='flex-1 max-w-[380px] transition-theme rounded-md'>
             <div className='flex items-center justify-between gap-4 transition-theme rounded-md'>
-                <h5 className='text-text dark:text-dark-text transition-theme font-bold text-base'>
+                <h5 className='capitalize text-text dark:text-dark-text transition-theme font-bold text-[0.95rem]'>
                     {title}
                     <span className='ml-1 text-md text-text-50 dark:text-dark-text-50 transition-theme' >
                         ({data.length})
@@ -59,7 +61,7 @@ const TasksContainer = ({ title, type, tasks, color }: Props) => {
                 </div>
 
             </div>
-          
+
             <div className={`overflow-hidden transition-all`}>
                 {task &&
                     <motion.div
@@ -97,22 +99,22 @@ const CreateTaskCard = ({ task, setTask }) => {
     }
 
     return (
-        <form onSubmit={handleSubmit} className="cursor-pointer bg-background dark:bg-dark-background shadow-sm p-4 rounded-md transition-theme">
-            <div className='flex items-start justify-between gap-4 mb-2'>
+        <form onSubmit={handleSubmit} className="cursor-pointer bg-background dark:bg-dark-background shadow-sm p-3 rounded-md transition-theme">
+            <div className='flex items-start justify-between gap-4 mb-5'>
                 <input
                     name='title'
                     defaultValue={task.title}
                     placeholder='Write your task'
-                    className="outline-none border-none w-full text-[0.95rem] font-semibold text-text dark:text-dark-text bg-[transparent] transition-theme"
+                    className="outline-none border-none w-full text-[0.8rem] font-semibold text-text dark:text-dark-text bg-[transparent] transition-theme"
                 />
             </div>
             <div className='flex items-center justify-end gap-2'>
                 <Button variant='flat' color='danger' onClick={() => setTask(null)} type='button'
-                    className='text-sm font-bold rounded-md min-h-max min-w-max h-max w-max px-4 py-1.5'>
+                    className='text-[0.675rem] font-bold rounded-sm min-h-max min-w-max h-max w-max px-4 py-1.5'>
                     Cancel
                 </Button>
                 <Button variant='flat' color='primary' type='submit'
-                    className='text-sm font-bold rounded-md min-h-max min-w-max h-max w-max px-4 py-1.5'>
+                    className='text-[0.675rem] font-bold rounded-sm min-h-max min-w-max h-max w-max px-4 py-1.5'>
                     Save
                 </Button>
             </div>

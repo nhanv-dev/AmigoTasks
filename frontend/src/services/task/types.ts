@@ -1,28 +1,25 @@
 import { Base } from "@services/_common/type";
 import { Comment } from "@services/comment/types";
 
-export enum TaskStatus {
-    PENDING = 'pending',
-    IN_PROGRESS = 'in progress',
-    COMPLETED = 'completed',
-}
-
 export enum TaskPriority {
-    LOW = 'LOW',
-    MEDIUM = 'MEDIUM',
-    HIGH = 'HIGH',
+    NONE = 'none',
+    LOW = 'low',
+    MEDIUM = 'medium',
+    HIGH = 'high',
+    URGEN = 'urgen',
 }
 
 export type TaskList = Base & {
     title: string;
     workspace: string;
+    statuses: string[];
 }
 
 export type Task = Base & {
     title: string;
     description: string;
     comments: Comment[];
-    status: TaskStatus;
+    status: string;
     tags: string[];
     priority: TaskPriority;
     workspace: string;
@@ -31,14 +28,16 @@ export type Task = Base & {
 export type CreateTask = {
     title: string;
     description: string;
-    status: TaskStatus;
+    status: string;
     workspace: string;
+    taskList: string;
 }
 
 export type UpdateTask = Partial<Task>
 
 export type DeleteTask = {
-    id: string
+    id: string;
+    taskList: string;
 }
 
 export type CreateTaskList = {

@@ -21,8 +21,16 @@ import { WorkspaceModule } from './workspace/workspace.module';
       cache: true,
       expandVariables: true,
     }),
+    // MongooseModule.forRootAsync({
+    //   useFactory: () => ({
+    //     uri: process.env.DATABASE_URI,
+    //     retryDelay: 5000, // Adjust as needed
+    //     retryAttempts: 3, // Adjust as needed
+    //   }),
+    // }),
     MongooseModule.forRoot((() => {
       if (!process.env.DATABASE_URI) throw Error("DATABASE_URI environment variable is empty");
+      console.log(process.env.DATABASE_URI)
       return process.env.DATABASE_URI;
     })()),
     UserModule,
