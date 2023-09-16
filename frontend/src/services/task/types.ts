@@ -6,7 +6,7 @@ export enum TaskPriority {
     LOW = 'low',
     MEDIUM = 'medium',
     HIGH = 'high',
-    URGEN = 'urgen',
+    URGENT = 'urgent',
 }
 
 export type TaskList = Base & {
@@ -22,6 +22,7 @@ export type Task = Base & {
     status: string;
     tags: string[];
     priority: TaskPriority;
+    taskList: string;
     workspace: string;
 }
 

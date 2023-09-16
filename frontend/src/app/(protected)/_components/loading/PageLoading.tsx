@@ -1,7 +1,7 @@
 
-const PageLoading = () => {
+const PageLoading = ({ loading }: { loading: boolean }) => {
     return (
-        <div className='fixed left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]'>
+        <div className='fixed left-0 right-0 bottom-0 top-0 flex items-center justify-center bg-black z-[9999]'>
             <svg
                 className="animate-spin h-[50px] w-[50px] text-primary"
                 fill="none"

@@ -18,7 +18,7 @@ const TopicDropdown = () => {
             const randomIndex = Math.floor(Math.random() * backgroundImages.length);
 
             const newTopic: CreateTopic = {
-                title: 'Untitled',
+                title: 'Title',
                 parent: null,
                 background: backgroundImages[randomIndex],
             }

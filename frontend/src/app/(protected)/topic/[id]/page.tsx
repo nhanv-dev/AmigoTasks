@@ -14,7 +14,7 @@ import { AiTwotoneEdit } from 'react-icons/ai';
 import AutoSaveTextarea from '../_components/editor/AutoSaveTextarea';
 import Editor from '../_components/editor/Editor';
 import TopicPath from '../_components/topic/TopicPath';
-
+import PageLoading from '@app/(protected)/_components/loading/PageLoading';
 
 interface Props {
   params: { id: string }
@@ -29,7 +29,7 @@ const Page = ({ params }: Props) => {
     if (!params.id) return;
     const fetch = async () => {
       const action: any = await dispatch(TopicThunks.getById(params.id));
-      setTopic(action.payload)
+      if (!topic) setTopic(action.payload)
       if (action.payload?.id) return;
       router.push('/topic');
     }
@@ -43,17 +43,20 @@ const Page = ({ params }: Props) => {
 
   const handleSave = async (field: string, value: string) => {
     if (!topic) return;
-    const data: any = {
-      id: topic.id
-    };
+    const data: any = { id: topic.id };
     data[field] = value;
     const action: any = await dispatch(TopicThunks.update(data));
     setTopic(action.payload)
   };
 
+  if (!topic) {
+    return (
+      <PageLoading loading={true} />
+    )
+  }
 
   return (
-    <Helmet title={topic?.title ? `${topic.title} - AmigoTasks` : 'Untitled - AmigoTasks'}>
+    <Helmet title={topic?.title ? `${topic.title} - AmigoTasks` : 'Topic - AmigoTasks'}>
       <div className='relative z-[0] pt-4 flex gap-4 items-center justify-between'>
         <div className='flex-1'>
           <TopicPath />

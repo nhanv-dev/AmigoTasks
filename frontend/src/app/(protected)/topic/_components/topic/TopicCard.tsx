@@ -1,15 +1,13 @@
 "use client";
 
 import { Topic } from '@/services/topic/types';
-import { Button } from '@nextui-org/react';
+import { Button, Image } from '@nextui-org/react';
+import { TopicThunks } from '@redux/features/topic/topicThunks';
+import { useAppDispatch } from '@redux/hook';
 import DataFormatter from '@util/DataFormatter';
 import Link from 'next/link';
 import { BiFolder } from 'react-icons/bi';
 import { FaStar } from 'react-icons/fa';
-import { MdOutlineModeComment } from 'react-icons/md';
-import { backgroundImages } from './TopicImages';
-import { useAppDispatch } from '@redux/hook';
-import { TopicThunks } from '@redux/features/topic/topicThunks';
 
 interface Props {
     topic: Topic;
@@ -22,11 +20,22 @@ const TopicCard = ({ topic }: Props) => {
     return (
         <div className=' border rounded-md dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7] transition-all'>
             <Link href={`/topic/${topic.id}`}
-                style={{ backgroundImage: `url(${topic.background || backgroundImages[0]})` }}
+                // style={{ backgroundImage: `url(${topic.background || backgroundImages[0]})` }}
                 className="h-[260px] rounded-md w-full bg-cover bg-center overflow-hidden block group relative "
             >
+                <Image
+                    width={600}
+                    height={200}
+                    src={`https://app.requestly.io/delay/2000/${topic.background}`}
+                    alt={topic.title}
+                    className='z-0 absolute left-0 right-0 top-0 bottom-0'
+                    classNames={{
+                        wrapper: 'z-0 rounded-md absolute left-0 right-0 top-0 bottom-0',
+                        img: 'rounded-md',
+                    }}
+                />
                 {topic?.parent?.title &&
-                    <div className='absolute left-1.5 top-1.5'>
+                    <div className='z-[1] absolute left-1.5 top-1.5'>
                         <Link href={`/topic/${topic.parent?.id}`}
                             className='max-w-full line-clamp-1 text-ellipsis bg-primary-50 px-3 py-1 text-[0.75rem] font-semibold text-text-50 dark:text-dark-text-50 transition-theme shadow-md rounded-full'>
                             {topic.parent?.title}
@@ -49,7 +58,7 @@ const TopicCard = ({ topic }: Props) => {
                 </div>
                 <div className='absolute bottom-0 left-0 right-0 bg-[rgba(0,0,0,0.6)] backdrop-blur-sm transition-all'>
                     <div className='absolute top-[0] translate-y-[-50%] left-3 flex items-center justify-end gap-2'>
-                        <p className='flex overflow-hidden items-center justify-start gap-2'>
+                        <p className='flex overflow-hidden items-center justify-start gap-1'>
                             {topic.tags.slice(0, 3).map((tag, index) => (
                                 <TopicTag key={index} index={index} tag={tag} />
                             ))}
@@ -57,7 +66,7 @@ const TopicCard = ({ topic }: Props) => {
                     </div>
                     <div className="px-3 pt-5 pb-3 flex flex-col">
                         <Link href={`/topic/${topic.id}`}
-                            className="mb-0.5 text-lg font-bold text-dark-text dark:text-dark-text transition-all"
+                            className="mb-0.5 text-[0.95rem] font-bold text-dark-text dark:text-dark-text transition-all"
                         >
                             {topic.title}
                         </Link>
@@ -91,13 +100,13 @@ export default TopicCard;
 const TopicTag = ({ index, tag }: { index: number, tag: string }) => {
     if (index % 3 === 0)
         return (
-            <Link href={`/topic/tag/${tag}`} className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-1.5 y-0.5 text-xs font-bold text-blue-600"> {tag} </Link>
+            <Link href={`/topic/tag/${tag}`} className="inline-flex items-center justify-center min-w-[40px] gap-1 rounded-full bg-blue-50 px-1.5 text-xs font-bold text-blue-600"> {tag} </Link>
         )
     if (index % 2 === 0)
         return (
-            <Link href={`/topic/tag/${tag}`} className="inline-flex items-center gap-1 rounded-full bg-indigo-50 p1.5  py-0.5 text-xs font-bold text-indigo-600"> {tag} </Link>
+            <Link href={`/topic/tag/${tag}`} className="inline-flex items-center justify-center min-w-[40px] gap-1 rounded-full bg-indigo-50 px-1.5 text-xs font-bold text-indigo-600"> {tag} </Link>
         )
     return (
-        <Link href={`/topic/tag/${tag}`} className="inline-flex items-center gap-1 rounded-full bg-orange-50 p1.5  py-0.5 text-xs font-bold text-orange-600"> {tag} </Link>
+        <Link href={`/topic/tag/${tag}`} className="inline-flex items-center justify-center min-w-[40px] gap-1 rounded-full bg-orange-50 px-1.5 text-xs font-bold text-orange-600"> {tag} </Link>
     )
 }

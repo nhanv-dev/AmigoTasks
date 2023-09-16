@@ -14,6 +14,7 @@ const TopicList = () => {
 
     useEffect(() => {
         dispatch(TopicThunks.getByRoot())
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (

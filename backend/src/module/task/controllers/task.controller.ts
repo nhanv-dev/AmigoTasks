@@ -13,35 +13,32 @@ import { AuthGuard } from '@nestjs/passport';
 import { CreateTaskDto } from '../dtos/create-task.dto';
 import { UpdateTaskDto } from '../dtos/update-task.dto';
 import { TaskService } from '../services/task.service';
+import { AccessiableBody } from 'src/decorators/accessiable-body.decorator';
+import { TaskListService } from '../services/task-list.service';
 
 @UseGuards(AuthGuard('jwt'))
-@Controller('/list-tasks/:taskListId/tasks')
+@Controller('/tasks')
 export class TaskController {
-  constructor(private readonly taskService: TaskService) { }
+  constructor(
+    private readonly taskService: TaskService,
+    private readonly taskListService: TaskListService,
+  ) { }
 
   @Post()
-  async create(
-    @Request() req: any,
-    @Body() createTaskDto: CreateTaskDto
-  ) {
-
+  async create(@AccessiableBody('owner') createTaskDto: CreateTaskDto) {
+    const task = await this.taskService.create(createTaskDto);
+    await this.taskListService.update(createTaskDto.taskList,{})
+    return task;
   }
 
   @Put(':id')
-  async update(
-    @Request() req: any,
-    @Param('id') id: string,
-    @Body() updateTaskDto: UpdateTaskDto,
-  ) {
-
+  async update(@Param('id') id: string, @AccessiableBody('owner') updateTaskDto: UpdateTaskDto) {
+    return this.taskService.update(id, updateTaskDto);
   }
 
   @Delete(':id')
-  async delete(
-    @Request() req: any,
-    @Param('id') id: string
-  ) {
-
+  async delete(@Request() req: any, @Param('id') id: string) {
+    return this.taskService.remove(id);
   }
 
   @Get()
@@ -53,9 +50,5 @@ export class TaskController {
   @Get(':id')
   async findById(@Request() req: any, @Param('id') id: string) {
 
-  }
-
-  @Get('/workspaces/:id')
-  async findByWorkspaceId(@Request() req: any, @Param('id') id: string) {
   }
 }

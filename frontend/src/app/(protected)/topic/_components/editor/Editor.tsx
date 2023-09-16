@@ -19,18 +19,19 @@ const Editor = ({ id, topic, initialValue, onSave }) => {
     const ref = useRef<EditorJS | null>(null);
     const saveTimeoutRef = useRef<any>(null);
 
+
     useEffect(() => {
         if (typeof window !== "undefined" && topic) {
             initEditor();
             return () => {
-                if (!id || !topic) {
+                if (!topic) {
                     ref?.current?.destroy();
                     ref.current = null;
                 }
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [id, topic])
+    }, [topic])
 
     const initData = async () => {
         if (!initialValue) return emptyBlock;
@@ -46,8 +47,8 @@ const Editor = ({ id, topic, initialValue, onSave }) => {
         try {
             const EditorJS = (await import("@editorjs/editorjs")).default;
             const Undo = (await import("editorjs-undo")).default;
-
             const data = await initData();
+
             if (!ref.current) {
                 const editor = new EditorJS({
                     holder: "editorjs",
@@ -73,19 +74,13 @@ const Editor = ({ id, topic, initialValue, onSave }) => {
                     data: data,
                 })
                 ref.current = editor;
-
             }
         } catch (error) {
             console.log(error)
         }
     }
     return (
-        <div
-            className='min-h-[400px] editor-container px-4 py-10 bg-cover bg-center rounded-md mb-4 bg-background dark:bg-dark-background transition-theme'
-            style={{
-                // backgroundImage: 'url(https://images.unsplash.com/photo-1692023350707-33d901c2c4fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1771&q=80)'
-            }}
-        >
+        <div className='min-h-[400px] editor-container px-4 py-10 rounded-md mb-4 bg-background dark:bg-dark-background transition-theme'>
             <div id='editorjs' className='text-[0.9rem] font-semibold rounded-md relative sbg-[rgba(0,0,0,0.3)] text-text dark:text-dark-text transition-theme' />
         </div>
     )
@@ -164,12 +159,12 @@ const generateTools = async () => {
         Color: {
             class: Color,
             config: {
-               colorCollections: ['#EC7878','#9C27B0','#673AB7','#3F51B5','#0070FF','#03A9F4','#00BCD4','#4CAF50','#8BC34A','#CDDC39', '#FFF'],
-               defaultColor: '#FF1300',
-               type: 'text', 
-               customPicker: true
-            }     
-          },
+                colorCollections: ['#EC7878', '#9C27B0', '#673AB7', '#3F51B5', '#0070FF', '#03A9F4', '#00BCD4', '#4CAF50', '#8BC34A', '#CDDC39', '#FFF'],
+                defaultColor: '#FF1300',
+                type: 'text',
+                customPicker: true
+            }
+        },
         Marker: {
             class: Marker,
             shortcut: 'CMD+SHIFT+V',

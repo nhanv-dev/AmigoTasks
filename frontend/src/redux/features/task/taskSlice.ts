@@ -102,21 +102,10 @@ export const task = createSlice({
 
             })
             .addCase(TaskThunks.deleteTask.fulfilled, (state, action) => {
-                state.tasks = state.tasks.filter(task => task.id !== action.meta.arg)
+                state.tasks = state.tasks.filter(task => task.id !== action.meta.arg.id)
             })
             .addCase(TaskThunks.deleteTask.rejected, (state, action) => {
 
-            });
-
-        builder
-            .addCase(TaskThunks.getAllTasks.pending, (state, action) => {
-
-            })
-            .addCase(TaskThunks.getAllTasks.fulfilled, (state, action) => {
-                console.log(state, action)
-            })
-            .addCase(TaskThunks.getAllTasks.rejected, (state, action) => {
-                console.log(state, action)
             });
 
         builder
@@ -136,6 +125,7 @@ export const task = createSlice({
             })
             .addCase(TaskThunks.getTasksByTaskListId.fulfilled, (state, action) => {
                 state.tasks = action.payload;
+                console.log(state.tasks, action.payload)
                 state.loading = false;
             })
             .addCase(TaskThunks.getTasksByTaskListId.rejected, (state, action) => {

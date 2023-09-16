@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import taskListService from "@services/task/task-list.service";
 import taskService from "@services/task/task.service";
-import { CreateTask, CreateTaskList, Task, TaskList, UpdateTask, UpdateTaskList } from "@services/task/types";
+import { CreateTask, CreateTaskList, DeleteTask, Task, TaskList, UpdateTask, UpdateTaskList } from "@services/task/types";
 
 export const TaskThunks = {
 
@@ -37,19 +37,15 @@ export const TaskThunks = {
     return await taskService.update(updateTask);
   }),
 
-  deleteTask: createAsyncThunk<void, string>("task/delete", async (id) => {
-    return await taskService.delete(id);
-  }),
-
-  getAllTasks: createAsyncThunk<Task[], void>("task/get-all", async () => {
-    return await taskService.getAll();
+  deleteTask: createAsyncThunk<void, DeleteTask>("task/delete", async (deleteTask) => {
+    return await taskService.delete(deleteTask.id);
   }),
 
   getTaskById: createAsyncThunk<Task, string>("task/get-by-id", async (id) => {
     return await taskService.getById(id);
   }),
 
-  getTasksByTaskListId: createAsyncThunk<Task[], string>("task/get-by-tasklist", async (id) => {
-    return await taskService.getByTaskListId(id);
+  getTasksByTaskListId: createAsyncThunk<Task[], string>("task/get-by-tasklist", async (taskListId) => {
+    return await taskService.getByTaskListId(taskListId);
   }),
 }

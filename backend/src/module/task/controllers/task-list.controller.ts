@@ -18,11 +18,13 @@ import { UpdateTaskListDto } from '../dtos/update-task-list.dto';
 import { DefaultTaskStatus } from '../entities/task.entity';
 import { TaskListService } from '../services/task-list.service';
 import { TaskStatusService } from '../services/task-status.service';
+import { TaskService } from '../services/task.service';
 
 @UseGuards(AuthGuard('jwt'))
 @Controller('task-lists')
 export class TaskListController {
   constructor(
+    private readonly taskService: TaskService,
     private readonly taskListService: TaskListService,
     private readonly taskStatusService: TaskStatusService,
   ) { }
@@ -74,4 +76,8 @@ export class TaskListController {
     return this.taskListService.findAll({ workspace: id });
   }
 
+  @Get(':id/tasks')
+  async findTasksByTaskListId(@Param('id') id: string) {
+    return await this.taskService.findAll({ taskList: id });
+  }
 }

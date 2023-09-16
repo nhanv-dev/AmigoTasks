@@ -11,7 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     let response: any | null = null;
 
-    console.log(req.method, req.url, req.body, !!accessToken);
+    console.log(req.method, req.url, !!accessToken);
 
     const config = {
         headers: {
@@ -25,9 +25,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 response = await axios.get(req.url, config);
                 break;
             case "POST":
+                console.log(req.body)
                 response = await axios.post(req.url, req.body, config);
                 break;
             case "PUT":
+                console.log(req.body)
                 response = await axios.put(req.url, req.body, config);
                 break;
             case "DELETE":

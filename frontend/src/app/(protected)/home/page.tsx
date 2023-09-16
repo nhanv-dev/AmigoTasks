@@ -74,7 +74,7 @@ const Home = () => {
                                 </div>
                             </div>
                             <div className='dark:bsg-dark-background relative w-full rounded-b-lg'>
-                                <div className='mt-4 grid grid-cols-4 items-start gap-4'>
+                                <div className='mt-4 grid lg:grid-cols-5 md:grid-cols-4 items-start gap-4'>
                                     {topics.map(topic => (
                                         <TopicCard key={topic.id} topic={topic} />
                                     ))}

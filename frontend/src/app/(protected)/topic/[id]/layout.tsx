@@ -10,7 +10,7 @@ export default function TopicLayout({ children }: { children: React.ReactNode })
 
     return (
         <main>
-            <div className='px-[80px] flex gap-4 relative'>
+            <div className='px-4 flex gap-4 relative'>
                 <div
                     style={{ backgroundImage: `url(${backgroundImages[0]})` }}
                     className='z-0 absolute left-0 right-0 w-full h-[450px] bg-fixed bg-cover bg-center bg-no-repeat'>
@@ -21,7 +21,7 @@ export default function TopicLayout({ children }: { children: React.ReactNode })
                 </div>
                 <div className='h-[calc(100vh-58px)] min-w-[300px] w-[300px] sticky top-4 bottom-4'>
                     <ContainerCard classNames='mb-[0px]'>
-                        <ScrollShadow className='h-[calc(100vh-58px-48px)]' hideScrollBar={true}>
+                        <ScrollShadow className='h-[calc(100vh-58px-48px)]' hideScrollBar>
                             <TopicDetail />
                         </ScrollShadow>
                     </ContainerCard>

@@ -55,7 +55,7 @@ const AuthGuard = ({ authenticated, setAnthenticated, children }) => {
     }, [status])
 
 
-    if (status === 'loading') return <PageLoading />
+    if (status === 'loading') return <PageLoading loading={true} />
 
     if (authenticated) return <>{children}</>
 

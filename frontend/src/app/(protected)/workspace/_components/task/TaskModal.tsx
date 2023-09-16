@@ -13,6 +13,7 @@ import { IoMdAdd } from 'react-icons/io';
 import TaskCommentContainer from './TaskComment';
 import TaskPriorityComponent from './TaskPriorityComponent';
 import TaskStatusComponent from './TaskStatusComponent';
+import { UpdateTask } from '@services/task/types';
 
 const TaskModal = () => {
     const dispatch = useAppDispatch();
@@ -43,14 +44,14 @@ const TaskModal = () => {
         e.stopPropagation();
         const title = e.target.title.value;
         const description = e.target.description.value;
-
-        const data = {
+        const data: UpdateTask = {
             ...selectedTask,
             title,
             description,
             tags: [],
         }
-        await dispatch(TaskThunks.updateTask({ ...data }))
+        console.log(data)
+        await dispatch(TaskThunks.updateTask(data))
         dispatch(TaskActions.setFormTask({ selectedTask: null, isOpen: false }))
     }
     return (

@@ -2,20 +2,17 @@
 
 import Helmet from '@app/(protected)/_components/helmet';
 import CustomTabs from '@app/(protected)/_components/tabs';
-import React from 'react'
-import TopicList from '../../_components/topic/TopicList';
 import { TopicStatus } from '@services/topic/types';
-import { useAppDispatch } from '@redux/hook';
+import TopicList from '../../_components/topic/TopicList';
 
 interface Props {
   params: { id: string }
 }
 
 const Page = ({ params }: Props) => {
-  const dispatch = useAppDispatch();
 
   return (
-    <Helmet title='DM - Topic'>
+    <Helmet title='Topic - AmigoTasks'>
       <div className='px-4 pt-4'>
         <CustomTabs
           tabs={[

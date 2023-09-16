@@ -8,7 +8,7 @@ import { useState, useEffect, useMemo } from "react";
 
 const TaskPriorityComponent = () => {
     const dispatch = useAppDispatch();
-    const { selectedTask, isOpen } = useAppSelector(TaskSelectors.getForm());
+    const { selectedTask } = useAppSelector(TaskSelectors.getFormTask());
     const [selectedKeys, setSelectedKeys] = useState<TaskPriority | undefined>(selectedTask?.priority);
 
     useEffect(() => {
@@ -55,6 +55,22 @@ const TaskPriorityComponent = () => {
                         description: "font-semibold text-xs",
                     }}
                 >
+                    <DropdownItem key={TaskPriority.NONE} className='text-sm font-bold text-[#4CAF50] '>
+                        <p className='flex items-center gap-2'>
+                            <span className='text-[#4CAF50]'>
+                                <MdLabel />
+                            </span>
+                            None
+                        </p>
+                    </DropdownItem>
+                    <DropdownItem key={TaskPriority.URGENT} className='text-sm font-bold text-[#4CAF50] '>
+                        <p className='flex items-center gap-2'>
+                            <span className='text-[#4CAF50]'>
+                                <MdLabel />
+                            </span>
+                            Urgent
+                        </p>
+                    </DropdownItem>
                     <DropdownItem key={TaskPriority.LOW} className='text-sm font-bold text-[#4CAF50] '>
                         <p className='flex items-center gap-2'>
                             <span className='text-[#4CAF50]'>

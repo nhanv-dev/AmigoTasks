@@ -93,8 +93,13 @@ const CreateTaskCard = ({ task, setTask }) => {
         e.preventDefault();
         e.stopPropagation();
         const title = e.target.title.value;
-        await dispatch(TaskThunks.createTask({ ...task, title }));
-        await dispatch(WorkspaceThunks.getById(task.workspace))
+        const data: CreateTask = {
+            ...task,
+            title: title,
+            status: task.status.id
+        }
+        await dispatch(TaskThunks.createTask(data));
+        // await dispatch(WorkspaceThunks.getById(task.workspace))
         setTask(null)
     }
 

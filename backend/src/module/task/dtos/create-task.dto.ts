@@ -24,7 +24,7 @@ export class CreateTaskDto {
 
   @IsOptional()
   @IsEnum(TaskPriority)
-  priority: TaskPriority = TaskPriority.LOW;
+  priority: TaskPriority = TaskPriority.NONE;
 
   @IsOptional()
   @IsNumber()
@@ -33,6 +33,10 @@ export class CreateTaskDto {
   @IsNotEmpty()
   @IsMongoId()
   workspace: string;
+
+  @IsNotEmpty()
+  @IsMongoId()
+  taskList: string;
 
   @IsOptional()
   @IsString()

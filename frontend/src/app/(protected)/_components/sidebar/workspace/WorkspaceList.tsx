@@ -24,6 +24,7 @@ const WorkspaceList = () => {
             <div className='relative'>
                 <div className='flex items-center justify-between gap-2'>
                     <p className='flex items gap-2 capitalize text-[0.75rem] font-bold text-text-50 dark:text-dark-text-50 transition-theme'>
+                        {/* eslint-disable-next-line */}
                         <img
                             className='w-[16p] h-[16px]'
                             src='https://cdn-icons-png.flaticon.com/128/6283/6283621.png' alt='workspace' />
