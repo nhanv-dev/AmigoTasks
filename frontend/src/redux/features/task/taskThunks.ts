@@ -37,8 +37,8 @@ export const TaskThunks = {
     return await taskService.update(updateTask);
   }),
 
-  deleteTask: createAsyncThunk<void, DeleteTask>("task/delete", async (deleteTask) => {
-    return await taskService.delete(deleteTask.id);
+  deleteTask: createAsyncThunk<void, string>("task/delete", async (deleteTask) => {
+    return await taskService.delete(deleteTask);
   }),
 
   getTaskById: createAsyncThunk<Task, string>("task/get-by-id", async (id) => {

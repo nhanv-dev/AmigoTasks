@@ -98,15 +98,9 @@ export const task = createSlice({
             });
 
         builder
-            .addCase(TaskThunks.deleteTask.pending, (state, action) => {
-
-            })
             .addCase(TaskThunks.deleteTask.fulfilled, (state, action) => {
-                state.tasks = state.tasks.filter(task => task.id !== action.meta.arg.id)
+                state.tasks = state.tasks.filter(task => task.id !== action.meta.arg)
             })
-            .addCase(TaskThunks.deleteTask.rejected, (state, action) => {
-
-            });
 
         builder
             .addCase(TaskThunks.getTaskById.pending, (state, action) => {
@@ -125,7 +119,6 @@ export const task = createSlice({
             })
             .addCase(TaskThunks.getTasksByTaskListId.fulfilled, (state, action) => {
                 state.tasks = action.payload;
-                console.log(state.tasks, action.payload)
                 state.loading = false;
             })
             .addCase(TaskThunks.getTasksByTaskListId.rejected, (state, action) => {

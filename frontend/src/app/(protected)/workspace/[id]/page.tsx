@@ -24,7 +24,6 @@ const WorkSpace = ({ params }: Props) => {
     const { workspaces } = useAppSelector(WorkspaceSelectors.getWorkspaces());
     const { selectedTaskList } = useAppSelector(TaskSelectors.getFormTaskList());
     const { tasks } = useAppSelector(TaskSelectors.getTasks());
-
     const searchParams = useSearchParams();
     const taskListId = searchParams?.get('t');
 
@@ -36,6 +35,7 @@ const WorkSpace = ({ params }: Props) => {
 
     useEffect(() => {
         if (!taskListId) return;
+        dispatch(TaskThunks.getTaskListById(taskListId))
         dispatch(TaskThunks.getTasksByTaskListId(taskListId))
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [taskListId])
@@ -43,7 +43,7 @@ const WorkSpace = ({ params }: Props) => {
     useEffect(() => {
         const index = workspaces.findIndex(ws => ws.id === params.id);
         dispatch(WorkspaceActions.setWorkspace(workspaces[index]))
-        return ()=>{
+        return () => {
             dispatch(WorkspaceActions.setWorkspace(null))
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -58,6 +58,7 @@ const WorkSpace = ({ params }: Props) => {
             </div>
         )
     }
+    console.log(tasks)
 
     return (
         <Helmet title={workspace?.title ? ` ${workspace.title} - AmigoTasks` : 'Workspace - AmigoTasks'}>

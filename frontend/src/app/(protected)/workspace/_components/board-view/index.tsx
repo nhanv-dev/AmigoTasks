@@ -7,11 +7,11 @@ interface Props {
 }
 
 const BoardView = ({ tasks, selectedTaskList }: Props) => {
-    console.log(tasks)
+
     return (
         <div className='mt-2 flex-1 flex items-start gap-6'>
             {selectedTaskList?.statuses.map((status: any) => (
-                <TasksContainer key={status.id} title={status.title} type={status} tasks={tasks} />
+                <TasksContainer key={status.id} title={status.title} status={status.id} tasks={tasks} />
             ))}
         </div>
     )

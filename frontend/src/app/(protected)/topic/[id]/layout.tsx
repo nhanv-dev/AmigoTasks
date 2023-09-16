@@ -20,7 +20,7 @@ export default function TopicLayout({ children }: { children: React.ReactNode })
                     {children}
                 </div>
                 <div className='h-[calc(100vh-58px)] min-w-[300px] w-[300px] sticky top-4 bottom-4'>
-                    <ContainerCard classNames='mb-[0px]'>
+                    <ContainerCard classNames='mb-[0px] p-0'>
                         <ScrollShadow className='h-[calc(100vh-58px-48px)]' hideScrollBar>
                             <TopicDetail />
                         </ScrollShadow>

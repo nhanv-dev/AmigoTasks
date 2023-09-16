@@ -37,6 +37,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 break;
         }
         if (response) res.status(response.status || 200).json(response.data);
+        console.log(response.data)
     } catch (err) {
         res.status(err.response?.status || 500).json(err.response?.data);
     }

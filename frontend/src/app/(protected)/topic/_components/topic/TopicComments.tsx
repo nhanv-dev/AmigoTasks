@@ -42,7 +42,7 @@ const TopicComments = () => {
                 <div className='mb-3'>
                     <form
                         onSubmit={handleAddComment}
-                        className='rounded-md bg-default-100 hover:bg-default-200 transition-theme'>
+                        className='rounded-md  transition-theme'>
                         <Textarea
                             name='content'
                             maxRows={3}
@@ -50,17 +50,18 @@ const TopicComments = () => {
                             placeholder="Write something..."
                             tabIndex={-1}
                             classNames={{
-                                base: '',
-                                mainWrapper: '',
-                                input: '',
-                                inputWrapper: 'rounded-md  ',
+                                inputWrapper: 'rounded-md',
+                                input:'font-semibold text-[0.9rem]',
                             }}
                         />
                         <div className='flex items-center gap-2 justify-end'>
-                            <button type='submit' className='w-[30px] h-[30px] bg-background dark:bg-dark-background rounded-md flex items-center justify-center'>
-                                <p className='text-[1rem]'>
+                            <button type='submit' className='px-3 py-1 h-[30px] bg-background-50 dark:bg-dark-background-50 rounded-md flex items-center justify-center gap-1'>
+                                <p className='justify-end text-[1rem] font-semibold'>
                                     <TbSend />
                                 </p>
+                                {/* <p className='text-[0.9rem] font-semibold'>
+                                    Send
+                                </p> */}
                             </button>
                         </div>
                     </form>
@@ -122,7 +123,7 @@ const TopicComment = ({ comment, handleEdit, handleDelete }: { comment: Comment,
                 </CustomDropdown>
 
             </div>
-            <p className='text-sm font-semibold rounded-md'>
+            <p className='text-sm font-semibold rounded-md p-3 dark:bg-zinc-800 transition-theme'>
                 {comment.content}
             </p>
         </div>

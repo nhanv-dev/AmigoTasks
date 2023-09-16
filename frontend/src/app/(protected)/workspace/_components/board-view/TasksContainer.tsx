@@ -13,28 +13,29 @@ import { TaskSelectors } from '@redux/features/task/taskSelectors';
 
 interface Props {
     title: string;
-    type: string;
+    status: string;
     tasks: Task[];
 }
 
-const TasksContainer = ({ title, type, tasks }: Props) => {
-    const [data, setData] = useState(tasks.filter(task => task.status === type));
+const TasksContainer = ({ title, status, tasks }: Props) => {
+    const [data, setData] = useState(tasks.filter(task => task.status === status));
     const [task, setTask] = useState<CreateTask | null>(null);
     const { workspace } = useAppSelector(WorkspaceSelectors.getWorkspace());
     const { selectedTaskList } = useAppSelector(TaskSelectors.getFormTaskList());
 
     useEffect(() => {
-        setData(tasks.filter(task => task.status === type))
-    }, [tasks, type])
+        setData(tasks.filter(task => task.status === status))
+    }, [tasks, status])
 
     const handleAddTask = (e: any) => {
         e.preventDefault();
         e.stopPropagation();
         if (!workspace || !selectedTaskList) return;
+        console.log(status)
         setTask({
             title: '',
             description: '',
-            status: type,
+            status: status,
             workspace: workspace.id,
             taskList: selectedTaskList.id
         })
@@ -93,13 +94,8 @@ const CreateTaskCard = ({ task, setTask }) => {
         e.preventDefault();
         e.stopPropagation();
         const title = e.target.title.value;
-        const data: CreateTask = {
-            ...task,
-            title: title,
-            status: task.status.id
-        }
+        const data: CreateTask = { ...task, title }
         await dispatch(TaskThunks.createTask(data));
-        // await dispatch(WorkspaceThunks.getById(task.workspace))
         setTask(null)
     }
 
@@ -115,11 +111,11 @@ const CreateTaskCard = ({ task, setTask }) => {
             </div>
             <div className='flex items-center justify-end gap-2'>
                 <Button variant='flat' color='danger' onClick={() => setTask(null)} type='button'
-                    className='text-[0.675rem] font-bold rounded-sm min-h-max min-w-max h-max w-max px-4 py-1.5'>
+                    className='text-[0.775rem] font-bold rounded-sm min-h-max min-w-max h-max w-max px-4 py-1.5'>
                     Cancel
                 </Button>
                 <Button variant='flat' color='primary' type='submit'
-                    className='text-[0.675rem] font-bold rounded-sm min-h-max min-w-max h-max w-max px-4 py-1.5'>
+                    className='text-[0.775rem] font-bold rounded-sm min-h-max min-w-max h-max w-max px-4 py-1.5'>
                     Save
                 </Button>
             </div>

@@ -47,29 +47,29 @@ const TopicTags = () => {
                         </button>
                     </div>
                 ))}
-                <div className={`flex items-center transition-all relative overflow-hidden rounded-full bg-primary/20  hover:text-primary text-primary dark:text-primary transition-theme`}>
+                <div className={`px-2 flex items-center transition-all relative overflow-hidden rounded-full bg-primary/20  hover:text-primary text-primary dark:text-primary transition-theme`}>
                     <button
                         type='button'
                         tabIndex={-1}
                         onClick={() => setIsAdd(prev => !prev)}
-                        className={`${isAdd ? 'w-[0px] invisible' : 'w-[80px] visible'} py-1 transition-all text-sm font-semibold flex items-center justify-center gap-1`}
+                        className={`${isAdd ? 'w-[0px]' : 'w-[60px]'} overflow-hidden py-1 transition-all text-sm font-semibold flex items-center justify-center gap-1`}
                     >
                         <IoMdAdd className='text-[0.975rem]' />
                         Add
                     </button>
-                    <form onSubmit={handleAddTags} className={`${isAdd ? 'w-[120px] visible' : 'w-0 invisible'} h-[24px] px-2 transition-all flex items-center justify-between gap-1`}>
+                    <form onSubmit={handleAddTags} className={`${isAdd ? 'w-[120px] visible' : 'w-0 invisible'} h-[24px] transition-all flex items-center justify-between gap-1`}>
                         <label htmlFor='tag' className='hidden' />
                         <input
                             id='tag'
                             autoFocus
                             name='tag'
-                            className='bg-transparent outline-none border-none rounded-md text-md font-semibold flex-1 w-[90px]'
+                            className='bg-transparent outline-none border-none rounded-md text-md font-semibold flex-1 w-[80px]'
                         />
                         <button
                             type='button'
                             tabIndex={-1}
                             onClick={() => setIsAdd(false)}
-                            className='text-[0.65rem] w-[20px] h-[20px] text-text-50 dark:text-dark-text-50 hover:text-danger transition-all transition-theme'
+                            className='flex items-center justify-end text-[0.65rem] h-[20px] text-text-50 dark:text-dark-text-50 hover:text-danger transition-all transition-theme'
                         >
                             <FaTimes />
                         </button>

@@ -12,7 +12,6 @@ import TopicStatus from './TopicStatus';
 import TopicTags from './TopicTags';
 
 const TopicDetail = () => {
-    const dispatch = useAppDispatch();
     const { topic } = useAppSelector(TopicSelectors.getTopic());
     const { topicLoading } = useAppSelector(TopicSelectors.getLoading());
 
