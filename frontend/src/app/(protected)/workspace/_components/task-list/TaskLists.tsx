@@ -39,7 +39,7 @@ const TaskLists = ({ workspaceId }) => {
                             const payload: CreateTaskList = {
                                 title: `New list #${taskLists.length + 1}`,
                                 workspace: workspaceId,
-                                statuses: ['pending', 'in progress', 'completed']
+                                statuses: ['pending', 'in progress', 'completed','need review']
 
                             }
                             console.log(payload)

@@ -1,14 +1,16 @@
-import { Task } from '@services/task/types';
+import { Task, TaskList } from '@services/task/types';
 import React from 'react'
 import TasksContainer from './TasksContainer';
+
 interface Props {
     tasks: Task[];
+    selectedTaskList: TaskList;
 }
 
-const ListView = ({ tasks }: Props) => {
+const ListView = ({ tasks, selectedTaskList }: Props) => {
     return (
         <div>
-            <TasksContainer title={'Pending'} type='Pending' tasks={tasks} />
+            <TasksContainer tasks={tasks} />
         </div>
     )
 }

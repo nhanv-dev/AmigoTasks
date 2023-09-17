@@ -26,12 +26,12 @@ const TopicCard = ({ topic }: Props) => {
                 <Image
                     width={600}
                     height={200}
-                    src={`https://app.requestly.io/delay/2000/${topic.background}`}
                     alt={topic.title}
+                    src={`https://app.requestly.io/delay/2000/${topic.background}`}
                     className='z-0 absolute left-0 right-0 top-0 bottom-0'
                     classNames={{
                         wrapper: 'z-0 rounded-md absolute left-0 right-0 top-0 bottom-0',
-                        img: 'rounded-md',
+                        img: 'rounded-md h-full',
                     }}
                 />
                 {topic?.parent?.title &&

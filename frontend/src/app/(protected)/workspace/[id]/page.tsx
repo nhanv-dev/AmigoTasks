@@ -13,6 +13,8 @@ import CustomTabs from '../../_components/tabs';
 import BoardView from '../_components/board-view';
 import TaskListProfile from '../_components/task-list/TaskListProfile';
 import TaskModal from '../_components/task/TaskModal';
+import ListView from '../_components/list-view';
+import { FaClipboardList } from 'react-icons/fa';
 
 interface Props {
     params: { id: string };
@@ -31,7 +33,7 @@ const WorkSpace = ({ params }: Props) => {
         if (!params?.id) return;
         dispatch(TaskThunks.getTaskListsByWorkspaceId(params.id))
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [workspace])
 
     useEffect(() => {
         if (!taskListId) return;
@@ -57,8 +59,7 @@ const WorkSpace = ({ params }: Props) => {
                 </h5>
             </div>
         )
-    }
-    console.log(tasks)
+    } 
 
     return (
         <Helmet title={workspace?.title ? ` ${workspace.title} - AmigoTasks` : 'Workspace - AmigoTasks'}>
@@ -74,14 +75,14 @@ const WorkSpace = ({ params }: Props) => {
                             </p>
                         )
                     },
-                    // {
-                    //     label: 'List view', panel: <ListView tasks={tasks} />,
-                    //     icon: (
-                    //         <p className='relative top-[-1px]'>
-                    //             <FaClipboardList />
-                    //         </p>
-                    //     )
-                    // },
+                    {
+                        label: 'List view', panel: <ListView tasks={tasks} selectedTaskList={selectedTaskList} />,
+                        icon: (
+                            <p className='relative top-[-1px]'>
+                                <FaClipboardList />
+                            </p>
+                        )
+                    },
                     // {
                     //     label: 'Table view', panel: <TableView tasks={tasks} />,
                     //     icon: (

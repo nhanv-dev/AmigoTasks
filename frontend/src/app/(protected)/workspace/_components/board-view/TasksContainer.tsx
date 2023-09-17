@@ -31,7 +31,6 @@ const TasksContainer = ({ title, status, tasks }: Props) => {
         e.preventDefault();
         e.stopPropagation();
         if (!workspace || !selectedTaskList) return;
-        console.log(status)
         setTask({
             title: '',
             description: '',
@@ -44,7 +43,7 @@ const TasksContainer = ({ title, status, tasks }: Props) => {
     return (
         <div className='flex-1 max-w-[380px] transition-theme rounded-md'>
             <div className='flex items-center justify-between gap-4 transition-theme rounded-md'>
-                <h5 className='capitalize text-text dark:text-dark-text transition-theme font-bold text-[0.95rem]'>
+                <h5 className='capitalize text-text dark:text-dark-text transition-theme font-bold text-[0.9rem]'>
                     {title}
                     <span className='ml-1 text-md text-text-50 dark:text-dark-text-50 transition-theme' >
                         ({data.length})

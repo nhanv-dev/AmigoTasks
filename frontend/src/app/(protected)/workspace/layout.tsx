@@ -25,7 +25,7 @@ export default function WorkspaceLayout({ children }: { children: React.ReactNod
     return (
         <main>
             <div className='flex items-start gap-4 px-4 py-4'>
-                <div className='w-[250px]'>
+                <div className='min-w-[250px] w-[250px]'>
                     <TaskLists workspaceId={workspace?.id} />
                 </div>
                 <div className='flex-1'>

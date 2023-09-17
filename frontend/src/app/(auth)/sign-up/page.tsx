@@ -72,7 +72,7 @@ const Login = () => {
           </div>
           <div className='flex-1 p-4 px-8'>
             <div className='mb-8 mt-1'>
-              <h3 className='text-2xl text-dark-text font-extrabold'>
+              <h3 className='text-xl text-dark-text font-extrabold'>
                 Sign up to AmigoTasks
               </h3>
             </div>
