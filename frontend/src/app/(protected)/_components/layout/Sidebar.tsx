@@ -3,20 +3,18 @@
 import { dashboardRoutes } from '@/config/routes';
 import { Button, ScrollShadow } from '@nextui-org/react';
 import { useLayoutContext } from '@provider/LayoutProvider';
-import { WorkspaceSelectors } from '@redux/features/workspace/workspaceSelectors';
 import { WorkspaceThunks } from '@redux/features/workspace/workspaceThunks';
-import { useAppDispatch, useAppSelector } from '@redux/hook';
+import { useAppDispatch } from '@redux/hook';
+import authService from '@services/auth/auth.service';
+import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { BiLogOut } from 'react-icons/bi';
 import { BsFillCaretRightFill } from 'react-icons/bs';
 import tw from "tailwind-styled-components";
 import TopicList from '../sidebar/topic-list/TopicList';
 import WorkspaceList from '../sidebar/workspace/WorkspaceList';
-import { AuthThunks } from '@redux/features/auth/authThunks';
-import authService from '@services/auth/auth.service';
-import { signOut } from 'next-auth/react';
-import { BiLogOut } from 'react-icons/bi';
 
 const handleActive = (pathname: string | null) => {
   if (!pathname) return -1;

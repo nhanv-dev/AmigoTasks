@@ -1,8 +1,8 @@
 import { Task } from '@/services/task/types';
 import DataFormatter from '@/util/DataFormatter';
 import { TaskActions } from '@redux/features/task/taskSlice';
+import { TaskThunks } from '@redux/features/task/taskThunks';
 import { useAppDispatch } from '@redux/hook';
-import { useState } from 'react';
 import { BsCalendar3 } from 'react-icons/bs';
 import { MdOutlineModeComment } from 'react-icons/md';
 import TaskDropdown from '../task/TaskDropdown';
@@ -14,31 +14,31 @@ interface Props {
 
 const TaskCard = ({ task }: Props) => {
     const dispatch = useAppDispatch();
-    const [draggedItem, setDraggedItem] = useState<Task | null>(null);
-    const [openDropdown, setOpenDropDown] = useState<boolean>(false);
 
     const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
-        setDraggedItem(task);
-    };
-
-    const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-        e.preventDefault();
-    };
-
-    const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
-        setDraggedItem(null);
+        e.dataTransfer.setData('id', task.id);
     };
 
     const handleOpen = () => {
         dispatch(TaskActions.setFormTask({ selectedTask: task, isOpen: true }))
     }
+    const hanldeOnDrop = (e: any) => {
+        e.stopPropagation();
+        const id = e.dataTransfer.getData('id') as string;
+        const status = e.target.getAttribute('data-status');
+        dispatch(TaskThunks.updateTask({ id, status }));
+    }
+    const handleDragOver = (e: React.DragEvent) => {
+        e.preventDefault();
+    }
 
     return (
         <div
             draggable
-            onDragStart={(e) => handleDragStart(e)}
+            onDragStart={handleDragStart}
             onDragOver={handleDragOver}
-            onDrop={(e) => handleDrop(e)}
+            onDrop={hanldeOnDrop} 
+            data-status={task.status}
             onClick={handleOpen}
         >
             <div className="cursor-pointer bg-background  dark:bg-dark-background shadow-sm p-4 rounded-md transition-theme">

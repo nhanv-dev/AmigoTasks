@@ -80,7 +80,7 @@ const Editor = ({ id, topic, initialValue, onSave }) => {
         }
     }
     return (
-        <div className='min-h-[400px] editor-container px-4 py-10 rounded-md mb-4 bg-background dark:bg-dark-background transition-theme'>
+        <div className='min-h-[400px] editor-container px-4 py-10 rounded-md bg-background dark:bg-dark-background transition-theme'>
             <div id='editorjs' className='text-[0.9rem] font-semibold rounded-md relative sbg-[rgba(0,0,0,0.3)] text-text dark:text-dark-text transition-theme' />
         </div>
     )
