@@ -53,7 +53,7 @@ const ChatApp = () => {
 
     return (
         <div className="py-4 pr-2 w-full h-full flex flex-col gap-3 overflow-hidden">
-            <h5 className='ml-4 mr-2 font-bold text-md bg-primary-bg text-primary px-3 py-2 rounded-md'>
+            <h5 className='ml-4 mr-2 font-bold text-md bg-primary-bg text-primary bg-primary/20 px-3 py-2 rounded-md'>
                 Chat GPT
             </h5>
             <div className='flex-1 w-full pl-4 pr-2 overflow-y-auto'>
@@ -68,27 +68,26 @@ const ChatApp = () => {
                 <div ref={blockRef} />
             </div>
             <div className='pl-4 pr-2 w-full max-w-full'>
-                <div className='w-full bg-[#F4F4F5] dark:bg-dark-background-50 py-2.5 px-3 pr-2.5 rounded-md'>
-                    <form ref={formRef} onSubmit={handleSubmit} className='flex items-end justify-between gap-5'>
-                        <Textarea
-                            name='content'
-                            rows={1}
-                            maxRows={1}
-                            placeholder='Write something...'
-                            onKeyDown={handleKeyDown}
-                            tabIndex={-1}
-                            className='overflow-hidden flex-1 bg-transparent border-0 outline-none text-sm font-semibold mb-1'
-                        />
-                        <button type='submit' className='w-[30px] h-[30px] bg-background dark:bg-dark-background rounded-md flex items-center justify-center'>
+                <form ref={formRef} onSubmit={handleSubmit}>
+                    <Textarea
+                        name='content'
+                        rows={1}
+                        maxRows={1}
+                        placeholder='Write something...'
+                        onKeyDown={handleKeyDown}
+                        tabIndex={-1}
+                        className='overflow-hidden flex-1 bg-transparent border-0 outline-none text-sm font-semibold mb-1'
+                    />
+                    <div className='flex items-center justify-end'>
+                        <button type='submit' className='w-[50px] h-[30px] bg-background dark:bg-dark-background-50 rounded-md flex items-center justify-center'>
                             <p className='text-[1rem]'>
                                 <TbSend />
                             </p>
                         </button>
-                    </form>
-
-                </div>
+                    </div>
+                </form>
             </div>
-        </div >
+        </div>
     );
 };
 

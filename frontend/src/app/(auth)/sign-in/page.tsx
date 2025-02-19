@@ -4,12 +4,44 @@ import Helmet from '@app/(protected)/_components/helmet';
 import { Button } from '@nextui-org/react';
 import { signIn } from 'next-auth/react';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import SignInWithGithub from './_components/SignInWithGithub';
 import SignInWithGoogle from './_components/SignInWithGoogle';
+import { initializeApp } from 'firebase/app';
+import { getMessaging, getToken } from 'firebase/messaging';
+
+// const firebaseConfig = {
+//   apiKey: "AIzaSyAgtrd_P3KB38x47lATik8Uc8JZH3SOAec",
+//   authDomain: "push-notification-dc19f.firebaseapp.com",
+//   projectId: "push-notification-dc19f",
+//   storageBucket: "push-notification-dc19f.appspot.com",
+//   messagingSenderId: "89335954868",
+//   appId: "1:89335954868:web:91ca44f9e19c48bf7306e1",
+//   measurementId: "G-4DSB47Q2PC"
+// };
+const firebaseConfig = {
+  apiKey: "AIzaSyCwQ0mC31v-vdHmoTq1XsaqOXMVX0dhiXU",
+  authDomain: "tsbd-eximbank.firebaseapp.com",
+  projectId: "tsbd-eximbank",
+  storageBucket: "tsbd-eximbank.appspot.com",
+  messagingSenderId: "993071696257",
+  appId: "1:993071696257:web:5055cf2211cbac34b60080",
+  measurementId: "G-N109B03TZB"
+};
+
+export const app = initializeApp(firebaseConfig);
+
 
 const Login = () => {
   const [loading, setLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    const messaging = getMessaging(app);
+    getToken(messaging )
+      .then(currentToken => {
+        console.log(currentToken)
+      })
+  }, [])
 
   const handleSubmit = async (e: any) => {
     setLoading(true);

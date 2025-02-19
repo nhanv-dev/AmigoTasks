@@ -9,7 +9,7 @@ const ChatGPT = () => {
     return (
         <Helmet title='ChatGPT - AmigoTasks'>
             <main className='h-full p-4'>
-                <ContainerCard>
+                <ContainerCard classNames='h-full'>
                     <ChatApp />
                 </ContainerCard>
             </main>

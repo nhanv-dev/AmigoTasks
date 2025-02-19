@@ -1,5 +1,6 @@
-.codex-editor ::selection {
-    background-color: auto;
+.codex-editor ::selection,
+* ::selection {
+    background-color: #3298FD;
     color: #fff;
 }
 
@@ -66,4 +67,15 @@ h5.ce-header {
 h6.ce-header {
     @apply text-base font-semibold;
     margin-bottom: 8px;
+}
+
+.ce-inline-toolbar__dropdown svg {
+    color: black;
+}
+
+.ce-inline-toolbar__buttons button {
+    color: black;
+}
+.ce-conversion-toolbar__tools {
+    color: black;
 }
